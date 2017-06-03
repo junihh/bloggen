@@ -1,6 +1,6 @@
 
 config = {
     'domain': 'junihh.com',
-    'mds': './mds',
+    'postmds': './postmds',
     'output': './output'
 }

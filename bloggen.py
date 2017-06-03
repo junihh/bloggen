@@ -9,7 +9,7 @@ from config import config
 # -------------------------------------
 
 config_domain = config['domain']
-config_mds = config['mds']
+config_postmds = config['postmds']
 config_output = config['output']
 
 
@@ -17,16 +17,16 @@ config_output = config['output']
 # Get MDs files
 # -------------------------------------
 
-mds_dict = []
-mds_sorted = []
+postmds_dict = []
+postmds_sorted = []
 data_json = None
 data_categories = []
 
-if os.path.isdir(config_mds):
+if os.path.isdir(config_postmds):
     sortdates = []
 
-    for md in os.listdir(config_mds):
-        md_path = os.path.join(config_mds,md)
+    for md in os.listdir(config_postmds):
+        md_path = os.path.join(config_postmds,md)
         
         if os.path.isfile(md_path):
             mdsp = md.split('.')
@@ -71,32 +71,26 @@ if os.path.isdir(config_mds):
                 config.update({ 'post' : post })
 
                 sortdates.append(config['date'])
-                mds_dict.append(config)
+                postmds_dict.append(config)
 
-    if len(mds_dict):
+    if len(postmds_dict):
         sortdates = sorted(sortdates,reverse=True)
+        categories = sorted(list(set(data_categories)))
 
         for d in sortdates:
-            for r,row in enumerate(mds_dict):
+            for r,row in enumerate(postmds_dict):
                 if row['date'] == d:
-                    mds_sorted.append(row)
+                    postmds_sorted.append(row)
 
-        if len(sortdates):
-            data_categories = sorted(list(set(data_categories)))
+        data = dict(categories=categories, post=postmds_sorted)
+        data_json = json.dumps(data,indent=4)
 
-            data = {
-                'categories': data_categories,
-                'post': mds_sorted
-            }
+        if os.path.exists(config_output):
+            shutil_remove(config_output)
+        os.makedirs(config_output)
 
-            data_json = json.dumps(data,indent=4)
-
-            if os.path.exists(config_output):
-                shutil_remove(config_output)
-            os.makedirs(config_output)
-
-            with open(os.path.join(config_output,'allpost.json'),'w') as j:
-                j.write(data_json)
+        with open(os.path.join(config_output,'allpost.json'),'w') as j:
+            j.write(data_json)
 
 print data_json
 
