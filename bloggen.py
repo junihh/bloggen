@@ -1,7 +1,11 @@
 import os, sys
-from shutil import rmtree as shutil_remove
+from shutil import rmtree
 import json
 from config import config
+import mistune
+
+# Markdown parser
+# https://github.com/lepture/mistune
 
 
 # -------------------------------------
@@ -12,15 +16,15 @@ config_domain = config['domain']
 config_postmds = config['postmds']
 config_output = config['output']
 
-
-# -------------------------------------
-# Get MDs files
-# -------------------------------------
-
 postmds_dict = []
 postmds_sorted = []
 data_json = None
 data_categories = []
+
+
+# -------------------------------------
+# Get MDs files
+# -------------------------------------
 
 if os.path.isdir(config_postmds):
     sortdates = []
@@ -86,13 +90,20 @@ if os.path.isdir(config_postmds):
         data_json = json.dumps(data,indent=4)
 
         if os.path.exists(config_output):
-            shutil_remove(config_output)
+            rmtree(config_output)
         os.makedirs(config_output)
 
         with open(os.path.join(config_output,'allpost.json'),'w') as j:
             j.write(data_json)
 
-print data_json
+
+if len(postmds_dict):
+    for row in postmds_dict:
+        html = mistune.markdown(row['post'])
+        with open(os.path.join(config_output,row['html']),'w') as h:
+            h.write(html)
+
+
 
 
 
