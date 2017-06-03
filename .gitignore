@@ -1,0 +1,11 @@
+.Trash
+.DS_Store
+.localized
+.cache
+.thumbnails
+.DB
+.vscode
+*.sublime-project
+*.sublime-workspace
+*~
+.grunt
