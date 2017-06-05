@@ -97,11 +97,11 @@ if os.path.isdir(config_postmds):
             j.write(data_json)
 
 
-if len(postmds_dict):
-    for row in postmds_dict:
-        html = mistune.markdown(row['post'])
-        with open(os.path.join(config_output,row['html']),'w') as h:
-            h.write(html)
+    if len(postmds_dict):
+        for row in postmds_dict:
+            html = mistune.markdown(row['post'])
+            with open(os.path.join(config_output,row['html']),'w') as h:
+                h.write(html)
 
 
 
