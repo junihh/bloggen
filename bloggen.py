@@ -1,20 +1,18 @@
 import os, sys
 from shutil import rmtree
 import json
-from config import config
+from config import config as appConfig
 import mistune
+import yaml
+import datetime
 
-# Markdown parser
+# http://pyyaml.org/wiki/PyYAMLDocumentation
 # https://github.com/lepture/mistune
 
 
 # -------------------------------------
 # Basics
 # -------------------------------------
-
-config_domain = config['domain']
-config_postmds = config['postmds']
-config_output = config['output']
 
 postmds_dict = []
 postmds_sorted = []
@@ -26,11 +24,11 @@ data_categories = []
 # Get MDs files
 # -------------------------------------
 
-if os.path.isdir(config_postmds):
+if os.path.isdir(appConfig['postmds']):
     sortdates = []
 
-    for md in os.listdir(config_postmds):
-        md_path = os.path.join(config_postmds,md)
+    for md in os.listdir(appConfig['postmds']):
+        md_path = os.path.join(appConfig['postmds'],md)
         
         if os.path.isfile(md_path):
             mdsp = md.split('.')
@@ -42,36 +40,25 @@ if os.path.isdir(config_postmds):
                 post = None
 
                 html = md_nam + '.html'
-                permalink = 'http://' + config_domain + '/' + html
+                permalink = 'http://' + appConfig['domain'] + '/' + html
 
                 with open(md_path,'r') as mdfile:
                     content = []
                     for line in mdfile:
-                        line = line.strip()
-                        if line:
-                            content.append(line)
+                        content.append(line)
 
                     content = '\n'.join(content).split('======================================================')
-                    config = content[1].strip()
+                    config = yaml.load(content[1].strip())
                     post = content[2].strip()
 
-                config_parts = config.split('\n')
-                config = {}
-
-                for part in config_parts:
-                    kv = part.split(': ')
-                    k = kv[0].strip()
-                    v = kv[1].strip()
-
-                    config.update({ k : v })
-
-                    if k == 'category':
-                        data_categories.append(v)
+                if 'category' in config.keys():
+                    data_categories.append(config['category'])
 
                 config.update({ 'id' : md_nam })
                 config.update({ 'markdown' : md })
                 config.update({ 'html' : html })
                 config.update({ 'permalink' : permalink })
+                config.update({ 'date' : config['date'].strftime('%Y-%m-%d') })
                 config.update({ 'post' : post })
 
                 sortdates.append(config['date'])
@@ -86,21 +73,21 @@ if os.path.isdir(config_postmds):
                 if row['date'] == d:
                     postmds_sorted.append(row)
 
-        data = dict(categories=categories, post=postmds_sorted)
+        site = dict(domain=appConfig['domain'],title=appConfig['site-title'])
+        data = dict(categories=categories, post=postmds_sorted, site=site)
         data_json = json.dumps(data,indent=4)
 
-        if os.path.exists(config_output):
-            rmtree(config_output)
-        os.makedirs(config_output)
+        if os.path.exists(appConfig['output']):
+            rmtree(appConfig['output'])
+        os.makedirs(appConfig['output'])
 
-        with open(os.path.join(config_output,'allpost.json'),'w') as j:
+        with open(os.path.join(appConfig['output'],'allpost.json'),'w') as j:
             j.write(data_json)
-
 
     if len(postmds_dict):
         for row in postmds_dict:
             html = mistune.markdown(row['post'])
-            with open(os.path.join(config_output,row['html']),'w') as h:
+            with open(os.path.join(appConfig['output'],row['html']),'w') as h:
                 h.write(html)
 
 
