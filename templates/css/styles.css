@@ -50,25 +50,63 @@ main {
 .margins {
   padding: 0 25px;
 }
+.table {
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  width: 100%;
+}
+.table,
+.table .cell {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
 .blog-header {
   padding-bottom: 15px;
   margin-top: 25px;
   margin-bottom: 60px;
   border-bottom: solid 1px #ECF0F1;
 }
+.blog-header .cell {
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+}
+.blog-header .cell:nth-child(2) {
+  margin-left: auto;
+  padding-left: 10px;
+}
 .blog-header h1 {
-  padding-top: 10px;
+  margin-left: 8px;
   font-size: 1.4rem;
   color: #33485F;
-  text-align: center;
+}
+.blog-header li {
+  display: inline-block;
+}
+.blog-header li a {
+  display: block;
+  padding: 3px 8px;
+  border: solid 1px transparent;
+  font-size: 0.9rem;
+  color: #CCC;
+  text-decoration: none;
+}
+.blog-header li a:active,
+.blog-header li a.active {
+  border-color: #33485F;
+  color: #33485F;
 }
 .logo {
   margin: 0 auto;
 }
 .logo,
 .logo svg {
-  width: 80px;
-  height: 80px;
+  width: 60px;
+  height: 60px;
 }
 .blog-footer {
   margin: 100px 0 25px;
