@@ -9,4 +9,4 @@
 *.sublime-workspace
 *~
 .grunt
-.pyc
+*.pyc
