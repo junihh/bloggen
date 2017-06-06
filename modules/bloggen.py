@@ -3,6 +3,7 @@ from shutil import rmtree
 import json
 import mistune
 import yaml
+from jinja2 import Template
 
 
 # -------------------------------------
@@ -89,6 +90,8 @@ def maker(settings=None):
 # -------------------------------------
 # Output the html's
 # -------------------------------------
+
+# http://jinja.pocoo.org/docs/2.9/intro/#basic-api-usage
 
 def make_htmls(rows=None,output=None):
     if len(rows) and (output is not None):
