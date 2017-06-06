@@ -1,8 +1,8 @@
-# bloggen
+# Bloggen
 
 My own blog maker (static site generator).
 
-### REQUIREMENTS:
-    pip install pyyaml
-    
-    pip install mistune
+**REQUIREMENTS:**
+
+    pip install pyyaml   
+    pip install mistune 
