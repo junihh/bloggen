@@ -53,7 +53,7 @@ header, footer, nav, article, main {
     padding: 0 @basicMargin;
 }
 
-header {
+.blog-header {
     padding-bottom: 15px;
     margin-top: @basicMargin;
     margin-bottom: 60px;
@@ -76,10 +76,37 @@ header {
     }
 }
 
+.blog-footer {
+    margin: 100px 0 @basicMargin;
+
+    p {
+        padding-top: 5px;
+        border-top: solid 1px @colorBlueLight;
+        font-size: 0.7rem;
+        color: @colorGrayLight;
+    }
+}
+
 
 // ==========================
 // Pages
 // ==========================
+
+.meta {
+    font-size: 0.7rem;
+
+    &, a {
+        color: @colorGrayLight;
+    }
+
+    time {
+        margin-right: 6px;
+    }
+
+    a:active {
+        color: @colorBlueDark;
+    }
+}
 
 .home {
     article {
@@ -123,22 +150,6 @@ header {
     p {
         margin-top: 4px;
         font-size: 0.9rem;
-    }
-
-    .meta {
-        font-size: 0.7rem;
-
-        &, a {
-            color: @colorGrayLight;
-        }
-
-        time {
-            margin-right: 6px;
-        }
-
-        a:active {
-            color: @colorBlueDark;
-        }
     }
 }
 

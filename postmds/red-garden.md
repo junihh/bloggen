@@ -15,8 +15,8 @@ Con lo dicho solo he dado tantas vueltas que simplemente no he dicho nada. El te
 
 No entra en mi lista personal de animes favoritos pero lo recomiendo a cualquier persona que guste de las historias de misterio con elementos sobrenaturales.
 
-### Información:
+## Información:
 
-Año: 2007
-Títulos: “Red Garden”, “RG”.
+Año: 2007  
+Títulos: “Red Garden”, “RG”.   
 Episodios: 22

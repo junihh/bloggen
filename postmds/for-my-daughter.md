@@ -17,8 +17,8 @@ La química entre Dale y Latina, junto a la ayuda y consejos que les ofrecen Ken
 
 Deben leerlo pero los lolicones son bienvenidos. Este manga no es para ustedes y si se atreven a leerlo la muerte en persona les presentará batalla. ;-)
 
-### Información:
+## Información:
 
-Año: 2016
-Títulos: “Uchi no Musume no Tame Naraba, Ore wa Moshikashitara Mao mo Taoseru Kamo Shirenai”, “For my daughter, I might even be able to defeat the Demon King”.
+Año: 2016  
+Títulos: “Uchi no Musume no Tame Naraba, Ore wa Moshikashitara Mao mo Taoseru Kamo Shirenai”, “For my daughter, I might even be able to defeat the Demon King”.  
 Capítulos: En publicación

@@ -50,13 +50,13 @@ main {
 .margins {
   padding: 0 25px;
 }
-header {
+.blog-header {
   padding-bottom: 15px;
   margin-top: 25px;
   margin-bottom: 60px;
   border-bottom: solid 1px #ECF0F1;
 }
-header h1 {
+.blog-header h1 {
   padding-top: 10px;
   font-size: 1.4rem;
   color: #33485F;
@@ -69,6 +69,28 @@ header h1 {
 .logo svg {
   width: 80px;
   height: 80px;
+}
+.blog-footer {
+  margin: 100px 0 25px;
+}
+.blog-footer p {
+  padding-top: 5px;
+  border-top: solid 1px #ECF0F1;
+  font-size: 0.7rem;
+  color: #CCC;
+}
+.meta {
+  font-size: 0.7rem;
+}
+.meta,
+.meta a {
+  color: #CCC;
+}
+.meta time {
+  margin-right: 6px;
+}
+.meta a:active {
+  color: #33485F;
 }
 .home article {
   position: relative;
@@ -104,17 +126,4 @@ header h1 {
 .home p {
   margin-top: 4px;
   font-size: 0.9rem;
-}
-.home .meta {
-  font-size: 0.7rem;
-}
-.home .meta,
-.home .meta a {
-  color: #CCC;
-}
-.home .meta time {
-  margin-right: 6px;
-}
-.home .meta a:active {
-  color: #33485F;
 }
