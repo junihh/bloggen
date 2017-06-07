@@ -103,7 +103,7 @@ def maker(settings=None):
 def htmls(data=None,output=None):
     if len(data['post']) and (output is not None):
 
-        # Remove all *.html pages
+        # Remove all *.html pages into output directory
         for h in os.listdir(output):
             h_path = os.path.join(output,h)
             if os.path.isfile(h_path) and h.endswith('.html'):
