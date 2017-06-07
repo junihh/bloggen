@@ -90,27 +90,30 @@ def maker(settings=None):
                 with open(os.path.join(settings['output'],'allpost.json'),'w') as j:
                     j.write(data_json)
 
-                make_htmls(data,settings['output'])
-                
+                htmls(data,settings['output'])
+
     else:
         print 'BLOGGEN: You forgot your site settings'
 
 
 # -------------------------------------
-# Output the html's
+# HTML's
 # -------------------------------------
 
-def make_htmls(data=None,output=None):
-    with open(os.path.join(output,'index.html'),'w') as home:
-        dat = {
-            'site_title': data['settings']['title'],
-            'categories': data['categories'],
-            'rows': data['post']
-        }
-        htm = tpls.get_template('home.tpl').render(dat)
-        home.write(htm)
-
+def htmls(data=None,output=None):
     if len(data['post']) and (output is not None):
+
+        # Output index.html
+        with open(os.path.join(output,'index.html'),'w') as home:
+            dat = {
+                'site_title': data['settings']['title'],
+                'categories': data['categories'],
+                'rows': data['post']
+            }
+            htm = tpls.get_template('home.tpl').render(dat)
+            home.write(htm)
+
+        # Output all post pages
         for row in data['post']:
             with open(os.path.join(output,row['html']),'w') as page:
                 image = None
