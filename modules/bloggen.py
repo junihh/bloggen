@@ -1,19 +1,28 @@
-import os, sys
-from shutil import rmtree
+# -*- coding: utf-8 -*-
+
+import os, sys, codecs
 import json
+import hashlib
 import mistune
 import yaml
-from jinja2 import Template
+from jinja2 import Environment, PackageLoader
 
 
 # -------------------------------------
 # Global vars
 # -------------------------------------
 
+reload(sys)  
+sys.setdefaultencoding('utf8')
+
 postmds_dict = []
 postmds_sorted = []
 data_json = None
 data_categories = []
+
+tpls = Environment(
+    loader=PackageLoader('modules', '../templates')
+)
 
 
 # -------------------------------------
@@ -34,33 +43,34 @@ def maker(settings=None):
                     md_ext = mdsp[1]
                     
                     if md_ext in ('md','markdown','mdown','mkdn','mkd','mdwn','mdtxt','mdtext','text','txt'):
-                        config = None
-                        post = None
-
                         html = md_nam + '.html'
                         permalink = 'http://' + settings['domain'] + '/' + html
+                        postid = hashlib.sha1(html).hexdigest()
 
                         with open(md_path,'r') as mdfile:
                             content = []
+                            config = {}
+                            mdpost = None
+
                             for line in mdfile:
+                                line = line.strip()
                                 content.append(line)
 
                             content = '\n'.join(content).split('======================================================')
                             config = yaml.load(content[1].strip())
-                            post = content[2].strip()
+                            mdpost = content[2].strip()
+                            
+                            config.update({ 'id' : postid })
+                            config.update({ 'html' : html })
+                            config.update({ 'permalink' : permalink })
+                            config.update({ 'date' : config['date'].strftime('%Y-%m-%d') })
+                            config.update({ 'markdown' : mdpost })
 
-                        if 'category' in config.keys():
-                            data_categories.append(config['category'])
-
-                        config.update({ 'id' : md_nam })
-                        config.update({ 'markdown' : md })
-                        config.update({ 'html' : html })
-                        config.update({ 'permalink' : permalink })
-                        config.update({ 'date' : config['date'].strftime('%Y-%m-%d') })
-                        config.update({ 'post' : post })
-
-                        sortdates.append(config['date'])
-                        postmds_dict.append(config)
+                            if 'category' in config.keys():
+                                data_categories.append(config['category'])
+                            
+                            sortdates.append(config['date'])
+                            postmds_dict.append(config)
 
             if len(postmds_dict):
                 sortdates = sorted(sortdates,reverse=True)
@@ -75,14 +85,13 @@ def maker(settings=None):
                 data = dict(categories=categories, post=postmds_sorted, settings=site)
                 data_json = json.dumps(data,indent=4)
 
-                if os.path.exists(settings['output']):
-                    rmtree(settings['output'])
-                os.makedirs(settings['output'])
+                if not os.path.exists(settings['output']):
+                    os.makedirs(settings['output'])
 
                 with open(os.path.join(settings['output'],'allpost.json'),'w') as j:
                     j.write(data_json)
 
-                make_htmls(postmds_dict,settings['output'])
+                make_htmls(data,settings['output'])
     else:
         print 'BLOGGEN: You forgot your site settings'
 
@@ -93,10 +102,53 @@ def maker(settings=None):
 
 # http://jinja.pocoo.org/docs/2.9/intro/#basic-api-usage
 
-def make_htmls(rows=None,output=None):
-    if len(rows) and (output is not None):
-        for row in rows:
-            html = mistune.markdown(row['post'])
-            with open(os.path.join(output,row['html']),'w') as h:
-                h.write(html)
+def make_htmls(data=None,output=None):
+    # for htm in os.listdir(settings['output']):
+    #     htm_path = os.path.join(settings['output'],htm)
+    #     if os.path.isfile(htm_path) and htm.endswith('.html'):
+    #         os.remove(htm_path)
+
+    
+    
+    
+    with open(os.path.join(output,'home.html'),'w') as home:
+        dat = {
+            'site_title': data['settings']['title'],
+            'categories': data['categories'],
+            'rows': data['post']
+        }
+        htm = tpls.get_template('home.tpl').render(dat)
+        home.write(htm)
+
+    if len(data['post']) and (output is not None):
+        for row in data['post']:
+            image = None
+            dat = {
+                'site_title': data['settings']['title'],
+                'categories': data['categories'],
+                'post': {
+                    'id': row['id'],
+                    'content': mistune.markdown(row['markdown']),
+                    'title': row['title'],
+                    'date': row['date'],
+                    'category': row['category'],
+                    'author': row['author'],
+                    'permalink': row['permalink']
+                }
+            }
+            if row['image']:
+                dat['post']['image'] = row['image']
+            htm = tpls.get_template('post.tpl').render(dat)
+            # with open(os.path.join(output,row['html']),'w') as page:
+            #     page.write(html)
+
+            print htm
+
+    
+
+
+
+
+
+
 

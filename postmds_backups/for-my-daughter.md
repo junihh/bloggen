@@ -3,6 +3,7 @@ title       : Uchi no Musume no Tame Naraba, Ore wa Moshikashitara Mao mo Taoser
 date        : 2017-03-05
 category    : javascript
 author      : Junior Hernández
+excerpt     : Convertirse en padre de repente creo nunca será una noticia bienvenida pero volverse padre de Latina, la niña de raza demonio, sería una noticia muy grata y orgullo para cualquier humano o demonio.
 ======================================================
 
 Convertirse en padre de repente creo nunca será una noticia bienvenida pero volverse padre de Latina, la niña de raza demonio, sería una noticia muy grata y orgullo para cualquier humano o demonio.

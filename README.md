@@ -1,6 +1,6 @@
 # Bloggen
 
-My own blog maker (static site generator).
+Another static site generator. ;-)
 
 #### Requirements:
 
