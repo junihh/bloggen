@@ -18,7 +18,7 @@
                 <main class="home">
                     {% for row in rows %}
                     <article data-filter="{{ row.category }}">
-                        <h2><a href="{{ row.html }}" class="title">{{ row.title }}</a></h2>
+                        <h2><a href="{{ row.file }}" class="title">{{ row.title }}</a></h2>
                         <div class="meta">
                             <time>{{ row.date }}</time>
                             <a href="index.html?category={{ row.category }}" data-category="{{ row.category }}">{{ row.category }}</a>
