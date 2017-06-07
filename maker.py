@@ -4,7 +4,7 @@ myBlog = dict(
     domain='junihh.com', 
     site_title='My bloggen test', 
     posts='./posts', 
-    output='./public'
+    output='./output'
 )
 
 maker(myBlog)

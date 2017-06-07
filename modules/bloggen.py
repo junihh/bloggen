@@ -38,9 +38,8 @@ def maker(settings=None):
                 yml_path = os.path.join(settings['posts'],yml)
                 
                 if os.path.isfile(yml_path):
-                    yml_sp = yml.split('.')
-                    yml_nam = yml_sp[0]
-                    yml_ext = yml_sp[1]
+                    yml_nam, yml_ext = os.path.splitext(yml)
+                    yml_ext = yml_ext[1:]
                     
                     if yml_ext in ('md','markdown','mdown','mkdn','mkd','mdwn','mdtxt','mdtext','text','txt','yml','yaml'):
                         html = yml_nam + '.html'
@@ -60,7 +59,7 @@ def maker(settings=None):
                             mrkdwn = content[1].strip()
                             
                             config.update({ 'id': postid })
-                            config.update({ 'html': html })
+                            config.update({ 'file': html })
                             config.update({ 'permalink': permalink })
                             config.update({ 'date': config['date'].strftime('%Y-%m-%d') })
                             config.update({ 'content': mrkdwn })
@@ -93,7 +92,7 @@ def maker(settings=None):
                 with open(os.path.join(settings['output'],'allpost.json'),'w') as j:
                     j.write(data_json)
 
-                # htmls(data,settings['output'])
+                htmls(data,settings['output'])
 
     else:
         print 'BLOGGEN: You forgot your site settings'
@@ -106,7 +105,7 @@ def maker(settings=None):
 def htmls(data=None,output=None):
     if len(data['post']) and (output is not None):
 
-        # Remove all *.html pages into output directory
+        # Remove all *.html pages inside output directory
         for h in os.listdir(output):
             h_path = os.path.join(output,h)
             if os.path.isfile(h_path) and h.endswith('.html'):
@@ -124,7 +123,7 @@ def htmls(data=None,output=None):
 
         # Output all post pages
         for row in data['post']:
-            with open(os.path.join(output,row['html']),'w') as page:
+            with open(os.path.join(output,row['file']),'w') as page:
                 image = row['image'] if ('image' in row.keys()) else None
                 content = mistune.markdown(row['content'])
                 dat = {
