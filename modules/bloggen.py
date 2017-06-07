@@ -50,20 +50,20 @@ def maker(settings=None):
                         with open(md_path,'r') as mdfile:
                             content = []
                             config = {}
-                            mdpost = None
+                            mrkdwn = None
 
                             for line in mdfile:
                                 content.append(line)
 
                             content = '\n'.join(content).split('======================================================')
                             config = yaml.load(content[1].strip())
-                            mdpost = content[2].strip()
+                            mrkdwn = content[2].strip()
                             
                             config.update({ 'id' : postid })
                             config.update({ 'html' : html })
                             config.update({ 'permalink' : permalink })
                             config.update({ 'date' : config['date'].strftime('%Y-%m-%d') })
-                            config.update({ 'markdown' : mdpost })
+                            config.update({ 'markdown' : mrkdwn })
 
                             if 'category' in config.keys():
                                 data_categories.append(config['category'])
