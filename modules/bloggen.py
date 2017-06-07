@@ -55,7 +55,7 @@ def maker(settings=None):
                                 content.append(line)
 
                             content = '\n'.join(content).split('======================================================')
-                            config = yaml.load(content[0].strip())
+                            config = yaml.load(content[0])
                             mrkdwn = content[1].strip()
                             
                             config.update({ 'id': postid })

@@ -3,13 +3,7 @@
     <head>
         <title>{{ post.title }}</title>
 
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,minimum-scale=1,user-scalable=no">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-        <meta name="googlebot" content="noindex,nofollow">
-        <meta name="robots" content="noindex,nofollow">
-        
-        <link href="css/styles.css" rel="stylesheet" type="text/css" media="screen">
+        {% include 'meta.tpl' %}
     </head>
     <body>
         <div class="blog">
@@ -31,6 +25,16 @@
                     <div class="post-content">
                         {{ post.content }}
                     </div>
+                    {% if post.moreinfo %}
+                    <div class="post-info">
+                        <h3>In short</h3>
+                        <ul>
+                            {% for inf in post.moreinfo %}
+                            <li><strong>{{ inf }}:</strong> {{ post.moreinfo[inf] }}</li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                    {% endif %}
                 </article>
                 {% include 'footer.tpl' %}
             </div>

@@ -197,9 +197,6 @@ header, footer, nav, article, main {
     }
 }
 
-.post {
-
-}
 .post-header {
     margin-bottom: 30px;
 
@@ -250,15 +247,36 @@ header, footer, nav, article, main {
         font-weight: 700;
     }
 }
+.post-info {
+    margin-top: 40px;
+    border: solid 1px @colorBlueLight;
 
+    h3 {
+        padding: 8px 14px;
+        border-bottom: solid 1px @colorBlueLight;
+        font-size: 0.9rem;
+        line-height: 100%;
+        color: #000;
+        text-transform: uppercase;
+    }
 
+    ul {
+        padding: 14px;
+    }
 
+    li, p {
+        font-size: 0.8rem;
+        line-height: 120%;
+    }
 
+    li {
+        margin-bottom: 6px;
+        &:last-child {
+            margin-bottom: 0;
+        }
+    }
 
-
-
-
-
-
-
-
+    strong, b {
+        font-weight: 600;
+    }
+}
