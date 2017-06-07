@@ -15,8 +15,8 @@ from jinja2 import Environment, PackageLoader
 reload(sys)  
 sys.setdefaultencoding('utf8')
 
-postmds_dict = []
-postmds_sorted = []
+postymls_dict = []
+postymls_sorted = []
 data_json = None
 data_categories = []
 
@@ -31,60 +31,60 @@ tpls = Environment(
 
 def maker(settings=None):
     if settings is not None:
-        if os.path.isdir(settings['postmds']):
+        if os.path.isdir(settings['posts']):
             sortdates = []
 
-            for md in os.listdir(settings['postmds']):
-                md_path = os.path.join(settings['postmds'],md)
+            for yml in os.listdir(settings['posts']):
+                yml_path = os.path.join(settings['posts'],yml)
                 
-                if os.path.isfile(md_path):
-                    mdsp = md.split('.')
-                    md_nam = mdsp[0]
-                    md_ext = mdsp[1]
+                if os.path.isfile(yml_path):
+                    yml_sp = yml.split('.')
+                    yml_nam = yml_sp[0]
+                    yml_ext = yml_sp[1]
                     
-                    if md_ext in ('md','markdown','mdown','mkdn','mkd','mdwn','mdtxt','mdtext','text','txt'):
-                        html = md_nam + '.html'
+                    if yml_ext in ('md','markdown','mdown','mkdn','mkd','mdwn','mdtxt','mdtext','text','txt','yml','yaml'):
+                        html = yml_nam + '.html'
                         permalink = 'http://' + settings['domain'] + '/' + html
-                        postid = hashlib.sha1(md).hexdigest()
+                        postid = hashlib.sha1(yml).hexdigest()
 
-                        with open(md_path,'r') as mdfile:
+                        with open(yml_path,'r') as ymlfile:
                             content = []
                             config = {}
                             mrkdwn = None
 
-                            for line in mdfile:
+                            for line in ymlfile:
                                 content.append(line)
 
                             content = '\n'.join(content).split('======================================================')
-                            config = yaml.load(content[1].strip())
-                            mrkdwn = content[2].strip()
+                            config = yaml.load(content[0].strip())
+                            mrkdwn = content[1].strip()
                             
                             config.update({ 'id': postid })
                             config.update({ 'html': html })
                             config.update({ 'permalink': permalink })
                             config.update({ 'date': config['date'].strftime('%Y-%m-%d') })
-                            config.update({ 'markdown': mrkdwn })
+                            config.update({ 'content': mrkdwn })
 
-                            if 'excerpt' in config.keys():
+                            configKeys = config.keys()
+                            if 'excerpt' in configKeys:
                                 config.update({ 'excerpt': config['excerpt'].replace('\n',' ') })
-
-                            if 'category' in config.keys():
+                            if 'category' in configKeys:
                                 data_categories.append(config['category'])
                             
                             sortdates.append(config['date'])
-                            postmds_dict.append(config)
+                            postymls_dict.append(config)
 
-            if len(postmds_dict):
+            if len(postymls_dict):
                 sortdates = sorted(sortdates,reverse=True)
                 categories = sorted(list(set(data_categories)))
 
                 for d in sortdates:
-                    for r,row in enumerate(postmds_dict):
+                    for r,row in enumerate(postymls_dict):
                         if row['date'] == d:
-                            postmds_sorted.append(row)
+                            postymls_sorted.append(row)
 
                 site = dict(domain=settings['domain'],title=settings['site_title'])
-                data = dict(categories=categories, post=postmds_sorted, settings=site)
+                data = dict(categories=categories, post=postymls_sorted, settings=site)
                 data_json = json.dumps(data,indent=4)
 
                 if not os.path.exists(settings['output']):
@@ -93,7 +93,7 @@ def maker(settings=None):
                 with open(os.path.join(settings['output'],'allpost.json'),'w') as j:
                     j.write(data_json)
 
-                htmls(data,settings['output'])
+                # htmls(data,settings['output'])
 
     else:
         print 'BLOGGEN: You forgot your site settings'
@@ -126,7 +126,7 @@ def htmls(data=None,output=None):
         for row in data['post']:
             with open(os.path.join(output,row['html']),'w') as page:
                 image = row['image'] if ('image' in row.keys()) else None
-                content = mistune.markdown(row['markdown'])
+                content = mistune.markdown(row['content'])
                 dat = {
                     'site_title': data['settings']['title'],
                     'categories': data['categories'],
