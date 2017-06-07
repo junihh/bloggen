@@ -122,17 +122,14 @@ def htmls(data=None,output=None):
         # Output all post pages
         for row in data['post']:
             with open(os.path.join(output,row['html']),'w') as page:
-                image = None
-                try:
-                    image = row['image']
-                except:
-                    pass
+                image = row['image'] if ('image' in row.keys()) else None
+                content = mistune.markdown(row['markdown'])
                 dat = {
                     'site_title': data['settings']['title'],
                     'categories': data['categories'],
                     'post': {
                         'id': row['id'],
-                        'content': mistune.markdown(row['markdown']),
+                        'content': content,
                         'title': row['title'],
                         'date': row['date'],
                         'category': row['category'],
