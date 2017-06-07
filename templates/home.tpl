@@ -18,10 +18,10 @@
                 <main class="home">
                     {% for row in rows %}
                     <article>
-                        <h2><a href="javascript:;" class="title">{{ row.title }}</a></h2>
+                        <h2><a href="{{ row.html }}" class="title">{{ row.title }}</a></h2>
                         <div class="meta">
                             <time>{{ row.date }}</time>
-                            <a href="javascript:;">{{ row.category }}</a>
+                            <a href="index.html?category={{ row.category }}" data-category="{{ row.category }}">{{ row.category }}</a>
                         </div>
                         {% if row.excerpt %}
                         <p>{{ row.excerpt }}</p>

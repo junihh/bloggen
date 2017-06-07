@@ -20,7 +20,7 @@
                         <h2>{{ post.title }}</h2>
                         <div class="meta">
                             <time>{{ post.date }}</time>
-                            <a href="javascript:;">{{ post.category }}</a>
+                            <a href="index.html?category={{ post.category }}" data-category="{{ post.category }}">{{ post.category }}</a>
                         </div>
                     </header>
                     {% if post.image %}

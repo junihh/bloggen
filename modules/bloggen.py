@@ -53,7 +53,6 @@ def maker(settings=None):
                             mdpost = None
 
                             for line in mdfile:
-                                line = line.strip()
                                 content.append(line)
 
                             content = '\n'.join(content).split('======================================================')
@@ -103,15 +102,7 @@ def maker(settings=None):
 # http://jinja.pocoo.org/docs/2.9/intro/#basic-api-usage
 
 def make_htmls(data=None,output=None):
-    # for htm in os.listdir(settings['output']):
-    #     htm_path = os.path.join(settings['output'],htm)
-    #     if os.path.isfile(htm_path) and htm.endswith('.html'):
-    #         os.remove(htm_path)
-
-    
-    
-    
-    with open(os.path.join(output,'home.html'),'w') as home:
+    with open(os.path.join(output,'index.html'),'w') as home:
         dat = {
             'site_title': data['settings']['title'],
             'categories': data['categories'],
@@ -122,27 +113,30 @@ def make_htmls(data=None,output=None):
 
     if len(data['post']) and (output is not None):
         for row in data['post']:
-            image = None
-            dat = {
-                'site_title': data['settings']['title'],
-                'categories': data['categories'],
-                'post': {
-                    'id': row['id'],
-                    'content': mistune.markdown(row['markdown']),
-                    'title': row['title'],
-                    'date': row['date'],
-                    'category': row['category'],
-                    'author': row['author'],
-                    'permalink': row['permalink']
+            with open(os.path.join(output,row['html']),'w') as page:
+                image = None
+                try:
+                    image = row['image']
+                except:
+                    pass
+                dat = {
+                    'site_title': data['settings']['title'],
+                    'categories': data['categories'],
+                    'post': {
+                        'id': row['id'],
+                        'content': mistune.markdown(row['markdown']),
+                        'title': row['title'],
+                        'date': row['date'],
+                        'category': row['category'],
+                        'author': row['author'],
+                        'permalink': row['permalink'],
+                        'image': image
+                    }
                 }
-            }
-            if row['image']:
-                dat['post']['image'] = row['image']
-            htm = tpls.get_template('post.tpl').render(dat)
-            # with open(os.path.join(output,row['html']),'w') as page:
-            #     page.write(html)
+                htm = tpls.get_template('post.tpl').render(dat)
+                page.write(htm)
 
-            print htm
+            
 
     
 
