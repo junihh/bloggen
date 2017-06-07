@@ -15,7 +15,7 @@
         <div class="blog">
             <div class="margins">
                 {% include 'header.tpl' %}
-                <main class="home">
+                <main class="home" data-pagetype="home">
                     {% for row in rows %}
                     <article data-filter="{{ row.category }}">
                         <h2><a href="{{ row.file }}" class="title">{{ row.title }}</a></h2>
@@ -33,9 +33,9 @@
             </div>
         </div>
 
-        <script src="js/jquery-3.2.1.slim.min.js"></script>
+        <script src="js/bloggen.js"></script>
         <script>
-            
+            bloggen.ini()
         </script>
     </body>
 </html>

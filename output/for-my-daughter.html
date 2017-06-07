@@ -19,7 +19,7 @@
                         <div class="cell">
                             <h1>My bloggen test</h1>
                         </div>
-                        <nav class="cell">
+                        <nav class="cell" id="site-nav">
                             <ul>
                                 <li><a href="index.html" data-category="home">home</a></li>
                                 
@@ -31,7 +31,7 @@
                         </nav>
                     </div>
                 </header>
-                <article class="post">
+                <article class="post" data-pagetype="post">
                     <header class="post-header">
                         <h2>Uchi no Musume no Tame Naraba, Ore wa Moshikashitara Mao mo Taoseru Kamo Shirenai</h2>
                         <div class="meta">
@@ -60,9 +60,9 @@
             </div>
         </div>
 
-        <script src="js/jquery-3.2.1.slim.min.js"></script>
+        <script src="js/bloggen.js"></script>
         <script>
-            
+            bloggen.ini()
         </script>
     </body>
 </html>

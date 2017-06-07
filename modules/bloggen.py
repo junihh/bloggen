@@ -107,9 +107,9 @@ def htmls(data=None,output=None):
 
         # Remove all *.html pages inside output directory
         for h in os.listdir(output):
-            h_path = os.path.join(output,h)
-            if os.path.isfile(h_path) and h.endswith('.html'):
-                os.remove(h_path)
+            hpath = os.path.join(output,h)
+            if os.path.isfile(hpath) and h.endswith('.html'):
+                os.remove(hpath)
 
         # Output index.html
         with open(os.path.join(output,'index.html'),'w') as home:
@@ -124,21 +124,12 @@ def htmls(data=None,output=None):
         # Output all post pages
         for row in data['post']:
             with open(os.path.join(output,row['file']),'w') as page:
-                image = row['image'] if ('image' in row.keys()) else None
-                content = mistune.markdown(row['content'])
+                row['image'] = row['image'] if ('image' in row.keys()) else None
+                row['content'] = mistune.markdown(row['content']) if ('content' in row.keys()) else None
                 dat = {
                     'site_title': data['settings']['title'],
                     'categories': data['categories'],
-                    'post': {
-                        'id': row['id'],
-                        'content': content,
-                        'title': row['title'],
-                        'date': row['date'],
-                        'category': row['category'],
-                        'author': row['author'],
-                        'permalink': row['permalink'],
-                        'image': image
-                    }
+                    'post': row
                 }
                 htm = tpls.get_template('post.tpl').render(dat)
                 page.write(htm)

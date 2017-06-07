@@ -15,7 +15,7 @@
         <div class="blog">
             <div class="margins">
                 {% include 'header.tpl' %}
-                <article class="post">
+                <article class="post" data-pagetype="post">
                     <header class="post-header">
                         <h2>{{ post.title }}</h2>
                         <div class="meta">
@@ -36,9 +36,9 @@
             </div>
         </div>
 
-        <script src="js/jquery-3.2.1.slim.min.js"></script>
+        <script src="js/bloggen.js"></script>
         <script>
-            
+            bloggen.ini()
         </script>
     </body>
 </html>
