@@ -1,9 +1,15 @@
 ======================================================
-title       : Uchi no Musume no Tame Naraba, Ore wa Moshikashitara Mao mo Taoseru Kamo Shirenai
-date        : 2017-03-05
-category    : javascript
-author      : Junior Hernández
-excerpt     : Convertirse en padre de repente creo nunca será una noticia bienvenida pero volverse padre de Latina, la niña de raza demonio, sería una noticia muy grata y orgullo para cualquier humano o demonio.
+title:      Uchi no Musume no Tame Naraba, Ore wa Moshikashitara Mao mo Taoseru Kamo Shirenai
+date:       2017-03-05
+category:   javascript
+author:     Junior Hernández
+excerpt:    Convertirse en padre de repente creo nunca será una noticia bienvenida pero volverse 
+            padre de Latina, la niña de raza demonio, sería una noticia muy grata y orgullo para 
+            cualquier humano o demonio.
+more_info: 
+            Año: 2016   
+            Títulos: “Uchi no Musume no Tame Naraba, Ore wa Moshikashitara Mao mo Taoseru Kamo Shirenai”, “For my daughter, I might even be able to defeat the Demon King”.   
+            Capítulos: En publicación  
 ======================================================
 
 Convertirse en padre de repente creo nunca será una noticia bienvenida pero volverse padre de Latina, la niña de raza demonio, sería una noticia muy grata y orgullo para cualquier humano o demonio.
@@ -16,7 +22,7 @@ Al momento de escribir este post el manga va por su 7mo. capítulo y la verdad n
 
 La química entre Dale y Latina, junto a la ayuda y consejos que les ofrecen Kenneth y Rita, los dueños de la hostería donde se hospedan, hacen de este manga elementos que lo hacen fácil de leer y disfrutar.
 
-Deben leerlo pero los lolicones son bienvenidos. Este manga no es para ustedes y si se atreven a leerlo la muerte en persona les presentará batalla. ;-)
+Deben leerlo pero los lolicones no son bienvenidos. Este manga no es para ustedes y si se atreven a leerlo la muerte en persona les presentará batalla. ;-)
 
 ## Información:
 

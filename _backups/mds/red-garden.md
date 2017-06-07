@@ -1,9 +1,15 @@
 ======================================================
-title       : Red Garden
-date        : 2017-02-25
-category    : python
-author      : Junior Hernández
-excerpt     : Despiertas y aunque te sientes extraño debes continuar viviendo de la forma tan aburrida y onírica como de costumbre. Entonces te das cuenta que ya las cosas que hacías te dan igual. Hasta puedes ver qué tan inútil eras.
+title:      Red Garden
+date:       2017-02-25
+category:   python
+author:     Junior Hernández
+excerpt:    Despiertas y aunque te sientes extraño debes continuar viviendo de la forma tan aburrida y onírica 
+            como de costumbre. Entonces te das cuenta que ya las cosas que hacías te dan igual. Hasta puedes 
+            ver qué tan inútil eras.
+more_info: 
+            Año: 2007
+            Títulos: “Red Garden”, “RG”.
+            Episodios: 22
 ======================================================
 
 Despiertas y aunque te sientes extraño debes continuar viviendo de la forma tan aburrida y onírica como de costumbre. Entonces te das cuenta que ya las cosas que hacías te dan igual. Hasta puedes ver qué tan inútil eras.

@@ -65,6 +65,9 @@ def maker(settings=None):
                             config.update({ 'date' : config['date'].strftime('%Y-%m-%d') })
                             config.update({ 'markdown' : mrkdwn })
 
+                            if 'excerpt' in config.keys():
+                                config.update({ 'excerpt' : config['excerpt'].replace('\n',' ') })
+
                             if 'category' in config.keys():
                                 data_categories.append(config['category'])
                             
