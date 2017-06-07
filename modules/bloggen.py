@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-import os, sys, codecs
+import os, sys
 import json
 import hashlib
 import mistune
@@ -45,7 +45,7 @@ def maker(settings=None):
                     if md_ext in ('md','markdown','mdown','mkdn','mkd','mdwn','mdtxt','mdtext','text','txt'):
                         html = md_nam + '.html'
                         permalink = 'http://' + settings['domain'] + '/' + html
-                        postid = hashlib.sha1(html).hexdigest()
+                        postid = hashlib.sha1(md).hexdigest()
 
                         with open(md_path,'r') as mdfile:
                             content = []
@@ -91,6 +91,7 @@ def maker(settings=None):
                     j.write(data_json)
 
                 make_htmls(data,settings['output'])
+                
     else:
         print 'BLOGGEN: You forgot your site settings'
 
@@ -98,8 +99,6 @@ def maker(settings=None):
 # -------------------------------------
 # Output the html's
 # -------------------------------------
-
-# http://jinja.pocoo.org/docs/2.9/intro/#basic-api-usage
 
 def make_htmls(data=None,output=None):
     with open(os.path.join(output,'index.html'),'w') as home:
@@ -135,14 +134,4 @@ def make_htmls(data=None,output=None):
                 }
                 htm = tpls.get_template('post.tpl').render(dat)
                 page.write(htm)
-
-            
-
-    
-
-
-
-
-
-
 

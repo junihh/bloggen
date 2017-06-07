@@ -17,7 +17,7 @@
                 {% include 'header.tpl' %}
                 <main class="home">
                     {% for row in rows %}
-                    <article>
+                    <article data-filter="{{ row.category }}">
                         <h2><a href="{{ row.html }}" class="title">{{ row.title }}</a></h2>
                         <div class="meta">
                             <time>{{ row.date }}</time>
