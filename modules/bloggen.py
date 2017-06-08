@@ -84,7 +84,7 @@ def maker(settings=None):
 
                 site = dict(domain=settings['domain'],title=settings['site_title'])
                 data = dict(categories=categories, post=postymls_sorted, settings=site)
-                data_json = json.dumps(data,indent=4)
+                data_json = json.dumps(data,indent=2)
 
                 if not os.path.exists(settings['output']):
                     os.makedirs(settings['output'])
@@ -106,10 +106,10 @@ def htmls(data=None,output=None):
     if len(data['post']) and (output is not None):
 
         # Remove all *.html pages inside output directory
-        for h in os.listdir(output):
-            hpath = os.path.join(output,h)
-            if os.path.isfile(hpath) and h.endswith('.html'):
-                os.remove(hpath)
+        for html in os.listdir(output):
+            html_path = os.path.join(output,html)
+            if os.path.isfile(html_path) and html.endswith('.html'):
+                os.remove(html_path)
 
         # Output index.html
         with open(os.path.join(output,'index.html'),'w') as home:
@@ -118,8 +118,8 @@ def htmls(data=None,output=None):
                 'categories': data['categories'],
                 'rows': data['post']
             }
-            htm = tpls.get_template('home.tpl').render(dat)
-            home.write(htm)
+            tpl = tpls.get_template('home.tpl').render(dat)
+            home.write(tpl)
 
         # Output all post pages
         for row in data['post']:
@@ -131,6 +131,6 @@ def htmls(data=None,output=None):
                     'categories': data['categories'],
                     'post': row
                 }
-                htm = tpls.get_template('post.tpl').render(dat)
-                page.write(htm)
+                tpl = tpls.get_template('post.tpl').render(dat)
+                page.write(tpl)
 

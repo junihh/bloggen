@@ -187,9 +187,6 @@ main {
   width: 100%;
   height: auto;
 }
-.post-image.no-image {
-  display: none;
-}
 .post-content p {
   margin-bottom: 14px;
   line-height: 140%;

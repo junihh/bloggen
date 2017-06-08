@@ -6,8 +6,8 @@
                         <nav class="cell" id="site-nav">
                             <ul>
                                 <li><a href="index.html" data-category="home">home</a></li>
-                                {% for item in categories %}
-                                <li><a href="index.html?category={{ item }}" data-category="{{ item }}">{{ item }}</a></li>
+                                {% for category in categories %}
+                                <li><a href="index.html?category={{ category }}" data-category="{{ category }}">{{ category }}</a></li>
                                 {% endfor %}
                             </ul>
                         </nav>

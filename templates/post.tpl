@@ -19,7 +19,7 @@
                     </header>
                     {% if post.image %}
                     <figure class="post-image">
-                        <img src="{{ post.image }}" alt="{{ post.title }}" width="709" height="360">
+                        <img src="{{ post.image }}" alt="{{ post.title }}" width="710" height="360">
                     </figure>
                     {% endif %}
                     <div class="post-content">
@@ -29,8 +29,8 @@
                     <div class="post-info">
                         <h3>In short</h3>
                         <ul>
-                            {% for inf in post.moreinfo %}
-                            <li><strong>{{ inf }}:</strong> {{ post.moreinfo[inf] }}</li>
+                            {% for row in post.moreinfo %}
+                            <li><strong>{{ row }}:</strong> {{ post.moreinfo[row] }}</li>
                             {% endfor %}
                         </ul>
                     </div>
