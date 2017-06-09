@@ -7,6 +7,7 @@ import mimetypes
 from filemimes import filemimes
 
 
+
 # BeautifulSoup
 # http://beautiful-soup-4.readthedocs.io/en/latest
 # https://www.crummy.com/software/BeautifulSoup/bs4/doc
@@ -40,54 +41,29 @@ def filetoB64 (fpath=None,raw=False):
 
 
 
-# with open('test.html','rt') as file:
-#     for line in file:
-#         line = line.replace('\n','')
-#         print line
+def replaceB64HTML (htmlstr=None):
+    if htmlstr is not None:
+        html = BeautifulSoup(htmlstr,'html.parser')
 
+        for node in html.find_all(['link','script','img']):
+            if node.name == 'link':
+                href = node.get('href')
+                node['href'] = filetoB64(href)
 
-# thehtmlstr = '<img src="files/file.png" alt="">'
-# thehtmlstr = 'Hello, DoctoR.'
-
-# if re.compile(r"\bd\w*r\b", re.IGNORECASE).search(thehtmlstr) != None:
-#     print 'src'
-
-
-
-# myHtmlLine = '<img src="files/file.png" alt="">'
-# strJunk = '<img src="files/file.png" alt="">'
-# match = re.search(r'<img src="?([^">]+)', strJunk)
-# matchResult = match.group(1).strip()
-# print matchResult
-
-# def replaceSRC (original=None,replace=None):
-#     match = re.search(r'<img src="?([^">]+)', original)
-#     result = match.group(1).strip()
-#     print result
-
-# replaceSRC('<img src="files/file.png" alt="">','data:image/png;base64,PD94bWwgdmVyc2lvbj0i')
-
-
-# match = re.findall('(\w+)="(.*?)"', myHtmlLine)
+            if node.name in ('script','img'):
+                src = node.get('src')
+                node['src'] = filetoB64(src)
+        
+        return html.renderContents()
 
 
 
+with open('test.html','rt') as htmlfile:
+    print replaceB64HTML(htmlfile)
 
-myhtml = None
+    
 
-with open('test.html') as htmfile:
-    html = BeautifulSoup(htmfile,'html.parser')
 
-    for node in html.find_all(['link','script','img']):
-        # print node
-        # print node.name
-        # print node.get('href')
-
-        if node.name == 'link':
-            print node.name, node.get('href')
-
-        if node.name in ('script','img'):
-            print node.name, node.get('src')
 
 
 
