@@ -7,3 +7,4 @@ Another static site generator. ;-)
     pip install pyyaml   
     pip install mistune   
     pip install jinja2   
+    pip install beautifulsoup4   

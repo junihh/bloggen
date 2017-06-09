@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 
-import os, sys
-import json
-import hashlib
+import os, sys, hashlib, json, base64, mimetypes
+from bs4 import BeautifulSoup
+from filemimes import filemimes
 import mistune
 import yaml
 from jinja2 import Environment, PackageLoader
@@ -20,19 +20,26 @@ postymls_sorted = []
 data_json = None
 data_categories = []
 
+templates_dir = '../templates'
+resources_dir = '../templates/resources'
 tpls = Environment(
-    loader=PackageLoader('modules', '../templates')
+    loader=PackageLoader('modules', templates_dir)
 )
 
 
 # -------------------------------------
-# Get MDs files
+# Yaml-Markdown processing
 # -------------------------------------
 
 def maker(settings=None):
     if settings is not None:
         if os.path.isdir(settings['posts']):
             sortdates = []
+
+            if not os.path.exists(settings['output']):
+                os.makedirs(settings['output'])
+            if not os.path.exists(settings['resources']):
+                os.makedirs(settings['resources'])
 
             for yml in os.listdir(settings['posts']):
                 yml_path = os.path.join(settings['posts'],yml)
@@ -86,9 +93,6 @@ def maker(settings=None):
                 data = dict(categories=categories, post=postymls_sorted, settings=site)
                 data_json = json.dumps(data,indent=2)
 
-                if not os.path.exists(settings['output']):
-                    os.makedirs(settings['output'])
-
                 with open(os.path.join(settings['output'],'allpost.json'),'w') as j:
                     j.write(data_json)
 
@@ -99,8 +103,50 @@ def maker(settings=None):
 
 
 # -------------------------------------
-# HTML's
+# HTML processing
 # -------------------------------------
+
+def filetoB64 (fpath=None,raw=False):
+    fstring = None
+    fmime = None
+    freturn = None
+
+    if fpath is not None:
+        if os.path.isfile(fpath):
+            fmime = mimetypes.MimeTypes().guess_type(fpath)[0]
+            
+            if fmime in (filemimes['text'] + filemimes['image'] + filemimes['audio'] + filemimes['video']):
+                with open(fpath,'rb') as f:
+                    fcontent = f.read()
+                    fstring = base64.encodestring(fcontent).replace('\n','')
+
+                    if raw:
+                        freturn = fstring
+                    else:
+                        freturn = ''.join(['data:',fmime,';base64,',fstring])
+            else:
+                freturn = fpath
+        else:
+            freturn = fpath
+
+    return freturn
+
+
+def replaceB64HTML (htmlstr=None):
+    if htmlstr is not None:
+        html = BeautifulSoup(htmlstr,'html.parser')
+
+        for node in html.find_all(['link','script','img']):
+            if node.name == 'link':
+                href = node.get('href')
+                node['href'] = filetoB64(href)
+
+            if node.name in ('script','img'):
+                src = node.get('src')
+                node['src'] = filetoB64(src)
+        
+        return html.renderContents()
+
 
 def htmls(data=None,output=None):
     if len(data['post']) and (output is not None):
@@ -114,12 +160,14 @@ def htmls(data=None,output=None):
         # Output index.html
         with open(os.path.join(output,'index.html'),'w') as home:
             dat = {
+                'resources_dir': resources_dir,
                 'site_title': data['settings']['title'],
                 'categories': data['categories'],
                 'rows': data['post']
             }
             tpl = tpls.get_template('home.tpl').render(dat)
-            home.write(tpl)
+            htm = replaceB64HTML(tpl)
+            home.write(htm)
 
         # Output all post pages
         for row in data['post']:
@@ -127,10 +175,11 @@ def htmls(data=None,output=None):
                 row['image'] = row['image'] if ('image' in row.keys()) else None
                 row['content'] = mistune.markdown(row['content']) if ('content' in row.keys()) else None
                 dat = {
+                    'resources_dir': resources_dir,
                     'site_title': data['settings']['title'],
                     'categories': data['categories'],
                     'post': row
                 }
                 tpl = tpls.get_template('post.tpl').render(dat)
-                page.write(tpl)
-
+                htm = replaceB64HTML(tpl)
+                page.write(htm)

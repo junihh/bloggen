@@ -1,7 +1,5 @@
-import os
+import os, base64, mimetypes
 from bs4 import BeautifulSoup
-import base64 
-import mimetypes
 from filemimes import filemimes
 
 
