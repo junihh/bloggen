@@ -46,7 +46,7 @@ def maker(settings=None):
                         permalink = 'http://' + settings['domain'] + '/' + html
                         postid = hashlib.sha1(yml).hexdigest()
 
-                        with open(yml_path,'r') as ymlfile:
+                        with open(yml_path,'rt') as ymlfile:
                             content = []
                             config = {}
                             mrkdwn = None
