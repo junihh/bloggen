@@ -145,7 +145,8 @@ def replaceB64HTML (htmlstr=None):
                 src = node.get('src')
                 node['src'] = filetoB64(src)
         
-        return html.renderContents()
+        # return html.renderContents()
+        return str(html)
 
 
 def htmls(data=None,output=None):
