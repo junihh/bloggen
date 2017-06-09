@@ -6,4 +6,4 @@
         <meta http-equiv="cache-control" content="max-age=15552000,public">
         <meta name="revisit-after" content="3 days">
 
-        <link href="{{ resources_dir }}/styles.css" rel="stylesheet" type="text/css" media="screen">
+        <link href="resources/css/styles.css" rel="stylesheet" type="text/css" media="screen">

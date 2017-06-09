@@ -10,7 +10,7 @@ from filemimes import filemimes
 
 
 
-def filetoB64 (fpath=None,raw=False):
+def _filetoB64 (fpath=None,raw=False):
     fstring = None
     fmime = None
     freturn = None
@@ -36,28 +36,36 @@ def filetoB64 (fpath=None,raw=False):
     return freturn
 
 
+def _encodesourcesHTML (path=None):
+    html_content = None
 
-def replaceB64HTML (htmlstr=None):
-    if htmlstr is not None:
-        html = BeautifulSoup(htmlstr,'html.parser')
+    if (path is not None) and os.path.isfile(path):
+        with open(path,'rt') as read_html:
+            html_content = []
+            for line in read_html:
+                line = line.strip()
+                html_content.append(line)
+            html_content = '\n'.join(html_content)
 
-        for node in html.find_all(['link','script','img']):
-            if node.name == 'link':
-                href = node.get('href')
-                node['href'] = filetoB64(href)
+            if html_content:
+                htmlBS = BeautifulSoup(html_content,'html.parser')
 
-            if node.name in ('script','img'):
-                src = node.get('src')
-                node['src'] = filetoB64(src)
-        
-        return html.renderContents()
+                for node in htmlBS.find_all(['link','script','img']):
+                    if node.name == 'link':
+                        href = node.get('href')
+                        node['href'] = _filetoB64(href)
 
+                    if node.name in ('script','img'):
+                        src = node.get('src')
+                        node['src'] = _filetoB64(src)
 
+                html_content = htmlBS.renderContents()
 
-with open('test.html','rt') as htmlfile:
-    print replaceB64HTML(htmlfile)
+        with open(path,'w') as write_html:
+            write_html.write(html_content)
+
+_encodesourcesHTML('test.html')
 
     
-
 
 

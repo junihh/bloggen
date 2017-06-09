@@ -187,9 +187,6 @@ main {
   width: 100%;
   height: auto;
 }
-.post-image.no-image {
-  display: none;
-}
 .post-content p {
   margin-bottom: 14px;
   line-height: 140%;
@@ -216,4 +213,34 @@ main {
 .post-content h4 {
   font-size: 1.2rem;
   font-weight: 700;
+}
+.post-info {
+  margin-top: 40px;
+  border: solid 1px #ECF0F1;
+}
+.post-info h3 {
+  padding: 8px 14px;
+  border-bottom: solid 1px #ECF0F1;
+  font-size: 0.9rem;
+  line-height: 100%;
+  color: #000;
+  text-transform: uppercase;
+}
+.post-info ul {
+  padding: 14px;
+}
+.post-info li,
+.post-info p {
+  font-size: 0.8rem;
+  line-height: 120%;
+}
+.post-info li {
+  margin-bottom: 6px;
+}
+.post-info li:last-child {
+  margin-bottom: 0;
+}
+.post-info strong,
+.post-info b {
+  font-weight: 600;
 }

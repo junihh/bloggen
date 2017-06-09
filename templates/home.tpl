@@ -27,9 +27,6 @@
             </div>
         </div>
 
-        <script src="js/bloggen.js"></script>
-        <script>
-            bloggen.ini()
-        </script>
+        {% include 'jscripts.tpl' %}
     </body>
 </html>

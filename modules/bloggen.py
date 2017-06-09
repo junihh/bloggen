@@ -21,7 +21,6 @@ data_json = None
 data_categories = []
 
 templates_dir = '../templates'
-resources_dir = '../templates/resources'
 tpls = Environment(
     loader=PackageLoader('modules', templates_dir)
 )
@@ -35,11 +34,6 @@ def maker(settings=None):
     if settings is not None:
         if os.path.isdir(settings['posts']):
             sortdates = []
-
-            if not os.path.exists(settings['output']):
-                os.makedirs(settings['output'])
-            if not os.path.exists(settings['resources']):
-                os.makedirs(settings['resources'])
 
             for yml in os.listdir(settings['posts']):
                 yml_path = os.path.join(settings['posts'],yml)
@@ -89,34 +83,32 @@ def maker(settings=None):
                         if row['date'] == d:
                             postymls_sorted.append(row)
 
-                site = dict(domain=settings['domain'],title=settings['site_title'])
+                site = dict(domain=settings['domain'], title=settings['site_title'])
                 data = dict(categories=categories, post=postymls_sorted, settings=site)
-                data_json = json.dumps(data,indent=2)
 
-                with open(os.path.join(settings['output'],'allpost.json'),'w') as j:
-                    j.write(data_json)
-
-                htmls(data,settings['output'])
+                _htmls(data,settings['output'])
 
     else:
         print 'BLOGGEN: You forgot your site settings'
 
 
 # -------------------------------------
-# HTML processing
+# Make json and html's files
 # -------------------------------------
 
-def filetoB64 (fpath=None,raw=False):
+def _filetoB64 (dirpath=None,sourcepath=None,raw=False):
     fstring = None
     fmime = None
     freturn = None
 
-    if fpath is not None:
-        if os.path.isfile(fpath):
-            fmime = mimetypes.MimeTypes().guess_type(fpath)[0]
+    if (dirpath is not None) and (sourcepath is not None):
+        sourcepath = os.path.join(dirpath,sourcepath)
+
+        if os.path.isfile(sourcepath):
+            fmime = mimetypes.MimeTypes().guess_type(sourcepath)[0]
             
             if fmime in (filemimes['text'] + filemimes['image'] + filemimes['audio'] + filemimes['video']):
-                with open(fpath,'rb') as f:
+                with open(sourcepath,'rb') as f:
                     fcontent = f.read()
                     fstring = base64.encodestring(fcontent).replace('\n','')
 
@@ -125,62 +117,87 @@ def filetoB64 (fpath=None,raw=False):
                     else:
                         freturn = ''.join(['data:',fmime,';base64,',fstring])
             else:
-                freturn = fpath
+                freturn = sourcepath
         else:
-            freturn = fpath
+            freturn = sourcepath
 
     return freturn
 
 
-def replaceB64HTML (htmlstr=None):
-    if htmlstr is not None:
-        html = BeautifulSoup(htmlstr,'html.parser')
+def _encodesourcesHTML (dirpath=None):
+    if (dirpath is not None) and os.path.isdir(dirpath):
+        html_content = None
 
-        for node in html.find_all(['link','script','img']):
-            if node.name == 'link':
-                href = node.get('href')
-                node['href'] = filetoB64(href)
+        for htmlfile in os.listdir(dirpath):
+            htmlfile_path = os.path.join(dirpath,htmlfile)
 
-            if node.name in ('script','img'):
-                src = node.get('src')
-                node['src'] = filetoB64(src)
-        
-        # return html.renderContents()
-        return str(html)
+            if os.path.isfile(htmlfile_path) and htmlfile.endswith('.html'):
+                with open(htmlfile_path,'rt') as read_html:
+                    html_content = []
+                    for line in read_html:
+                        line = line.strip()
+                        html_content.append(line)
+                    html_content = '\n'.join(html_content)
+
+                    if html_content:
+                        htmlBS = BeautifulSoup(html_content,'html.parser')
+
+                        for node in htmlBS.find_all('img'):
+                            if node.name == 'img':
+                                srcpath = node.get('src')
+                                node['src'] = _filetoB64(dirpath,srcpath)
+
+                        html_content = htmlBS.renderContents()
+
+                with open(htmlfile_path,'w') as write_html:
+                    write_html.write(html_content)
 
 
-def htmls(data=None,output=None):
+def _htmls(data=None,output=None):
     if len(data['post']) and (output is not None):
 
-        # Remove all *.html pages inside output directory
+        # Make the output directory if not available
+        if not os.path.exists(output):
+            os.makedirs(output)
+
+        # Remove all *.html files inside output directory
         for html in os.listdir(output):
             html_path = os.path.join(output,html)
             if os.path.isfile(html_path) and html.endswith('.html'):
                 os.remove(html_path)
 
+        # Make the website json
+        with open(os.path.join(output,'allpost.json'),'w') as j:
+            data_json = json.dumps(data,indent=2)
+            j.write(data_json)
+
         # Output index.html
         with open(os.path.join(output,'index.html'),'w') as home:
             dat = {
-                'resources_dir': resources_dir,
                 'site_title': data['settings']['title'],
                 'categories': data['categories'],
                 'rows': data['post']
             }
             tpl = tpls.get_template('home.tpl').render(dat)
-            htm = replaceB64HTML(tpl)
-            home.write(htm)
+            home.write(tpl)
 
-        # Output all post pages
+        # Output all post html's
         for row in data['post']:
             with open(os.path.join(output,row['file']),'w') as page:
                 row['image'] = row['image'] if ('image' in row.keys()) else None
                 row['content'] = mistune.markdown(row['content']) if ('content' in row.keys()) else None
                 dat = {
-                    'resources_dir': resources_dir,
                     'site_title': data['settings']['title'],
                     'categories': data['categories'],
                     'post': row
                 }
                 tpl = tpls.get_template('post.tpl').render(dat)
-                htm = replaceB64HTML(tpl)
-                page.write(htm)
+                page.write(tpl)
+
+        # Encode base64 html's resources
+        _encodesourcesHTML(output)
+
+
+
+
+

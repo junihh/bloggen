@@ -19,7 +19,7 @@
                     </header>
                     {% if post.image %}
                     <figure class="post-image">
-                        <img src="{{ post.image }}" alt="{{ post.title }}" width="710" height="360">
+                        <img src="{{ post.image }}" alt="{{ post.title }}" width="1280" height="650">
                     </figure>
                     {% endif %}
                     <div class="post-content">
@@ -40,9 +40,6 @@
             </div>
         </div>
 
-        <script src="js/bloggen.js"></script>
-        <script>
-            bloggen.ini()
-        </script>
+        {% include 'jscripts.tpl' %}
     </body>
 </html>

@@ -69,3 +69,6 @@ var bloggen = (function() {
         ini: xCategories
     };
 })();
+
+// bloggen.ini()
+
