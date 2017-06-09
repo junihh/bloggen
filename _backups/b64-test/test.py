@@ -1,7 +1,5 @@
 import os
-import re
 from bs4 import BeautifulSoup
-import json
 import base64 
 import mimetypes
 from filemimes import filemimes
@@ -62,22 +60,6 @@ with open('test.html','rt') as htmlfile:
     print replaceB64HTML(htmlfile)
 
     
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
