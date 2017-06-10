@@ -9,7 +9,7 @@ from filemimes import filemimes
 
 
 # -------------------------------------
-# Site setup
+# Setup
 # -------------------------------------
 
 reload(sys)  
