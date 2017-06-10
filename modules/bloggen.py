@@ -2,10 +2,10 @@
 
 import os, sys, hashlib, json, base64, mimetypes
 from bs4 import BeautifulSoup
-from filemimes import filemimes
 import mistune
 import yaml
-from jinja2 import Environment, PackageLoader
+import jinja2
+from filemimes import filemimes
 
 
 # -------------------------------------
@@ -15,14 +15,9 @@ from jinja2 import Environment, PackageLoader
 reload(sys)  
 sys.setdefaultencoding('utf8')
 
-postymls_dict = []
-postymls_sorted = []
-data_json = None
-data_categories = []
-
 templates_dir = '../templates'
-tpls = Environment(
-    loader=PackageLoader('modules', templates_dir)
+tpls = jinja2.Environment(
+    loader = jinja2.PackageLoader('modules', templates_dir)
 )
 
 
@@ -31,6 +26,11 @@ tpls = Environment(
 # -------------------------------------
 
 def maker(settings=None):
+    postymls_dict = []
+    postymls_sorted = []
+    data_json = None
+    data_categories = []
+
     if settings is not None:
         if os.path.isdir(settings['posts']):
             sortdates = []
@@ -42,9 +42,9 @@ def maker(settings=None):
                     yml_nam, yml_ext = os.path.splitext(yml)
                     yml_ext = yml_ext[1:]
                     
-                    if yml_ext in ('md','markdown','mdown','mkdn','mkd','mdwn','mdtxt','mdtext','text','txt','yml','yaml'):
+                    if yml_ext in ('md','markdown','mdown','mkdn','mkd','mdwn','mdtxt','mdtext','text','txt','yml','yaml','yamel'):
                         html = yml_nam + '.html'
-                        permalink = 'http://' + settings['domain'] + '/' + html
+                        permalink = ''.join(['http://', settings['domain'], '/', html])
                         postid = hashlib.sha1(yml).hexdigest()
 
                         with open(yml_path,'rt') as ymlfile:
@@ -86,17 +86,19 @@ def maker(settings=None):
                 site = dict(domain=settings['domain'], title=settings['site_title'])
                 data = dict(categories=categories, post=postymls_sorted, settings=site)
 
-                _htmls(data,settings['output'])
+                makeHTML(data,settings['output'])
+
+                print 'BLOGGEN: Your website is ready'
 
     else:
-        print 'BLOGGEN: You forgot your site settings'
+        print 'BLOGGEN: You forgot your website settings'
 
 
 # -------------------------------------
 # Make json and html's files
 # -------------------------------------
 
-def _filetoB64 (dirpath=None,sourcepath=None,raw=False):
+def filetoB64 (dirpath=None,sourcepath=None,raw=False):
     fstring = None
     fmime = None
     freturn = None
@@ -124,7 +126,7 @@ def _filetoB64 (dirpath=None,sourcepath=None,raw=False):
     return freturn
 
 
-def _encodesourcesHTML (dirpath=None):
+def encodeSources (dirpath=None):
     if (dirpath is not None) and os.path.isdir(dirpath):
         html_content = None
 
@@ -142,10 +144,17 @@ def _encodesourcesHTML (dirpath=None):
                     if html_content:
                         htmlBS = BeautifulSoup(html_content,'html.parser')
 
-                        for node in htmlBS.find_all('img'):
+                        for node in htmlBS.find_all(['img','video','audio','source']):
                             if node.name == 'img':
                                 srcpath = node.get('src')
-                                node['src'] = _filetoB64(dirpath,srcpath)
+                                node['src'] = filetoB64(dirpath,srcpath)
+
+                            if node.name in ('video','audio','source'):
+                                srcpath = node.get('src')
+                                node['src'] = filetoB64(dirpath,srcpath)
+
+                                posterpath = node.get('poster')
+                                node['poster'] = filetoB64(dirpath,posterpath)
 
                         html_content = htmlBS.renderContents()
 
@@ -153,7 +162,7 @@ def _encodesourcesHTML (dirpath=None):
                     write_html.write(html_content)
 
 
-def _htmls(data=None,output=None):
+def makeHTML(data=None,output=None):
     if len(data['post']) and (output is not None):
 
         # Make the output directory if not available
@@ -195,9 +204,5 @@ def _htmls(data=None,output=None):
                 page.write(tpl)
 
         # Encode base64 html's resources
-        _encodesourcesHTML(output)
-
-
-
-
+        encodeSources(output)
 

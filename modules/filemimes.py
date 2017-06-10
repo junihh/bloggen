@@ -3,8 +3,6 @@
 filemimes = dict(
     text = (
         'text/plain',
-        'text/x-python',
-        'text/x-script.phyton',
         'text/css',
         'text/html',
         'application/javascript',
@@ -20,8 +18,7 @@ filemimes = dict(
         'application/atom+xml',
         'application/xhtml+xml',
         'application/json',
-        'text/csv',
-        'application/vnd.groove-tool-template'
+        'text/csv'
     ),
 
     image = (
