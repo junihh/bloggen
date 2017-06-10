@@ -1,10 +1,8 @@
-from modules.bloggen import maker
+from modules.bloggen import Bloggen
 
-myBlog = dict(
-    domain='junihh.com', 
-    site_title='My bloggen test', 
-    posts='./posts', 
-    output='./output'
+Bloggen().make(
+    domain = 'junihh.com',
+    site_title = 'My bloggen test',
+    postdir = './posts', 
+    outputdir = './output'
 )
-
-maker(myBlog)

@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="es">
     <head>
-        <title>{{ post.title }}</title>
+        <title>{{ site_title }} | {{ post.title }}</title>
 
         {% include 'meta.tpl' %}
     </head>

@@ -9,7 +9,7 @@ from filemimes import filemimes
 
 
 # -------------------------------------
-# Global vars
+# Site setup
 # -------------------------------------
 
 reload(sys)  
@@ -22,116 +22,152 @@ tpls = jinja2.Environment(
 
 
 # -------------------------------------
-# Yaml-Markdown processing
+# Site maker
 # -------------------------------------
 
-def maker(settings=None):
-    postymls_dict = []
-    postymls_sorted = []
-    data_json = None
-    data_categories = []
+class Bloggen(object):
+    settings = None
+    datasite = None
 
-    if settings is not None:
-        if os.path.isdir(settings['posts']):
-            sortdates = []
+    def __init__(self):
+        pass
 
-            for yml in os.listdir(settings['posts']):
-                yml_path = os.path.join(settings['posts'],yml)
-                
-                if os.path.isfile(yml_path):
-                    yml_nam, yml_ext = os.path.splitext(yml)
-                    yml_ext = yml_ext[1:]
-                    
-                    if yml_ext in ('md','markdown','mdown','mkdn','mkd','mdwn','mdtxt','mdtext','text','txt','yml','yaml','yamel'):
-                        html = yml_nam + '.html'
-                        permalink = ''.join(['http://', settings['domain'], '/', html])
-                        postid = hashlib.sha1(yml).hexdigest()
+    def make(self,**settings):
+        postymls = []
+        sortdates = []
+        categories = []
 
-                        with open(yml_path,'rt') as ymlfile:
-                            content = []
-                            config = {}
-                            mrkdwn = None
+        settingsKeys = settings.keys()
+        if 'postdir' not in settingsKeys:
+            settings['postdir'] = './posts'
+        if 'outputdir' not in settingsKeys:
+            settings['outputdir'] = './output'
+        if 'domain' not in settingsKeys:
+            settings['domain'] = 'coolsite.me'
+        if 'site_title' not in settingsKeys:
+            settings['site_title'] = 'My cool website'
+        self.settings = settings
 
-                            for line in ymlfile:
-                                content.append(line)
+        if not os.path.exists(settings['postdir']):
+            os.makedirs(settings['postdir'])
 
-                            content = '\n'.join(content).split('======================================================')
-                            config = yaml.load(content[0])
-                            mrkdwn = content[1].strip()
-                            
-                            config.update({ 'id': postid })
-                            config.update({ 'file': html })
-                            config.update({ 'permalink': permalink })
-                            config.update({ 'date': config['date'].strftime('%Y-%m-%d') })
-                            config.update({ 'content': mrkdwn })
-
-                            configKeys = config.keys()
-                            if 'excerpt' in configKeys:
-                                config.update({ 'excerpt': config['excerpt'].replace('\n',' ') })
-                            if 'category' in configKeys:
-                                data_categories.append(config['category'])
-                            
-                            sortdates.append(config['date'])
-                            postymls_dict.append(config)
-
-            if len(postymls_dict):
-                sortdates = sorted(sortdates,reverse=True)
-                categories = sorted(list(set(data_categories)))
-
-                for d in sortdates:
-                    for r,row in enumerate(postymls_dict):
-                        if row['date'] == d:
-                            postymls_sorted.append(row)
-
-                site = dict(domain=settings['domain'], title=settings['site_title'])
-                data = dict(categories=categories, post=postymls_sorted, settings=site)
-
-                makeHTML(data,settings['output'])
-
-                print 'BLOGGEN: Your website is ready'
-
-    else:
-        print 'BLOGGEN: You forgot your website settings'
-
-
-# -------------------------------------
-# Make json and html's files
-# -------------------------------------
-
-def filetoB64 (dirpath=None,sourcepath=None,raw=False):
-    fstring = None
-    fmime = None
-    freturn = None
-
-    if (dirpath is not None) and (sourcepath is not None):
-        sourcepath = os.path.join(dirpath,sourcepath)
-
-        if os.path.isfile(sourcepath):
-            fmime = mimetypes.MimeTypes().guess_type(sourcepath)[0]
+        for yml in os.listdir(settings['postdir']):
+            yml_path = os.path.join(settings['postdir'],yml)
             
-            if fmime in (filemimes['text'] + filemimes['image'] + filemimes['audio'] + filemimes['video']):
-                with open(sourcepath,'rb') as f:
-                    fcontent = f.read()
-                    fstring = base64.encodestring(fcontent).replace('\n','')
+            if os.path.isfile(yml_path):
+                yml_nam, yml_ext = os.path.splitext(yml)
+                yml_ext = yml_ext[1:]
+                
+                if yml_ext in ('md','markdown','mdown','mkdn','mkd','mdwn','mdtxt','mdtext','text','txt','yml','yaml','yamel'):
+                    html = yml_nam + '.html'
+                    permalink = ''.join(['http://', settings['domain'], '/', html])
+                    postid = hashlib.sha1(yml).hexdigest()
 
-                    if raw:
-                        freturn = fstring
-                    else:
-                        freturn = ''.join(['data:',fmime,';base64,',fstring])
-            else:
-                freturn = sourcepath
+                    with open(yml_path,'rt') as ymlfile:
+                        content = []
+                        config = {}
+                        mrkdwn = None
+
+                        for line in ymlfile:
+                            content.append(line)
+
+                        content = '\n'.join(content).split('======================================================')
+                        config = yaml.load(content[0])
+                        mrkdwn = content[1].strip()
+                        
+                        config.update({ 'id': postid })
+                        config.update({ 'file': html })
+                        config.update({ 'permalink': permalink })
+                        config.update({ 'date': config['date'].strftime('%Y-%m-%d') })
+                        config.update({ 'content': mrkdwn })
+
+                        configKeys = config.keys()
+                        if 'excerpt' in configKeys:
+                            config.update({ 'excerpt': config['excerpt'].replace('\n',' ') })
+                        if 'category' in configKeys:
+                            categories.append(config['category'])
+                        
+                        sortdates.append(config['date'])
+                        postymls.append(config)
+
+        if len(postymls):
+            sortdates = sorted(sortdates,reverse=True)
+            categories = sorted(list(set(categories)))
+
+            postymls_sorted = []
+            for d in sortdates:
+                for r,row in enumerate(postymls):
+                    if row['date'] == d:
+                        postymls_sorted.append(row)
+
+            self.datasite = dict(
+                categories = categories,
+                post = postymls_sorted,
+                settings = dict(
+                    domain = settings['domain'],
+                    title = settings['site_title']
+                )
+            )
+
+            self.makeSiteFiles()
+            print 'BLOGGEN: Your website is ready.'
         else:
-            freturn = sourcepath
-
-    return freturn
+            print 'BLOGGEN: None post available. Please write some and save it into the "' + settings['postdir'] + '" directory.'
 
 
-def encodeSources (dirpath=None):
-    if (dirpath is not None) and os.path.isdir(dirpath):
+    def makeSiteFiles(self):
+        datasite = self.datasite
+        outputdir = self.settings['outputdir']
+        datasite_json = None
+
+        if not os.path.exists(outputdir):
+            os.makedirs(outputdir)
+
+        # Make the website json
+        with open(os.path.join(outputdir,'allpost.json'),'w') as j:
+            datjson = json.dumps(datasite,indent=2)
+            j.write(datjson)
+
+        # Remove all *.html files inside the output directory
+        for html in os.listdir(outputdir):
+            html_path = os.path.join(outputdir,html)
+            if os.path.isfile(html_path) and html.endswith('.html'):
+                os.remove(html_path)
+
+        # Output index.html
+        with open(os.path.join(outputdir,'index.html'),'w') as home:
+            dat = {
+                'site_title': datasite['settings']['title'],
+                'categories': datasite['categories'],
+                'rows': datasite['post']
+            }
+            tpl = tpls.get_template('home.tpl').render(dat)
+            home.write(tpl)
+
+        # Output all post html's
+        for row in datasite['post']:
+            with open(os.path.join(outputdir,row['file']),'w') as page:
+                row['image'] = row['image'] if ('image' in row.keys()) else None
+                row['content'] = mistune.markdown(row['content']) if ('content' in row.keys()) else None
+                dat = {
+                    'site_title': datasite['settings']['title'],
+                    'categories': datasite['categories'],
+                    'post': row
+                }
+                tpl = tpls.get_template('post.tpl').render(dat)
+                page.write(tpl)
+
+        # Encode to base64 all images paths
+        self.encodeImages()
+
+
+    def encodeImages(self):
+        outputdir = self.settings['outputdir']
+        filetoB64 = self.filetoB64
         html_content = None
 
-        for htmlfile in os.listdir(dirpath):
-            htmlfile_path = os.path.join(dirpath,htmlfile)
+        for htmlfile in os.listdir(outputdir):
+            htmlfile_path = os.path.join(outputdir,htmlfile)
 
             if os.path.isfile(htmlfile_path) and htmlfile.endswith('.html'):
                 with open(htmlfile_path,'rt') as read_html:
@@ -144,17 +180,10 @@ def encodeSources (dirpath=None):
                     if html_content:
                         htmlBS = BeautifulSoup(html_content,'html.parser')
 
-                        for node in htmlBS.find_all(['img','video','audio','source']):
+                        for node in htmlBS.find_all('img'):
                             if node.name == 'img':
                                 srcpath = node.get('src')
-                                node['src'] = filetoB64(dirpath,srcpath)
-
-                            if node.name in ('video','audio','source'):
-                                srcpath = node.get('src')
-                                node['src'] = filetoB64(dirpath,srcpath)
-
-                                posterpath = node.get('poster')
-                                node['poster'] = filetoB64(dirpath,posterpath)
+                                node['src'] = filetoB64(srcpath)
 
                         html_content = htmlBS.renderContents()
 
@@ -162,47 +191,31 @@ def encodeSources (dirpath=None):
                     write_html.write(html_content)
 
 
-def makeHTML(data=None,output=None):
-    if len(data['post']) and (output is not None):
+    def filetoB64(self,sourcepath=None,raw=False):
+        outputdir = self.settings['outputdir']
+        fstring = None
+        fmime = None
+        freturn = None
 
-        # Make the output directory if not available
-        if not os.path.exists(output):
-            os.makedirs(output)
+        if sourcepath is not None:
+            sourcepath = os.path.join(outputdir,sourcepath)
 
-        # Remove all *.html files inside output directory
-        for html in os.listdir(output):
-            html_path = os.path.join(output,html)
-            if os.path.isfile(html_path) and html.endswith('.html'):
-                os.remove(html_path)
+            if os.path.isfile(sourcepath):
+                fmime = mimetypes.MimeTypes().guess_type(sourcepath)[0]
+                
+                if fmime in (filemimes['text'] + filemimes['image'] + filemimes['audio'] + filemimes['video']):
+                    with open(sourcepath,'rb') as f:
+                        fcontent = f.read()
+                        fstring = base64.encodestring(fcontent).replace('\n','')
 
-        # Make the website json
-        with open(os.path.join(output,'allpost.json'),'w') as j:
-            data_json = json.dumps(data,indent=2)
-            j.write(data_json)
+                        if raw:
+                            freturn = fstring
+                        else:
+                            freturn = ''.join(['data:',fmime,';base64,',fstring])
+                else:
+                    freturn = sourcepath
+            else:
+                freturn = sourcepath
 
-        # Output index.html
-        with open(os.path.join(output,'index.html'),'w') as home:
-            dat = {
-                'site_title': data['settings']['title'],
-                'categories': data['categories'],
-                'rows': data['post']
-            }
-            tpl = tpls.get_template('home.tpl').render(dat)
-            home.write(tpl)
-
-        # Output all post html's
-        for row in data['post']:
-            with open(os.path.join(output,row['file']),'w') as page:
-                row['image'] = row['image'] if ('image' in row.keys()) else None
-                row['content'] = mistune.markdown(row['content']) if ('content' in row.keys()) else None
-                dat = {
-                    'site_title': data['settings']['title'],
-                    'categories': data['categories'],
-                    'post': row
-                }
-                tpl = tpls.get_template('post.tpl').render(dat)
-                page.write(tpl)
-
-        # Encode base64 html's resources
-        encodeSources(output)
+        return freturn
 
