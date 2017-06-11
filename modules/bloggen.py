@@ -36,6 +36,7 @@ class Bloggen(object):
         postymls = []
         sortdates = []
         categories = []
+        postdir = None
 
         settingsKeys = settings.keys()
         if 'postdir' not in settingsKeys:
@@ -47,12 +48,13 @@ class Bloggen(object):
         if 'site_title' not in settingsKeys:
             settings['site_title'] = 'My cool website'
         self.settings = settings
+        postdir = settings['postdir']
 
-        if not os.path.exists(settings['postdir']):
-            os.makedirs(settings['postdir'])
+        if not os.path.exists(postdir):
+            os.makedirs(postdir)
 
-        for yml in os.listdir(settings['postdir']):
-            yml_path = os.path.join(settings['postdir'],yml)
+        for yml in os.listdir(postdir):
+            yml_path = os.path.join(postdir,yml)
             
             if os.path.isfile(yml_path):
                 yml_nam, yml_ext = os.path.splitext(yml)
@@ -110,9 +112,9 @@ class Bloggen(object):
             )
 
             self.makeSiteFiles()
-            print 'BLOGGEN: Your website is ready.'
+            print 'BLOGGEN [OK]: Your website is ready.'
         else:
-            print 'BLOGGEN: None post available. Please write some and save it into the "' + settings['postdir'] + '" directory.'
+            print 'BLOGGEN [WARNING]: None post available. Write some and save it into the "' + os.path.abspath(postdir) + '" directory.'
 
 
     def makeSiteFiles(self):
@@ -163,7 +165,6 @@ class Bloggen(object):
 
     def encodeImages(self):
         outputdir = self.settings['outputdir']
-        filetoB64 = self.filetoB64
         html_content = None
 
         for htmlfile in os.listdir(outputdir):
@@ -183,7 +184,7 @@ class Bloggen(object):
                         for node in htmlBS.find_all('img'):
                             if node.name == 'img':
                                 srcpath = node.get('src')
-                                node['src'] = filetoB64(srcpath)
+                                node['src'] = self.filetoB64(srcpath)
 
                         html_content = htmlBS.renderContents()
 
@@ -195,7 +196,7 @@ class Bloggen(object):
         outputdir = self.settings['outputdir']
         fstring = None
         fmime = None
-        freturn = None
+        b64 = None
 
         if sourcepath is not None:
             sourcepath = os.path.join(outputdir,sourcepath)
@@ -209,13 +210,13 @@ class Bloggen(object):
                         fstring = base64.encodestring(fcontent).replace('\n','')
 
                         if raw:
-                            freturn = fstring
+                            b64 = fstring
                         else:
-                            freturn = ''.join(['data:',fmime,';base64,',fstring])
+                            b64 = ''.join(['data:',fmime,';base64,',fstring])
                 else:
-                    freturn = sourcepath
+                    b64 = sourcepath
             else:
-                freturn = sourcepath
+                b64 = sourcepath
 
-        return freturn
+        return b64
 
