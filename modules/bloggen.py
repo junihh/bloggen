@@ -199,7 +199,7 @@ class Bloggen(object):
         b64 = None
 
         if sourcepath is not None:
-            sourcepath = os.path.join(outputdir,sourcepath)
+            sourcepath = os.path.abspath(os.path.join(outputdir,sourcepath))
 
             if os.path.isfile(sourcepath):
                 fmime = mimetypes.MimeTypes().guess_type(sourcepath)[0]
