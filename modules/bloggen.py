@@ -159,7 +159,7 @@ class Bloggen(object):
                 tpl = tpls.get_template('post.tpl').render(dat)
                 page.write(tpl)
 
-        # Encode to base64 all images paths
+        # Encode to base64 all images from html's
         self.encodeImages()
 
 
