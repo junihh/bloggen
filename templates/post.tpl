@@ -6,23 +6,24 @@
         {% include 'meta.tpl' %}
     </head>
     <body>
-        <div class="blog">
+        {% include 'header.tpl' %}
+        
+        <div class="center">
             <div class="margins">
-                {% include 'header.tpl' %}
                 <article class="post" data-pagetype="post">
                     <header class="post-header">
                         <h2>{{ post.title }}</h2>
                         <div class="meta">
+                            <a href="index.html?category={{ post.category }}" data-category="{{ post.category }}" class="category">{{ post.category }}</a>
                             <time>{{ post.date }}</time>
-                            <a href="index.html?category={{ post.category }}" data-category="{{ post.category }}">{{ post.category }}</a>
                         </div>
                     </header>
-                    {% if post.image %}
-                    <figure class="post-image">
-                        <img src="{{ post.image }}" alt="{{ post.title }}" width="1280" height="650">
-                    </figure>
-                    {% endif %}
                     <div class="post-content">
+                        {% if post.image %}
+                        <figure class="post-image">
+                            <img src="{{ post.image }}" alt="{{ post.title }}" width="1280" height="650">
+                        </figure>
+                        {% endif %}
                         {{ post.content }}
                     </div>
                     {% if post.moreinfo %}
@@ -40,6 +41,9 @@
             </div>
         </div>
 
-        {% include 'jscripts.tpl' %}
+        <script src="resources/js/bloggen.js"></script>
+        <script>
+            bloggen.categoriesNav();
+        </script>
     </body>
 </html>

@@ -1,61 +1,97 @@
 {
   "categories": [
-    "javascript", 
-    "python"
+    "anime", 
+    "movie"
   ], 
   "post": [
     {
-      "title": "Uchi no Musume no Tame Naraba, Ore wa Moshikashitara Mao mo Taoseru Kamo Shirenai", 
-      "date": "2017-03-05", 
-      "category": "javascript", 
-      "author": "Junior Hern\u00e1ndez", 
-      "excerpt": "Convertirse en padre de repente creo nunca ser\u00e1 una noticia bienvenida pero volverse padre de Latina, la ni\u00f1a de raza demonio, ser\u00eda una noticia muy grata y orgullo para cualquier humano o demonio.", 
+      "title": "Koe no Katachi", 
+      "date": "2017-05-28", 
+      "category": "movie", 
+      "author": "MyAnimeList", 
+      "image": "resources/photos/koe-no-katachi.jpg", 
+      "excerpt": "As a wild youth, elementary school student Shouya Ishida sought to beat boredom in the cruelest ways. When the deaf Shouko Nishimiya transfers into his class, Shouya and the rest of his class thoughtlessly bully her for fun.", 
       "moreinfo": {
-        "A\u00f1o": 2016, 
-        "T\u00edtulos": "\u201cUchi no Musume no Tame Naraba, Ore wa Moshikashitara Mao mo Taoseru Kamo Shirenai\u201d, \u201cFor my daughter, I might even be able to defeat the Demon King\u201d.", 
-        "Cap\u00edtulos": "En publicaci\u00f3n"
+        "Aired": 2016, 
+        "Titles": "\u201cKoe no Katachi\u201d, \u201cA Silent Voice\u201d, \u201cThe Shape of Voice\u201d, \u201cA Silent Voice The Movie\u201d,", 
+        "Episodes": 1
       }, 
-      "id": "5ae9fb7b6891452a7d71dab198027fa0469c5a57", 
-      "file": "for-my-daughter.html", 
-      "permalink": "http://junihh.com/for-my-daughter.html", 
-      "content": "Convertirse en padre de repente creo nunca ser\u00e1 una noticia bienvenida pero volverse padre de Latina, la ni\u00f1a de raza demonio, ser\u00eda una noticia muy grata y orgullo para cualquier humano o demonio.\n\n\n\nLa ni\u00f1a se acerc\u00f3 se acerc\u00f3 a Dale, encontr\u00e1ndose esta desamparada y con hambre, en busca de ayuda. Dale ve que uno de los cuernos de Latina est\u00e1 roto, una marca de los demonios para indicar que el individuo es criminal. Esto lo conduele, porque no resulta razonable para nadie que una ni\u00f1a tan indefensa sea una criminal, as\u00ed que se hace cargo de ella.\n\n\n\nEl primer cap\u00edtulo de este manga fue enternecedor, atrayendome especialmente la humildad con que Latina se desenvolvi\u00f3 frente a extra\u00f1os. De hecho, mientras se desarrollan los cap\u00edtulos y aprende nuestro idioma, conocemos a una ni\u00f1a amorosa, tierna, dedicada, emprendedora y muy inteligente. De inicio no entend\u00eda nada de lo que los humanos conversaban por solo entender el idioma demonio.\n\n\n\nAl momento de escribir este post el manga va por su 7mo. cap\u00edtulo y la verdad no quiero perderme ni uno solo en la medida que se vayan publicando los siguientes. Su autor, Chirolu, ha conseguido dise\u00f1ar personajes con los que nos identificamos de alguna forma. Su origen fue como una novela ligera publicada en la web por el mismo autor.\n\n\n\nLa qu\u00edmica entre Dale y Latina, junto a la ayuda y consejos que les ofrecen Kenneth y Rita, los due\u00f1os de la hoster\u00eda donde se hospedan, hacen de este manga elementos que lo hacen f\u00e1cil de leer y disfrutar.\n\n\n\nDeben leerlo pero los lolicones no son bienvenidos. Este manga no es para ustedes y si se atreven a leerlo la muerte en persona les presentar\u00e1 batalla. ;-)"
+      "id": "70771f39de7cad4f7c4eb74d5f6d3f1c1c7d0ec6", 
+      "file": "koe-no-katachi.html", 
+      "permalink": "http://junihh.com/koe-no-katachi.html", 
+      "content": "As a wild youth, elementary school student Shouya Ishida sought to beat boredom in the cruelest ways. When the deaf Shouko Nishimiya transfers into his class, Shouya and the rest of his class thoughtlessly bully her for fun. \n\n\n\nHowever, when her mother notifies the school, he is singled out and blamed for everything done to her. With Shouko transferring out of the school, Shouya is left at the mercy of his classmates. He is heartlessly ostracized all throughout elementary and middle school, while teachers turn a blind eye.\n\n\n\nNow in his third year of high school, Shouya is still plagued by his wrongdoings as a young boy. Sincerely regretting his past actions, he sets out on a journey of redemption: to meet Shouko once more and make amends.\n\n\n\nKoe no Katachi tells the heartwarming tale of Shouya's reunion with Shouko and his honest attempts to redeem himself, all while being continually haunted by the shadows of his past."
+    }, 
+    {
+      "title": "Tokyo Magnitude 8.0", 
+      "date": "2017-05-02", 
+      "category": "anime", 
+      "author": "MyAnimeList", 
+      "image": "resources/photos/tokyo-magnitude-8.jpg", 
+      "excerpt": "Middle school student Mirai Onozawa is dissatisfied with her family circumstances and, in a moment of frustration, wishes to tear everything apart. Unfortunately, these destructive thoughts seem to come true in the form of a magnitude 8.0 earthquake just a few moments later.", 
+      "moreinfo": {
+        "Aired": 2009, 
+        "Titles": "\u201cTokyo Magnitude 8.0\u201d.", 
+        "Episodes": 11
+      }, 
+      "id": "b606174f36a875bfa5fe77048257fa0d99e8ecc0", 
+      "file": "tokyo-magniyude-8.html", 
+      "permalink": "http://junihh.com/tokyo-magniyude-8.html", 
+      "content": "Middle school student Mirai Onozawa is dissatisfied with her family circumstances and, in a moment of frustration, wishes to tear everything apart. Unfortunately, these destructive thoughts seem to come true in the form of a magnitude 8.0 earthquake just a few moments later.\n\n\n\nWhen summer vacation begins, Mirai reluctantly takes her younger brother Yuuki to Odaiba, where a robot exhibition that he wanted to go to is being held. However, while they are in the exhibition center, the fury of a major earthquake shakes the Kanto region; helpless, both kids witness the devastating power of this natural disaster as it brings the city to its knees.\n\n\n\nIn its aftermath, they stumble upon Mari Kusakabe, a motorcyclist and single mother who decides to help the young siblings. Aiming to return to their homes and reunite with their families, the group sets off on a long and hard journey through the decimated city."
     }, 
     {
       "title": "Kure-nai", 
-      "date": "2017-02-26", 
-      "category": "javascript", 
-      "author": "Junior Hern\u00e1ndez", 
+      "date": "2017-02-16", 
+      "category": "anime", 
+      "author": "MyAnimeList", 
       "image": "resources/photos/kure-nai.jpg", 
-      "excerpt": "Shinkurou Kurenai es un chico que trabaja como \u201cintermediario\u201d en una organizaci\u00f3n lidereada por la hermos\u00edsima Benika Juuzawa. Su trabajo es mediar y proteger a los clientes con conflictos que contratan la organizaci\u00f3n.", 
+      "excerpt": "After losing his family in a tragic terrorist attack when he was but a child, the main protagonist of Kure-nai, Shinkurou Kurenai, made a pact to stay strong no matter what.", 
       "moreinfo": {
-        "A\u00f1o": 2008, 
-        "T\u00edtulos": "\u201cKure-nai\u201d, \u201cKurenai\u201d, \u201cCrimson\u201d.", 
-        "Episodios": 12
+        "Aired": 2008, 
+        "Titles": "\u201cKure-nai\u201d, \u201cKurenai\u201d, \u201cCrimson\u201d.", 
+        "Episodes": 12
       }, 
       "id": "0f093e3d0e4a94e013b04fea98439e560b1be945", 
       "file": "kure-nai.html", 
       "permalink": "http://junihh.com/kure-nai.html", 
-      "content": "Shinkurou Kurenai es un chico que trabaja como \u201cintermediario\u201d en una organizaci\u00f3n lidereada por la hermos\u00edsima Benika Juuzawa. Su trabajo es mediar y proteger a los clientes con conflictos que contratan la organizaci\u00f3n.\n\n\n\nSiendo ni\u00f1o perdio a sus padres en un ataque terrorista contra un aeropuerto. Benika lo lleva a la familia Houzuki quienes se encargan de cuidarlo hasta que decide independizarse debido a los trabajos que le da Benika por sus conocimientos de artes marciales aprendidos en el dojo de los Houzuki.\n\n\n\nEn este anime Shinkurou debe proteger a Murasaki Kuhouin, una ni\u00f1a proveniente de la familia m\u00e1s rica y poderosa de la regi\u00f3n. De inicio para \u00e9l es un trabajo m\u00e1s. Tiene que hospedarla en su piso, cosa que no resulta de su agrado, sumando al desagrado los irrespetuosos comportamientos de ni\u00f1a rica y sobreprotegida de Murasaki.\n\n\n\nLa familia Kuhouin esconde un horrendo secreto que esclaviza a todas sus hijas, que entre otras cosas son obligadas a vivir toda su vida en lo que llaman \u201cEl santuario interior\u201d. Gracias al poderio econ\u00f3mico y pol\u00edtico de la familia logran esconder y perpetuar su secreto de miradas externas pero Benika y Shinkurou est\u00e1n dispuestos a proteger a la ni\u00f1a de su destino como resultado de una promesa que hizo Benika a Souju Kuhouin, la madre de Murasaki.\n\n\n\nMe luce que tal poderio se deba a que son yakuzas pero el anime no deja claro si lo son.\n\n\n\nLa historia es conmovedora y su final, aunque de primera impresi\u00f3n un tanto decepcionante, es razonablemente correcto. Murasaki simplemente quer\u00eda un cambio.\n\n\n\nLa animaci\u00f3n de Kure-nai, los car\u00e1cteres, las ilustraciones y la forma como es llevada la historia fueron magistralmente acabados. Fue dirigida por Kou Matsuo, el mismo director de Red Garden.\n\n\n\nEs una de mis favoritas por todo lo dicho en el p\u00e1rrafo anterior. No la dejes pasar porque de seguro te conmover\u00e1 tanto como a m\u00ed."
+      "content": "After losing his family in a tragic terrorist attack when he was but a child, the main protagonist of Kure-nai, Shinkurou Kurenai, made a pact to stay strong no matter what.\n\n\n\nNow a high school student, he works with Benika as a mediator and lives with the Houzuki family, training and gradually mastering the family martial arts. Together with other members of the team, Shinkurou aims to aid those who seek his help.\n\n\n\nOne day, Benika brings a beautiful 7-year-old girl from a wealthy family, Murasaki Kuhouin, to the Houzuki house. When Shinkurou asks for a more challenging mission, he is left with the task of guarding this young lady. At first, he takes these orders for granted. However, when he comes home to find that Murasaki is gone, he panics, frantically running around to search for her. \n\n\n\nThankfully, he soon finds her, and from that moment on, a bond between Murasaki and Shinkurou is formed that is sure to evolve into something more. Will Murasaki be able to help Shinkurou get past his tragic past? Or is it the other way around? How will these two face the challenges sure to come their way?"
+    }, 
+    {
+      "title": "Hoshi wo Ou Kodomo", 
+      "date": "2016-03-18", 
+      "category": "movie", 
+      "author": "MyAnimeList", 
+      "image": "resources/photos/hoshi-wo-ou-kodomo.jpg", 
+      "excerpt": "Strange sounds in the darkness... Unearthly music from an old crystal radio... These are all the warning Asuna Watase has before a simple walk to her clubhouse catapults her into a nightmarish adventure that will take her beneath the Earth to a lost land beyond the realm of legend!", 
+      "moreinfo": {
+        "Aired": 2011, 
+        "Titles": "\u201cHoshi wo Ou Kodomo\u201d, \u201cChildren Who Chase Lost Voices\u201d, \u201cChildren who Chase Lost Voices from Deep Below\u201d, \u201cJourney to Agartha\u201d.", 
+        "Episodes": 1
+      }, 
+      "id": "268a0c51bf7cbd9db93cdc4ccb7781a67f30ec87", 
+      "file": "hoshi-wo-ou-kodomo.html", 
+      "permalink": "http://junihh.com/hoshi-wo-ou-kodomo.html", 
+      "content": "Strange sounds in the darkness... Unearthly music from an old crystal radio... \n\n\n\nThese are all the warning Asuna Watase has before a simple walk to her clubhouse catapults her into a nightmarish adventure that will take her beneath the Earth to a lost land beyond the realm of legend! \n\n\n\nAttacked by a strange monstrous creature, rescued by a mysterious stranger and pursued by a relentless enemy, Asuna finds herself enmeshed in a centuries old mystery that will bind her to a strange young defender and lead her inevitably, towards a secret that may hold the key to life itself!"
     }, 
     {
       "title": "Red Garden", 
-      "date": "2017-02-25", 
-      "category": "python", 
-      "author": "Junior Hern\u00e1ndez", 
-      "excerpt": "Despiertas y aunque te sientes extra\u00f1o debes continuar viviendo de la forma tan aburrida y on\u00edrica como de costumbre. Entonces te das cuenta que ya las cosas que hac\u00edas te dan igual. Hasta puedes ver qu\u00e9 tan in\u00fatil eras.", 
+      "date": "2016-02-17", 
+      "category": "anime", 
+      "author": "MyAnimeList", 
+      "image": "resources/photos/red-garden.jpg", 
+      "excerpt": "Strange suicides have been taking place in New York. One day, four girls from the same high school wake up in the morning feeling tired and dizzy and not being able to remember anything about the previous night.", 
       "moreinfo": {
-        "A\u00f1o": 2007, 
-        "T\u00edtulos": "\u201cRed Garden\u201d, \u201cRG\u201d.", 
-        "Episodios": 22
+        "Aired": 2007, 
+        "Titles": "\u201cRed Garden\u201d, \u201cRG\u201d.", 
+        "Episodes": 22
       }, 
       "id": "95ba1b04734dbf71edd446a4c0c81e519ca76662", 
       "file": "red-garden.html", 
       "permalink": "http://junihh.com/red-garden.html", 
-      "content": "Despiertas y aunque te sientes extra\u00f1o debes continuar viviendo de la forma tan aburrida y on\u00edrica como de costumbre. Entonces te das cuenta que ya las cosas que hac\u00edas te dan igual. Hasta puedes ver qu\u00e9 tan in\u00fatil eras.\n\n\n\nFue as\u00ed como Kate, Rachel, Claire y Rose, cuatro chicas hastiadas de sus vidas, todas hijas de familias adineradas y estudiantes del mismo instituto se conectan para desentra\u00f1ar de qu\u00e9 forma deber\u00e1n vivir en su nuevo estado. Todo bajo la mirada fr\u00eda y calculadora de Lula, el personaje que m\u00e1s tarde les dar\u00e1 una explicaci\u00f3n clara a las chicas de lo sucedido.\n\n\n\nLa historia se extiende bastante en este anime de 22 episodios (que pudo ser m\u00e1s corto). Tiene momentos en los que parece estancarse y hasta se vuelve aburrido, pero mientras avanza te das cuenta que el director Kou Matsuo solo quiso sentar bases para lo que ver\u00e1s en los episodios finales.\n\n\n\nCon lo dicho solo he dado tantas vueltas que simplemente no he dicho nada. El tema suena id\u00e9ntico a los tantos cliches a los que nos tienen acostumbrados los productores de anime pero cr\u00e9anme, luego de conocerse contra qu\u00e9 pelean estas chicas y lo abusivo de su situaci\u00f3n poco a poco comenzamos a interesarnos por lo que vendr\u00e1.\n\n\n\nNo entra en mi lista personal de animes favoritos pero lo recomiendo a cualquier persona que guste de las historias de misterio con elementos sobrenaturales."
+      "content": "Strange suicides have been taking place in New York. One day, four girls from the same high school wake up in the morning feeling tired and dizzy and not being able to remember anything about the previous night. In school, they find out that one of their classmates has committed suicide. \n\n\n\nSchool is canceled for the rest of the day, but instead of going home, the girls are drawn to a park by butterflies only they can see. \n\n\n\nSuddenly a man and a woman approach the girls, telling them that they all died the previous night."
     }
   ], 
   "settings": {
     "domain": "junihh.com", 
-    "title": "My bloggen test"
+    "title": "My anime blog"
   }
 }

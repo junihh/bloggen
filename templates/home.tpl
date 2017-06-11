@@ -6,16 +6,25 @@
         {% include 'meta.tpl' %}
     </head>
     <body>
-        <div class="blog">
+        {% include 'header.tpl' %}
+
+        <div class="search-box">
+            <div class="center">
+                <div class="margins">
+                    <input type="text" placeholder="search the content below" name="input-search" id="input-search">
+                </div>
+            </div>
+        </div>
+        
+        <div class="center">
             <div class="margins">
-                {% include 'header.tpl' %}
-                <main class="home" data-pagetype="home">
+                <main class="home" data-pagetype="home" id="post-list">
                     {% for row in rows %}
                     <article data-filter="{{ row.category }}">
-                        <h2><a href="{{ row.file }}" class="title">{{ row.title }}</a></h2>
+                        <h2 class="title"><a href="{{ row.file }}">{{ row.title }}</a></h2>
                         <div class="meta">
+                            <a href="index.html?category={{ row.category }}" data-category="{{ row.category }}" class="category">{{ row.category }}</a>
                             <time>{{ row.date }}</time>
-                            <a href="index.html?category={{ row.category }}" data-category="{{ row.category }}">{{ row.category }}</a>
                         </div>
                         {% if row.excerpt %}
                         <p>{{ row.excerpt }}</p>
@@ -27,6 +36,10 @@
             </div>
         </div>
 
-        {% include 'jscripts.tpl' %}
+        <script src="resources/js/bloggen.js"></script>
+        <script>
+            bloggen.categoriesNav();
+            bloggen.homeSearch();
+        </script>
     </body>
 </html>
