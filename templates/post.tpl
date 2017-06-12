@@ -26,12 +26,12 @@
                         {% endif %}
                         {{ post.content }}
                     </div>
-                    {% if post.moreinfo %}
+                    {% if post.inshort %}
                     <div class="post-info">
                         <h3>In short</h3>
                         <ul>
-                            {% for row in post.moreinfo %}
-                            <li><strong>{{ row }}:</strong> {{ post.moreinfo[row] }}</li>
+                            {% for row in post.inshort %}
+                            <li><strong>{{ row }}:</strong> {{ post.inshort[row] }}</li>
                             {% endfor %}
                         </ul>
                     </div>

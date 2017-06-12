@@ -13,20 +13,29 @@
 <link href="resources/css/styles.css" media="screen" rel="stylesheet" type="text/css"/>
 </head>
 <body>
-<header class="blog-header">
+<header class="site-header">
 <div class="center">
 <div class="margins">
 <div class="table">
 <div class="cell">
-<h1>My anime blog</h1>
+<h1 class="site-title">
+<a href="index.html">My anime blog</a>
+</h1>
 </div>
-<nav class="cell" id="site-nav">
+<div class="cell">
+<nav class="site-nav" id="site-nav">
+<a class="nav-button" href="javascript:;" id="nav-button">
+<span></span>
+<span></span>
+<span></span>
+</a>
 <ul>
 <li><a data-category="home" href="index.html">home</a></li>
 <li><a data-category="anime" href="index.html?category=anime">anime</a></li>
 <li><a data-category="movie" href="index.html?category=movie">movie</a></li>
 </ul>
 </nav>
+</div>
 </div>
 </div>
 </div>
@@ -58,7 +67,7 @@
 </ul>
 </div>
 </article>
-<footer class="blog-footer">
+<footer class="site-footer">
 <p>with ♥ by bloggen team</p>
 </footer>
 </div>

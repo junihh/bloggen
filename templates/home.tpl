@@ -22,13 +22,12 @@
                     {% for row in rows %}
                     <article data-filter="{{ row.category }}">
                         <h2 class="title"><a href="{{ row.file }}">{{ row.title }}</a></h2>
-                        <div class="meta">
-                            <a href="index.html?category={{ row.category }}" data-category="{{ row.category }}" class="category">{{ row.category }}</a>
-                            <time>{{ row.date }}</time>
-                        </div>
                         {% if row.excerpt %}
                         <p>{{ row.excerpt }}</p>
                         {% endif %}
+                        <p class="read-more">
+                            <a href="{{ row.file }}">Read more</a>
+                        </p>
                     </article>
                     {% endfor %}
                 </main>

@@ -1,18 +1,27 @@
-<header class="blog-header">
+<header class="site-header">
                     <div class="center">
                         <div class="margins">
                             <div class="table">
                                 <div class="cell">
-                                    <h1>{{ site_title }}</h1>
+                                    <h1 class="site-title">
+                                        <a href="index.html">{{ site_title }}</a>
+                                    </h1>
                                 </div>
-                                <nav class="cell" id="site-nav">
-                                    <ul>
-                                        <li><a href="index.html" data-category="home">home</a></li>
-                                        {% for category in categories %}
-                                        <li><a href="index.html?category={{ category }}" data-category="{{ category }}">{{ category }}</a></li>
-                                        {% endfor %}
-                                    </ul>
-                                </nav>
+                                <div class="cell">
+                                    <nav class="site-nav" id="site-nav">
+                                        <a href="javascript:;" class="nav-button" id="nav-button">
+                                            <span></span>
+                                            <span></span>
+                                            <span></span>
+                                        </a>
+                                        <ul>
+                                            <li><a href="index.html" data-category="home">home</a></li>
+                                            {% for category in categories %}
+                                            <li><a href="index.html?category={{ category }}" data-category="{{ category }}">{{ category }}</a></li>
+                                            {% endfor %}
+                                        </ul>
+                                    </nav>
+                                </div>
                             </div>
                         </div>
                     </div>

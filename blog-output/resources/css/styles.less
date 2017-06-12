@@ -1,19 +1,20 @@
 
+// ================================
+// Less setup
+// ================================
+
 @colorBlueLight: #ECF0F1;
 @colorBlueDark: #33485F;
 @colorGrayLight: #CCC;
 @colorGrayDark: #666;
 @basicMargin: 25px;
 
-* {
-    margin: 0;
-    padding: 0;
-    border: 0;
-    vertical-align: baseline;
-    -webkit-tap-highlight-color: rgba(0,0,0,0);
-    list-style: none;
-    outline: 0;
-}
+
+// ================================
+// Site setup
+// ================================
+
+html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,img,ins,kbd,q,s,samp,small,strike,strong,sub,sup,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td,hr,input,textarea,article,aside,canvas,details,embed,figure,figcaption,footer,header,hgroup,menu,nav,output,ruby,section,summary,time,mark,audio,video{margin:0;padding:0;border:0;font-size:100%;font:inherit;vertical-align:baseline;-webkit-tap-highlight-color:rgba(0,0,0,0)}article,aside,details,figcaption,figure,footer,header,hgroup,menu,nav,section{display:block}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outline:0}ins,blink{text-decoration:none}a img,:link img,:visited img{border:none}del{text-decoration:line-through}marquee{overflow:inherit !important;-moz-binding:none}input,textarea,select{vertical-align:middle}select{-webkit-appearance:menulist-text}table{border-collapse:collapse;border-spacing:0}hr{color:#000;background-color:#000;height:1px}
 
 html {
     position: relative;
@@ -22,7 +23,7 @@ html {
     color: #666;
 }
 
-.transitions, a, .page {
+.transitions {
     -webkit-transition: all 0.3s ease-out;
     -moz-transition: all 0.3s ease-out;
     -ms-transition: all 0.3s ease-out;
@@ -30,6 +31,7 @@ html {
 }
 
 a {
+    &:extend(.transitions);
     color: #000;
     text-decoration: underline;
 }
@@ -50,17 +52,20 @@ header, footer, nav, article, main {
 
 .center {
     max-width: 840px;
-    min-width: 280px;
+    min-width: 300px;
     margin: 0 auto;
 }
 .margins {
     padding: 0 @basicMargin;
 }
 
-.blog-header {
-    // margin-bottom: 50px;
+.site-header {
     border-bottom: solid 1px @colorBlueLight;
     background-color: @colorBlueDark;
+
+    &, .site-title, .table, .cell {
+        &:extend(.transitions);
+    }
     
     .table, .cell {
         display: -webkit-flex;
@@ -85,31 +90,61 @@ header, footer, nav, article, main {
         }
     }
 
-    h1 {
+    .site-title {
         font-size: 1.4rem;
-        color: #FFF;
-    }
-
-    li {
-        display: inline-block;
-
+        line-height: 120%;
+        
         a {
-            display: block;
-            padding: 2px 6px;
-            border-radius: 4px;
-            background-color: transparent;
-            font-size: 0.8rem;
             color: #FFF;
             text-decoration: none;
-            text-transform: capitalize;
-            text-align: center;
-            font-weight: 300;
+        }
+    }
+}
 
-            &:active, &.active {
-                background-color: #FFF;
-                color: @colorBlueDark;
-                font-weight: 400;
+.site-nav {
+    position: relative;
+
+    a, span {
+        display: block;
+    }
+    
+    .nav-button, [data-category] {
+        border-radius: 4px;
+    }
+    .nav-button {
+        overflow: hidden;
+        width: 50px;
+        height: 35px;
+        background-color: #FFF;
+        display: none;
+
+        span {
+            margin: 3px auto 0;
+            width: 20px;
+            height: 3px;
+            background-color: @colorBlueDark;
+
+            &:first-child {
+                margin-top: 10px;
             }
+        }
+    }
+    li {
+        display: inline-block;
+    }
+    [data-category] {
+        padding: 8px 10px;
+        background-color: transparent;
+        font-size: 0.8rem;
+        color: #FFF;
+        text-decoration: none;
+        text-transform: capitalize;
+        text-align: center;
+        font-weight: 400;
+
+        &:active, &.active {
+            background-color: #FFF;
+            color: @colorBlueDark;
         }
     }
 }
@@ -123,7 +158,7 @@ header, footer, nav, article, main {
     }
 }
 
-.blog-footer {
+.site-footer {
     margin: 100px 0 @basicMargin;
 
     p {
@@ -136,7 +171,7 @@ header, footer, nav, article, main {
 
 
 // ==========================
-// Pages
+// Site pages
 // ==========================
 
 .meta {
@@ -166,24 +201,16 @@ header, footer, nav, article, main {
 
 .home, .post {
     margin-top: 50px;
+    &:extend(.transitions);
 }
 
 .home {
     article {
+        overflow: hidden;
         position: relative;
-        padding-left: 20px;
         margin-bottom: 40px;
-
-        &::before {
-            position: absolute;
-            left: 0;
-            top: 7px;
-            width: 10px;
-            height: 10px;
-            background-color: @colorBlueDark;
-            border-radius: 10px;
-            content: '';
-        }
+        padding-top: 15px;
+        border-top: solid 1px @colorBlueLight;
 
         &:last-child {
             margin-bottom: 0;
@@ -191,11 +218,11 @@ header, footer, nav, article, main {
     }
 
     .title {
-        margin-bottom: 4px;
-        color: @colorBlueDark;
+        font-weight: 400;
 
         a {
             display: block;
+            color: @colorBlueDark;
             text-decoration: none;
 
             &:active {
@@ -205,52 +232,88 @@ header, footer, nav, article, main {
     }
 
     h2 {
+        margin-bottom: 12px;
         font-size: 1.1rem;
     }
 
     p {
-        font-size: 0.9rem;
-    }
-
-    .meta {
-        margin-bottom: 10px;
+        font-size: 1rem;
+        line-height: 140%;
     }
 }
+.read-more {
+    float: left;
+    margin-top: 12px;
 
+    a {
+        border: solid 1px @colorBlueLight;
+        display: block;
+        padding: 6px 7px;
+        border-radius: 4px;
+        font-size: 0.7rem;
+        line-height: 100%;
+        color: @colorBlueDark;
+        font-weight: 400;
+        text-decoration: none;
+
+        &:active {
+            background-color: @colorBlueDark;
+            color: #FFF;
+        }
+    }
+}
 .search-box {
     padding: 15px 0;
     background-color: @colorBlueLight;
 
     input {
         width: 100% !important;
-        padding: 10px 14px 9px;
+        padding: 10px 16px;
         border-radius: 5px;
         background-color: #FFF;
         -moz-box-sizing: border-box;
         -webkit-box-sizing: border-box;
         box-sizing: border-box;
-        font: 300 16px/100% Helvetica,Arial,sans-serif;
+        font: 400 18px/100% Helvetica,Arial,sans-serif;
+        color: #000;
 
-        &::-webkit-input-placeholder { color: @colorGrayLight; }
-        &:-moz-placeholder { color: @colorGrayLight; }
+        &::-webkit-input-placeholder { 
+            color: @colorGrayLight; 
+            font-weight: 400;
+        }
+        &:-moz-placeholder { 
+            color: @colorGrayLight;
+            font-weight: 400;
+        }
     }
 }
 
 .post-header {
-    margin-bottom: 30px;
+    margin-bottom: 25px;
 
     h2 {
+        padding-bottom: 10px;
+        border-bottom: solid 1px @colorBlueLight;
         font-size: 1.8rem;
+        line-height: 120%;
         color: @colorBlueDark;
+    }
+
+    .meta {
+        margin-top: 8px;
     }
 }
 .post-content {
     overflow: hidden;
 
     p {
-        margin-bottom: 14px;
+        margin-bottom: 16px;
         line-height: 140%;
         color: @colorGrayDark;
+
+        &:last-child {
+            margin-bottom: 0;
+        }
     }
 
     h2, h3, h4 {
@@ -278,8 +341,9 @@ header, footer, nav, article, main {
     float: right;
     overflow: hidden;
     max-width: 200px;
-    margin-bottom: 15px;
     margin-left: 20px;
+    margin-bottom: 20px;
+    &:extend(.transitions);
 
     img {
         float: right;
@@ -288,17 +352,21 @@ header, footer, nav, article, main {
     }
 }
 .post-info {
-    margin-top: 40px;
+    margin-top: 30px;
     border: solid 1px @colorBlueLight;
+    &:extend(.transitions);
+
+    h3, strong, b {
+        color: #000;
+        font-weight: 400;
+    }
 
     h3 {
         padding: 8px 14px;
         border-bottom: solid 1px @colorBlueLight;
         font-size: 0.9rem;
         line-height: 100%;
-        color: @colorBlueDark;
         text-transform: uppercase;
-        font-weight: 400;
     }
 
     ul {
@@ -317,8 +385,86 @@ header, footer, nav, article, main {
             margin-bottom: 0;
         }
     }
-
-    strong, b {
-        font-weight: 600;
-    }
 }
+
+
+// ================================
+// media query magic
+// ================================
+
+@media handheld, only screen and (max-width: 620px) {
+
+    .site-header {
+        .table {
+            height: 80px;
+        }
+        .site-title {
+            font-size: 1.2rem;
+            line-height: 120%;
+        }
+    }
+
+    .site-nav {
+        &:hover, &:active {
+            ul {
+                display: block;
+            }
+            .nav-button {
+                background-color: @colorGrayLight;
+                span {
+                    background-color: #000;
+                }
+            }
+        }
+        .nav-button {
+            position: relative;
+            display: block;
+        }
+        ul {
+            position: absolute;
+            overflow: hidden;
+            margin-top: -4px;
+            right: 0;
+            width: 180px;
+            background-color: @colorGrayLight;
+            display: none;
+            border-radius: 6px 0 6px 6px;
+        }
+        li {
+            display: block;
+        }
+        [data-category] {
+            padding: 14px 16px;
+            border-radius: 0;
+            font-size: 1rem;
+            color: #000;
+            text-align: left;
+
+            &:hover, &:active, &.active {
+                background-color: @colorGrayDark;
+                color: #FFF;
+            }
+        }
+    }
+
+}
+
+@media handheld, only screen and (max-width: 420px) {
+
+    .post-image {
+        float: none;
+        max-width: 80%;
+        margin-left: 0;
+    }
+
+}
+
+
+
+
+
+
+
+
+
+
