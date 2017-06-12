@@ -276,7 +276,7 @@ main {
   margin-top: 10px;
 }
 .site-nav li {
-  display: inline-block;
+  display: table-cell;
 }
 .site-nav [data-category] {
   padding: 8px 10px;
