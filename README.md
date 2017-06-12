@@ -1,6 +1,6 @@
 # Bloggen
 
-Just another static site generator. ;-)
+Just another python static site generator. ;-)
 
 ### Requirements:
 
