@@ -4,12 +4,14 @@ Just another python static site generator. ;-)
 
 ### Requirements:
 
-    pip install pyyaml   
-    pip install mistune   
-    pip install jinja2   
-    pip install beautifulsoup4   
+    $ pip install pyyaml   
+    $ pip install mistune   
+    $ pip install jinja2   
+    $ pip install beautifulsoup4   
 
 ## How to use:
+
+First make some changes to the "make.py" file:
 
     from modules.bloggen import Bloggen
 
@@ -20,7 +22,7 @@ Just another python static site generator. ;-)
         site_title = 'My anime blog'
     )
 
-You can also do this if you want to compile multiple projects.
+You can also do this if you want to compile multiple projects:
 
     coolblog = Bloggen()
     coolblog.make(
@@ -31,6 +33,10 @@ You can also do this if you want to compile multiple projects.
     anotherblog.make(
         ...
     )
+
+### Run make.py
+
+    $ python path/to/bloggen/make.py
 
 ### Attributes of "make":  
 
