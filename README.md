@@ -40,7 +40,7 @@ You can also do this if you want to compile multiple projects.
 - **site_title:** [optional] The main title of your website.
 - **encodedResources:** [optional] False or True (boolean), depending on whether or not you want to compile the images to data uri.
 
-### FQ&A
+## FQ&A
 - **Why the images appear to be broken after compiling?**   
 Because you forgot to add your images, CSS files and javascripts in the "outputdir" directory.
 
