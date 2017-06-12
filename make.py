@@ -1,8 +1,8 @@
 from modules.bloggen import Bloggen
 
 Bloggen().make(
-    domain = 'junihh.com',
-    site_title = 'My anime blog',
     postdir = './posts', 
-    outputdir = './blog-output'
+    outputdir = './blog-output',
+    domain = 'myanime.blog',
+    site_title = 'My anime blog'
 )

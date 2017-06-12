@@ -47,6 +47,8 @@ class Bloggen(object):
             settings['domain'] = 'coolsite.me'
         if 'site_title' not in settingsKeys:
             settings['site_title'] = 'My cool website'
+        if 'encodedResources' not in settingsKeys:
+            settings['encodedResources'] = True
         self.settings = settings
         postdir = settings['postdir']
 
@@ -118,6 +120,7 @@ class Bloggen(object):
 
 
     def makeSiteFiles(self):
+        settings = self.settings
         datasite = self.datasite
         outputdir = self.settings['outputdir']
         datasite_json = None
@@ -156,14 +159,15 @@ class Bloggen(object):
                     'categories': datasite['categories'],
                     'post': row
                 }
-                tpl = tpls.get_template('post.tpl').render(dat)
+                tpl = tpls.get_template(row['template']).render(dat)
                 page.write(tpl)
 
         # Encode to base64 all images from html's
-        self.encodeImages()
+        if settings['encodedResources']:
+            self.encodedResources()
 
 
-    def encodeImages(self):
+    def encodedResources(self):
         outputdir = self.settings['outputdir']
         html_content = None
 
