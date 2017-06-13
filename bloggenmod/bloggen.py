@@ -190,8 +190,7 @@ class Bloggen(object):
                                 srcpath = node.get('src')
                                 node['src'] = self.filetoB64(srcpath)
 
-                        html_content = htmlBS.renderContents()
-                        html_content = html_content.split('\n')
+                        html_content = htmlBS.renderContents().split('\n')
                         html_content = ''.join(html_content)
 
                 with open(htmlfile_path,'w') as write_html:
