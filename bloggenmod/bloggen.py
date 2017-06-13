@@ -49,6 +49,8 @@ class Bloggen(object):
             settings['site_title'] = 'My cool website'
         if 'encodedResources' not in settingsKeys:
             settings['encodedResources'] = True
+        if 'onlyJSON' not in settingsKeys:
+            settings['onlyJSON'] = False
         self.settings = settings
         postdir = settings['postdir']
 
@@ -124,44 +126,45 @@ class Bloggen(object):
             datjson = json.dumps(datasite,indent=2)
             j.write(datjson)
 
-        # Remove all *.html files inside the output directory
-        for html in os.listdir(outputdir):
-            html_path = os.path.join(outputdir,html)
-            if os.path.isfile(html_path) and html.endswith('.html'):
-                os.remove(html_path)
+        if settings['onlyJSON'] != True:
+            # Remove all *.html files inside the output directory
+            for html in os.listdir(outputdir):
+                html_path = os.path.join(outputdir,html)
+                if os.path.isfile(html_path) and html.endswith('.html'):
+                    os.remove(html_path)
 
-        # Output index.html
-        with open(os.path.join(outputdir,'index.html'),'w') as home:
-            dat = dict(
-                site_title = datasite['settings']['title'],
-                categories = datasite['categories'],
-                rows = datasite['post']
-            )
-            tpl = tpls.get_template('home.tpl').render(dat)
+            # Output index.html
+            with open(os.path.join(outputdir,'index.html'),'w') as home:
+                dat = dict(
+                    site_title = datasite['settings']['title'],
+                    categories = datasite['categories'],
+                    rows = datasite['post']
+                )
+                tpl = tpls.get_template('home.tpl').render(dat)
 
-            if settings['encodedResources']:
-                tpl = self.encodedResources(tpl)
+                if settings['encodedResources']:
+                    tpl = self.encodedResources(tpl)
 
-            home.write(tpl)
+                home.write(tpl)
 
-        # Output all post html's
-        for row in datasite['post']:
-            rowkeys = row.keys()
-            row['image'] = row['image'] if ('image' in rowkeys) else None
-            row['content'] = mistune.markdown(row['content']).strip() if ('content' in rowkeys) else None
+            # Output all post html's
+            for row in datasite['post']:
+                rowkeys = row.keys()
+                row['image'] = row['image'] if ('image' in rowkeys) else None
+                row['content'] = mistune.markdown(row['content']).strip() if ('content' in rowkeys) else None
 
-            dat = dict(
-                site_title = datasite['settings']['title'],
-                categories = datasite['categories'],
-                post = row
-            )
-            tpl = tpls.get_template(row['template']).render(dat)
+                dat = dict(
+                    site_title = datasite['settings']['title'],
+                    categories = datasite['categories'],
+                    post = row
+                )
+                tpl = tpls.get_template(row['template']).render(dat)
 
-            if settings['encodedResources']:
-                tpl = self.encodedResources(tpl)
+                if settings['encodedResources']:
+                    tpl = self.encodedResources(tpl)
 
-            with open(os.path.join(outputdir,row['file']),'w') as page:
-                page.write(tpl)
+                with open(os.path.join(outputdir,row['file']),'w') as page:
+                    page.write(tpl)
 
 
     def encodedResources(self,html):

@@ -19,23 +19,23 @@
                         </div>
                     </header>
                     <div class="post-content">
-                        {% if post.image %}
+                        {% if post.image -%}
                         <figure class="post-image">
                             <img src="{{ post.image }}" alt="{{ post.title }}" width="1280" height="650">
                         </figure>
-                        {% endif %}
+                        {%- endif %}
                         {{ post.content }}
                     </div>
-                    {% if post.inshort %}
+                    {% if post.inshort -%}
                     <div class="post-info">
                         <h3>In short</h3>
                         <ul>
-                            {% for row in post.inshort %}
+                            {% for row in post.inshort -%}
                             <li><strong>{{ row }}:</strong> {{ post.inshort[row] }}</li>
                             {% endfor %}
                         </ul>
                     </div>
-                    {% endif %}
+                    {%- endif %}
                 </article>
                 {% include 'footer.tpl' %}
             </div>

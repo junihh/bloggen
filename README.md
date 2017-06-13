@@ -44,7 +44,8 @@ You can also do this if you want to compile multiple projects:
 - **outputdir:** [required] The directory where all pages compiled to HTML will be saved.
 - **domain:** [optional] The domain of your website. Is used to make the permalink of the post.
 - **site_title:** [optional] The main title of your website.
-- **encodedResources:** [optional] False or True (boolean), depending on whether or not you want to compile the images to data uri.
+- **encodedResources:** [optional] [boolean] **True** if you want to compile the images to data uri. Default is True.
+- **onlyJSON:** [optional] [boolean] **True** if you only need the JSON file and not the html files. Default is False.
 
 ## FQ&A
 - **Why the images appear to be broken after compiling?**   

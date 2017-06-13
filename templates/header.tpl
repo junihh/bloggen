@@ -16,7 +16,7 @@
                                 </a>
                                 <ul>
                                     <li><a href="index.html" data-category="home">home</a></li>
-                                    {% for category in categories %}
+                                    {% for category in categories -%}
                                     <li><a href="index.html?category={{ category }}" data-category="{{ category }}">{{ category }}</a></li>
                                     {% endfor %}
                                 </ul>
