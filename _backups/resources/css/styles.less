@@ -3,11 +3,18 @@
 // Less setup
 // ================================
 
+@import url('https://fonts.googleapis.com/css?family=Assistant:300,400|Fira+Mono|Vollkorn:400i');
+
 @colorBlueLight: #ECF0F1;
 @colorBlueDark: #33485F;
 @colorGrayLight: #CCC;
 @colorGrayDark: #666;
 @basicMargin: 25px;
+
+@fontBasic: 'Assistant',sans-serif;
+@fontItalic: 'Vollkorn',serif;
+@fontMono: 'Fira Mono',monospace;
+@fontSize: 18px;
 
 
 // ================================
@@ -19,8 +26,9 @@ html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abb
 html {
     position: relative;
     background-color: #FFF;
-    font: 300 18px/120% Helvetica,Arial,sans-serif;
+    font: @fontSize/120% @fontBasic;
     color: #666;
+    font-weight: 300;
 }
 
 .transitions {
@@ -140,7 +148,7 @@ header, footer, nav, article, main {
     [data-category] {
         padding: 8px 10px;
         background-color: transparent;
-        font-size: 0.8rem;
+        font-size: 0.85rem;
         color: #FFF;
         text-decoration: none;
         text-transform: capitalize;
@@ -180,12 +188,16 @@ header, footer, nav, article, main {
 // ==========================
 
 .meta {
+    .category, time {
+        font-weight: 300;
+    }
+
     .category {
-        margin-right: 5px;
+        margin-right: 8px;
         padding: 2px 6px;
         background-color: @colorGrayLight;
         border-radius: 3px;
-        font-size: 0.65rem;
+        font-size: 0.7rem;
         color: #FFF;
     }
     
@@ -237,18 +249,19 @@ header, footer, nav, article, main {
     }
 
     h2 {
-        margin-bottom: 12px;
+        margin-bottom: 15px;
         font-size: 1.2rem;
     }
 
     p {
         font-size: 1rem;
-        line-height: 140%;
+        line-height: 150%;
+        font-weight: 300;
     }
 }
 .read-more {
     float: left;
-    margin-top: 12px;
+    margin-top: 15px;
 
     a {
         border: solid 1px @colorBlueLight;
@@ -258,7 +271,7 @@ header, footer, nav, article, main {
         font-size: 0.7rem;
         line-height: 100%;
         color: @colorBlueDark;
-        font-weight: 400;
+        font-weight: 300;
         text-decoration: none;
 
         &:active {
@@ -273,13 +286,14 @@ header, footer, nav, article, main {
 
     input {
         width: 100% !important;
-        padding: 10px 16px;
+        padding: 10px 14px;
         border-radius: 5px;
         background-color: #FFF;
         -moz-box-sizing: border-box;
         -webkit-box-sizing: border-box;
         box-sizing: border-box;
-        font: 400 18px/100% Helvetica,Arial,sans-serif;
+        font: @fontSize/100% @fontBasic;
+        font-weight: 400;
         color: #000;
 
         &::-webkit-input-placeholder { 
@@ -297,11 +311,12 @@ header, footer, nav, article, main {
     margin-bottom: 25px;
 
     h2 {
-        padding-bottom: 10px;
+        padding-bottom: 5px;
         border-bottom: solid 1px @colorBlueLight;
-        font-size: 1.8rem;
-        line-height: 120%;
+        font-size: 1.6rem;
+        line-height: 130%;
         color: @colorBlueDark;
+        font-weight: 400;
     }
 
     .meta {
@@ -313,7 +328,7 @@ header, footer, nav, article, main {
 
     p {
         margin-bottom: 16px;
-        line-height: 140%;
+        line-height: 150%;
         color: @colorGrayDark;
 
         &:last-child {
@@ -322,32 +337,65 @@ header, footer, nav, article, main {
     }
 
     h2, h3, h4 {
-        margin-top: 35px;
-        margin-bottom: 15px;
-        line-height: 120%;
+        margin-top: 30px;
+        margin-bottom: 10px;
+        line-height: 130%;
         color: #000;
+        font-weight: 400;
     }
     h2 {
-        padding-bottom: 6px;
-        margin-bottom: 20px;
-        border-bottom: solid 1px @colorBlueLight;
+        font-size: 1.2rem;
+    }
+    h3, h4 {
+        font-size: 1rem;
+    }
+
+    blockquote {
+        position: relative;
+        margin-bottom: 15px;
+        padding-top: 8px;
+        padding-left: 55px;
+        font-family: @fontItalic;
         font-size: 1.4rem;
+        font-weight: 400;
+        font-style: italic;
+
+        p {
+            margin: 0;
+            padding: 0;
+        }
+
+        &::before {
+            position: absolute;
+            top: -10px;
+            left: 0;
+            content: '"';
+            font-family: @fontBasic;
+            font-size: 5rem;
+            line-height: 100%;
+            color: #CCC;
+        }
     }
-    h3 {
-        font-size: 1.2rem;
-        font-weight: 700;
+    
+    pre {
+        overflow: auto;
+        padding: 20px 25px;
+        margin: 25px 0;
+        background-color: rgba(51,72,95,0.07);
     }
-    h4 {
-        font-size: 1.2rem;
-        font-weight: 700;
+    code {
+        font-family: @fontMono;
+        font-size: 0.8rem;
+        line-height: 130%;
+        color: #000;
     }
 }
 .post-image {
     float: right;
     overflow: hidden;
     max-width: 200px;
-    margin-left: 20px;
-    margin-bottom: 20px;
+    margin-left: 25px;
+    margin-bottom: 25px;
     &:extend(.transitions);
 
     img {
@@ -357,19 +405,14 @@ header, footer, nav, article, main {
     }
 }
 .post-info {
-    margin-top: 30px;
+    margin-top: 35px;
     border: solid 1px @colorBlueLight;
     &:extend(.transitions);
-
-    h3, strong, b {
-        color: #000;
-        font-weight: 400;
-    }
 
     h3 {
         padding: 8px 14px;
         border-bottom: solid 1px @colorBlueLight;
-        font-size: 0.9rem;
+        font-size: 1rem;
         line-height: 100%;
         text-transform: uppercase;
     }
@@ -380,7 +423,8 @@ header, footer, nav, article, main {
 
     li, p {
         font-size: 0.8rem;
-        line-height: 120%;
+        line-height: 130%;
+        font-weight: 300;
     }
 
     li {
@@ -389,6 +433,11 @@ header, footer, nav, article, main {
         &:last-child {
             margin-bottom: 0;
         }
+    }
+
+    h3, strong, b {
+        color: #000;
+        font-weight: 400;
     }
 }
 
@@ -463,13 +512,3 @@ header, footer, nav, article, main {
     }
 
 }
-
-
-
-
-
-
-
-
-
-

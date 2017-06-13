@@ -60,34 +60,25 @@ class Bloggen(object):
             
             if os.path.isfile(yml_path):
                 yml_nam, yml_ext = os.path.splitext(yml)
-                yml_ext = yml_ext[1:]
+                # yml_ext = yml_ext[1:]
                 
-                if yml_ext in ('md','markdown','mdown','mkdn','mkd','mdwn','mdtxt','mdtext','text','txt','yml','yaml','yamel'):
+                if yml_ext in ('.md','.markdown','.mdown','.mkdn','.mkd','.mdwn','.mdtxt','.mdtext','.text','.txt','.yml','.yaml','.yamel'):
                     html = yml_nam + '.html'
-                    permalink = ''.join(['http://', settings['domain'], '/', html])
-                    postid = hashlib.sha1(yml).hexdigest()
 
                     with open(yml_path,'rt') as ymlfile:
-                        content = []
-                        config = {}
-                        mrkdwn = None
-
-                        for line in ymlfile:
-                            content.append(line)
-
-                        content = '\n'.join(content).split('======================================================')
+                        yml_content = ymlfile.read()
+                        content = str(yml_content).split('======================================================')
                         config = yaml.load(content[0])
-                        mrkdwn = content[1].strip()
-                        
-                        config.update({ 'id': postid })
-                        config.update({ 'file': html })
-                        config.update({ 'permalink': permalink })
-                        config.update({ 'date': config['date'].strftime('%Y-%m-%d') })
-                        config.update({ 'content': mrkdwn })
+
+                        config['file'] = html
+                        config['id'] = hashlib.sha1(yml).hexdigest()
+                        config['permalink'] = ''.join(['http://', settings['domain'], '/', html])
+                        config['date'] = config['date'].strftime('%Y-%m-%d')
+                        config['content'] = content[1].strip()
 
                         configKeys = config.keys()
                         if 'excerpt' in configKeys:
-                            config.update({ 'excerpt': config['excerpt'].replace('\n',' ') })
+                            config['excerpt'] = config['excerpt'].replace('\n',' ')
                         if 'category' in configKeys:
                             categories.append(config['category'])
                         
@@ -141,65 +132,54 @@ class Bloggen(object):
 
         # Output index.html
         with open(os.path.join(outputdir,'index.html'),'w') as home:
-            dat = {
-                'site_title': datasite['settings']['title'],
-                'categories': datasite['categories'],
-                'rows': datasite['post']
-            }
+            dat = dict(
+                site_title = datasite['settings']['title'],
+                categories = datasite['categories'],
+                rows = datasite['post']
+            )
             tpl = tpls.get_template('home.tpl').render(dat)
+
+            if settings['encodedResources']:
+                tpl = self.encodedResources(tpl)
+
             home.write(tpl)
 
         # Output all post html's
         for row in datasite['post']:
+            rowkeys = row.keys()
+            row['image'] = row['image'] if ('image' in rowkeys) else None
+            row['content'] = mistune.markdown(row['content']).strip() if ('content' in rowkeys) else None
+
+            dat = dict(
+                site_title = datasite['settings']['title'],
+                categories = datasite['categories'],
+                post = row
+            )
+            tpl = tpls.get_template(row['template']).render(dat)
+
+            if settings['encodedResources']:
+                tpl = self.encodedResources(tpl)
+
             with open(os.path.join(outputdir,row['file']),'w') as page:
-                row['image'] = row['image'] if ('image' in row.keys()) else None
-                row['content'] = mistune.markdown(row['content']) if ('content' in row.keys()) else None
-                dat = {
-                    'site_title': datasite['settings']['title'],
-                    'categories': datasite['categories'],
-                    'post': row
-                }
-                tpl = tpls.get_template(row['template']).render(dat)
                 page.write(tpl)
 
-        # Encode to base64 all images from html's
-        if settings['encodedResources']:
-            self.encodedResources()
 
+    def encodedResources(self,html):
+        htmlBS = '<pre>' + html.strip() + '</pre>'
+        htmlret = None
 
-    def encodedResources(self):
-        outputdir = self.settings['outputdir']
-        html_content = None
+        if html:
+            htmlBS = BeautifulSoup(htmlBS,'html.parser')
 
-        for htmlfile in os.listdir(outputdir):
-            htmlfile_path = os.path.join(outputdir,htmlfile)
+            for node in htmlBS.find_all('img'):
+                if node.name == 'img':
+                    srcpath = node.get('src')
+                    node['src'] = self.filetoB64(srcpath)
 
-            if os.path.isfile(htmlfile_path) and htmlfile.endswith('.html'):
-                with open(htmlfile_path,'rt') as read_html:
-                    html_content = []
-                    for line in read_html:
-                        # line = line.strip()
-                        html_content.append(line)
-                    html_content = '\n'.join(html_content)
+            htmlret = htmlBS.renderContents()
+            htmlret = htmlret[5:][:-6]
 
-                    if html_content:
-                        htmlBS = BeautifulSoup(html_content,'html.parser')
-
-                        for node in htmlBS.find_all('img'):
-                            if node.name == 'img':
-                                srcpath = node.get('src')
-                                node['src'] = self.filetoB64(srcpath)
-
-                        # html_content = htmlBS.renderContents().split('\n')
-                        # html_content = ''.join(html_content)
-                        
-                        # html_content = htmlBS.renderContents()
-
-                        html_content = htmlBS.prettify()
-                        html_content = htmlBS.renderContents()
-
-                with open(htmlfile_path,'w') as write_html:
-                    write_html.write(html_content)
+        return htmlret
 
 
     def filetoB64(self,sourcepath=None,raw=False):

@@ -6,9 +6,9 @@
   "post": [
     {
       "template": "post.tpl", 
-      "title": "Koe no Katachi", 
-      "date": "2017-05-28", 
       "category": "movie", 
+      "date": "2017-05-28", 
+      "title": "Koe no Katachi", 
       "author": "MyAnimeList", 
       "image": "resources/photos/koe-no-katachi.jpg", 
       "excerpt": "As a wild youth, elementary school student Shouya Ishida sought to beat boredom in the cruelest ways. When the deaf Shouko Nishimiya transfers into his class, Shouya and the rest of his class thoughtlessly bully her for fun.", 
@@ -17,16 +17,16 @@
         "Titles": "\u201cKoe no Katachi\u201d, \u201cA Silent Voice\u201d, \u201cThe Shape of Voice\u201d, \u201cA Silent Voice The Movie\u201d,", 
         "Episodes": 1
       }, 
-      "id": "70771f39de7cad4f7c4eb74d5f6d3f1c1c7d0ec6", 
       "file": "koe-no-katachi.html", 
+      "id": "70771f39de7cad4f7c4eb74d5f6d3f1c1c7d0ec6", 
       "permalink": "http://myanime.blog/koe-no-katachi.html", 
-      "content": "As a wild youth, elementary school student Shouya Ishida sought to beat boredom in the cruelest ways. When the deaf Shouko Nishimiya transfers into his class, Shouya and the rest of his class thoughtlessly bully her for fun. \n\n\n\nHowever, when her mother notifies the school, he is singled out and blamed for everything done to her. With Shouko transferring out of the school, Shouya is left at the mercy of his classmates. He is heartlessly ostracized all throughout elementary and middle school, while teachers turn a blind eye.\n\n\n\nNow in his third year of high school, Shouya is still plagued by his wrongdoings as a young boy. Sincerely regretting his past actions, he sets out on a journey of redemption: to meet Shouko once more and make amends.\n\n\n\n<pre>\n\nString.prototype.concat = function ()\n\n{\n\n    var arg = arguments || [];\n\n    var str = String(this).split('%s') || [];\n\n\n\n    for ( var i = 0, c = str.length, f = []; i < c; i++ )\n\n    {\n\n      f.push( str[i] + (arg[i] ? arg[i] : '') );\n\n    };\n\n    \n\n    return f.join('');\n\n};\n\n</pre>\n\n\n\nKoe no Katachi tells the heartwarming tale of Shouya's reunion with Shouko and his honest attempts to redeem himself, all while being continually haunted by the shadows of his past."
+      "content": "As a wild youth, elementary school student Shouya Ishida sought to beat boredom in the cruelest ways. When the deaf Shouko Nishimiya transfers into his class, Shouya and the rest of his class thoughtlessly bully her for fun. \n\nHowever, when her mother notifies the school, he is singled out and blamed for everything done to her. With Shouko transferring out of the school, Shouya is left at the mercy of his classmates. He is heartlessly ostracized all throughout elementary and middle school, while teachers turn a blind eye.\n\nNow in his third year of high school, Shouya is still plagued by his wrongdoings as a young boy. Sincerely regretting his past actions, he sets out on a journey of redemption: to meet Shouko once more and make amends.\n\nKoe no Katachi tells the heartwarming tale of Shouya's reunion with Shouko and his honest attempts to redeem himself, all while being continually haunted by the shadows of his past."
     }, 
     {
       "template": "post.tpl", 
-      "title": "Tokyo Magnitude 8.0", 
-      "date": "2017-05-02", 
       "category": "anime", 
+      "date": "2017-05-02", 
+      "title": "Tokyo Magnitude 8.0", 
       "author": "MyAnimeList", 
       "image": "resources/photos/tokyo-magnitude-8.jpg", 
       "excerpt": "Middle school student Mirai Onozawa is dissatisfied with her family circumstances and, in a moment of frustration, wishes to tear everything apart. Unfortunately, these destructive thoughts seem to come true in the form of a magnitude 8.0 earthquake just a few moments later.", 
@@ -35,16 +35,16 @@
         "Titles": "\u201cTokyo Magnitude 8.0\u201d.", 
         "Episodes": 11
       }, 
-      "id": "b606174f36a875bfa5fe77048257fa0d99e8ecc0", 
       "file": "tokyo-magniyude-8.html", 
+      "id": "b606174f36a875bfa5fe77048257fa0d99e8ecc0", 
       "permalink": "http://myanime.blog/tokyo-magniyude-8.html", 
-      "content": "Middle school student Mirai Onozawa is dissatisfied with her family circumstances and, in a moment of frustration, wishes to tear everything apart. Unfortunately, these destructive thoughts seem to come true in the form of a magnitude 8.0 earthquake just a few moments later.\n\n\n\nWhen summer vacation begins, Mirai reluctantly takes her younger brother Yuuki to Odaiba, where a robot exhibition that he wanted to go to is being held. However, while they are in the exhibition center, the fury of a major earthquake shakes the Kanto region; helpless, both kids witness the devastating power of this natural disaster as it brings the city to its knees.\n\n\n\nIn its aftermath, they stumble upon Mari Kusakabe, a motorcyclist and single mother who decides to help the young siblings. Aiming to return to their homes and reunite with their families, the group sets off on a long and hard journey through the decimated city."
+      "content": "Middle school student Mirai Onozawa is dissatisfied with her family circumstances and, in a moment of frustration, wishes to tear everything apart. Unfortunately, these destructive thoughts seem to come true in the form of a magnitude 8.0 earthquake just a few moments later.\n\nWhen summer vacation begins, Mirai reluctantly takes her younger brother Yuuki to Odaiba, where a robot exhibition that he wanted to go to is being held. However, while they are in the exhibition center, the fury of a major earthquake shakes the Kanto region; helpless, both kids witness the devastating power of this natural disaster as it brings the city to its knees.\n\nIn its aftermath, they stumble upon Mari Kusakabe, a motorcyclist and single mother who decides to help the young siblings. Aiming to return to their homes and reunite with their families, the group sets off on a long and hard journey through the decimated city."
     }, 
     {
       "template": "post.tpl", 
-      "title": "Kure-nai", 
-      "date": "2017-02-16", 
       "category": "anime", 
+      "date": "2017-02-16", 
+      "title": "Kure-nai", 
       "author": "MyAnimeList", 
       "image": "resources/photos/kure-nai.jpg", 
       "excerpt": "After losing his family in a tragic terrorist attack when he was but a child, the main protagonist of Kure-nai, Shinkurou Kurenai, made a pact to stay strong no matter what.", 
@@ -53,16 +53,16 @@
         "Titles": "\u201cKure-nai\u201d, \u201cKurenai\u201d, \u201cCrimson\u201d.", 
         "Episodes": 12
       }, 
-      "id": "0f093e3d0e4a94e013b04fea98439e560b1be945", 
       "file": "kure-nai.html", 
+      "id": "0f093e3d0e4a94e013b04fea98439e560b1be945", 
       "permalink": "http://myanime.blog/kure-nai.html", 
-      "content": "After losing his family in a tragic terrorist attack when he was but a child, the main protagonist of Kure-nai, Shinkurou Kurenai, made a pact to stay strong no matter what.\n\n\n\nNow a high school student, he works with Benika as a mediator and lives with the Houzuki family, training and gradually mastering the family martial arts. Together with other members of the team, Shinkurou aims to aid those who seek his help.\n\n\n\nOne day, Benika brings a beautiful 7-year-old girl from a wealthy family, Murasaki Kuhouin, to the Houzuki house. When Shinkurou asks for a more challenging mission, he is left with the task of guarding this young lady. At first, he takes these orders for granted. However, when he comes home to find that Murasaki is gone, he panics, frantically running around to search for her. \n\n\n\nThankfully, he soon finds her, and from that moment on, a bond between Murasaki and Shinkurou is formed that is sure to evolve into something more. Will Murasaki be able to help Shinkurou get past his tragic past? Or is it the other way around? How will these two face the challenges sure to come their way?"
+      "content": "After losing his family in a tragic terrorist attack when he was but a child, the main protagonist of Kure-nai, Shinkurou Kurenai, made a pact to stay strong no matter what.\n\nNow a high school student, he works with Benika as a mediator and lives with the Houzuki family, training and gradually mastering the family martial arts. Together with other members of the team, Shinkurou aims to aid those who seek his help.\n\nOne day, Benika brings a beautiful 7-year-old girl from a wealthy family, Murasaki Kuhouin, to the Houzuki house. When Shinkurou asks for a more challenging mission, he is left with the task of guarding this young lady. At first, he takes these orders for granted. However, when he comes home to find that Murasaki is gone, he panics, frantically running around to search for her. \n\nThankfully, he soon finds her, and from that moment on, a bond between Murasaki and Shinkurou is formed that is sure to evolve into something more. Will Murasaki be able to help Shinkurou get past his tragic past? Or is it the other way around? How will these two face the challenges sure to come their way?"
     }, 
     {
       "template": "post.tpl", 
-      "title": "Hoshi wo Ou Kodomo", 
-      "date": "2016-03-18", 
       "category": "movie", 
+      "date": "2016-03-18", 
+      "title": "Hoshi wo Ou Kodomo", 
       "author": "MyAnimeList", 
       "image": "resources/photos/hoshi-wo-ou-kodomo.jpg", 
       "excerpt": "Strange sounds in the darkness... Unearthly music from an old crystal radio... These are all the warning Asuna Watase has before a simple walk to her clubhouse catapults her into a nightmarish adventure that will take her beneath the Earth to a lost land beyond the realm of legend!", 
@@ -71,16 +71,16 @@
         "Titles": "\u201cHoshi wo Ou Kodomo\u201d, \u201cChildren Who Chase Lost Voices\u201d, \u201cChildren who Chase Lost Voices from Deep Below\u201d, \u201cJourney to Agartha\u201d.", 
         "Episodes": 1
       }, 
-      "id": "268a0c51bf7cbd9db93cdc4ccb7781a67f30ec87", 
       "file": "hoshi-wo-ou-kodomo.html", 
+      "id": "268a0c51bf7cbd9db93cdc4ccb7781a67f30ec87", 
       "permalink": "http://myanime.blog/hoshi-wo-ou-kodomo.html", 
-      "content": "Strange sounds in the darkness... Unearthly music from an old crystal radio... \n\n\n\nThese are all the warning Asuna Watase has before a simple walk to her clubhouse catapults her into a nightmarish adventure that will take her beneath the Earth to a lost land beyond the realm of legend! \n\n\n\nAttacked by a strange monstrous creature, rescued by a mysterious stranger and pursued by a relentless enemy, Asuna finds herself enmeshed in a centuries old mystery that will bind her to a strange young defender and lead her inevitably, towards a secret that may hold the key to life itself!"
+      "content": "Strange sounds in the darkness... Unearthly music from an old crystal radio... \n\nThese are all the warning Asuna Watase has before a simple walk to her clubhouse catapults her into a nightmarish adventure that will take her beneath the Earth to a lost land beyond the realm of legend! \n\nAttacked by a strange monstrous creature, rescued by a mysterious stranger and pursued by a relentless enemy, Asuna finds herself enmeshed in a centuries old mystery that will bind her to a strange young defender and lead her inevitably, towards a secret that may hold the key to life itself!"
     }, 
     {
       "template": "post.tpl", 
-      "title": "Red Garden", 
-      "date": "2016-02-17", 
       "category": "anime", 
+      "date": "2016-02-17", 
+      "title": "Red Garden", 
       "author": "MyAnimeList", 
       "image": "resources/photos/red-garden.jpg", 
       "excerpt": "Strange suicides have been taking place in New York. One day, four girls from the same high school wake up in the morning feeling tired and dizzy and not being able to remember anything about the previous night.", 
@@ -89,10 +89,10 @@
         "Titles": "\u201cRed Garden\u201d, \u201cRG\u201d.", 
         "Episodes": 22
       }, 
-      "id": "95ba1b04734dbf71edd446a4c0c81e519ca76662", 
       "file": "red-garden.html", 
+      "id": "95ba1b04734dbf71edd446a4c0c81e519ca76662", 
       "permalink": "http://myanime.blog/red-garden.html", 
-      "content": "Strange suicides have been taking place in New York. One day, four girls from the same high school wake up in the morning feeling tired and dizzy and not being able to remember anything about the previous night. In school, they find out that one of their classmates has committed suicide. \n\n\n\nSchool is canceled for the rest of the day, but instead of going home, the girls are drawn to a park by butterflies only they can see. \n\n\n\nSuddenly a man and a woman approach the girls, telling them that they all died the previous night."
+      "content": "Strange suicides have been taking place in New York. One day, four girls from the same high school wake up in the morning feeling tired and dizzy and not being able to remember anything about the previous night. In school, they find out that one of their classmates has committed suicide. \n\nSchool is canceled for the rest of the day, but instead of going home, the girls are drawn to a park by butterflies only they can see. \n\nSuddenly a man and a woman approach the girls, telling them that they all died the previous night."
     }
   ], 
   "settings": {

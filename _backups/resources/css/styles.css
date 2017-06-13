@@ -1,3 +1,4 @@
+@import url('https://fonts.googleapis.com/css?family=Assistant:300,400|Fira+Mono|Vollkorn:400i');
 html,
 body,
 div,
@@ -160,8 +161,9 @@ hr {
 html {
   position: relative;
   background-color: #FFF;
-  font: 300 18px/120% Helvetica, Arial, sans-serif;
+  font: 18px/120% 'Assistant', sans-serif;
   color: #666;
+  font-weight: 300;
 }
 .transitions,
 a,
@@ -285,7 +287,7 @@ main {
 .site-nav [data-category] {
   padding: 8px 10px;
   background-color: transparent;
-  font-size: 0.8rem;
+  font-size: 0.85rem;
   color: #FFF;
   text-decoration: none;
   text-transform: capitalize;
@@ -314,12 +316,16 @@ main {
   font-size: 0.7rem;
   color: #CCC;
 }
+.meta .category,
+.meta time {
+  font-weight: 300;
+}
 .meta .category {
-  margin-right: 5px;
+  margin-right: 8px;
   padding: 2px 6px;
   background-color: #CCC;
   border-radius: 3px;
-  font-size: 0.65rem;
+  font-size: 0.7rem;
   color: #FFF;
 }
 .meta a {
@@ -359,16 +365,17 @@ main {
   text-decoration: underline;
 }
 .home h2 {
-  margin-bottom: 12px;
+  margin-bottom: 15px;
   font-size: 1.2rem;
 }
 .home p {
   font-size: 1rem;
-  line-height: 140%;
+  line-height: 150%;
+  font-weight: 300;
 }
 .read-more {
   float: left;
-  margin-top: 12px;
+  margin-top: 15px;
 }
 .read-more a {
   border: solid 1px #ECF0F1;
@@ -378,7 +385,7 @@ main {
   font-size: 0.7rem;
   line-height: 100%;
   color: #33485F;
-  font-weight: 400;
+  font-weight: 300;
   text-decoration: none;
 }
 .read-more a:active {
@@ -391,11 +398,12 @@ main {
 }
 .search-box input {
   width: 100% !important;
-  padding: 10px 16px;
+  padding: 10px 14px;
   border-radius: 5px;
   background-color: #FFF;
   box-sizing: border-box;
-  font: 400 18px/100% Helvetica, Arial, sans-serif;
+  font: 18px/100% 'Assistant', sans-serif;
+  font-weight: 400;
   color: #000;
 }
 .search-box input::-webkit-input-placeholder {
@@ -410,11 +418,12 @@ main {
   margin-bottom: 25px;
 }
 .post-header h2 {
-  padding-bottom: 10px;
+  padding-bottom: 5px;
   border-bottom: solid 1px #ECF0F1;
-  font-size: 1.8rem;
-  line-height: 120%;
+  font-size: 1.6rem;
+  line-height: 130%;
   color: #33485F;
+  font-weight: 400;
 }
 .post-header .meta {
   margin-top: 8px;
@@ -424,7 +433,7 @@ main {
 }
 .post-content p {
   margin-bottom: 16px;
-  line-height: 140%;
+  line-height: 150%;
   color: #666;
 }
 .post-content p:last-child {
@@ -433,31 +442,61 @@ main {
 .post-content h2,
 .post-content h3,
 .post-content h4 {
-  margin-top: 35px;
-  margin-bottom: 15px;
-  line-height: 120%;
+  margin-top: 30px;
+  margin-bottom: 10px;
+  line-height: 130%;
   color: #000;
+  font-weight: 400;
 }
 .post-content h2 {
-  padding-bottom: 6px;
-  margin-bottom: 20px;
-  border-bottom: solid 1px #ECF0F1;
-  font-size: 1.4rem;
-}
-.post-content h3 {
   font-size: 1.2rem;
-  font-weight: 700;
 }
+.post-content h3,
 .post-content h4 {
-  font-size: 1.2rem;
-  font-weight: 700;
+  font-size: 1rem;
+}
+.post-content blockquote {
+  position: relative;
+  margin-bottom: 15px;
+  padding-top: 8px;
+  padding-left: 55px;
+  font-family: 'Vollkorn', serif;
+  font-size: 1.4rem;
+  font-weight: 400;
+  font-style: italic;
+}
+.post-content blockquote p {
+  margin: 0;
+  padding: 0;
+}
+.post-content blockquote::before {
+  position: absolute;
+  top: -10px;
+  left: 0;
+  content: '"';
+  font-family: 'Assistant', sans-serif;
+  font-size: 5rem;
+  line-height: 100%;
+  color: #CCC;
+}
+.post-content pre {
+  overflow: auto;
+  padding: 20px 25px;
+  margin: 25px 0;
+  background-color: rgba(51, 72, 95, 0.07);
+}
+.post-content code {
+  font-family: 'Fira Mono', monospace;
+  font-size: 0.8rem;
+  line-height: 130%;
+  color: #000;
 }
 .post-image {
   float: right;
   overflow: hidden;
   max-width: 200px;
-  margin-left: 20px;
-  margin-bottom: 20px;
+  margin-left: 25px;
+  margin-bottom: 25px;
 }
 .post-image img {
   float: right;
@@ -465,19 +504,13 @@ main {
   height: auto;
 }
 .post-info {
-  margin-top: 30px;
+  margin-top: 35px;
   border: solid 1px #ECF0F1;
-}
-.post-info h3,
-.post-info strong,
-.post-info b {
-  color: #000;
-  font-weight: 400;
 }
 .post-info h3 {
   padding: 8px 14px;
   border-bottom: solid 1px #ECF0F1;
-  font-size: 0.9rem;
+  font-size: 1rem;
   line-height: 100%;
   text-transform: uppercase;
 }
@@ -487,13 +520,20 @@ main {
 .post-info li,
 .post-info p {
   font-size: 0.8rem;
-  line-height: 120%;
+  line-height: 130%;
+  font-weight: 300;
 }
 .post-info li {
   margin-bottom: 6px;
 }
 .post-info li:last-child {
   margin-bottom: 0;
+}
+.post-info h3,
+.post-info strong,
+.post-info b {
+  color: #000;
+  font-weight: 400;
 }
 @media handheld, only screen and (max-width: 620px) {
   .site-header .table {

@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css?family=Assistant:300,400|Vollkorn:400i');
+@import url('https://fonts.googleapis.com/css?family=Assistant:300,400|Fira+Mono|Vollkorn:400i');
 html,
 body,
 div,
@@ -478,6 +478,18 @@ main {
   font-size: 5rem;
   line-height: 100%;
   color: #CCC;
+}
+.post-content pre {
+  overflow: auto;
+  padding: 20px 25px;
+  margin: 25px 0;
+  background-color: rgba(51, 72, 95, 0.07);
+}
+.post-content code {
+  font-family: 'Fira Mono', monospace;
+  font-size: 0.8rem;
+  line-height: 130%;
+  color: #000;
 }
 .post-image {
   float: right;
