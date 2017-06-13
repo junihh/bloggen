@@ -130,7 +130,12 @@ header, footer, nav, article, main {
         }
     }
     li {
-        display: table-cell;
+        display: inline-block;
+        margin-right: 2px !important;
+
+        &:last-child {
+            margin-right: 0;
+        }
     }
     [data-category] {
         padding: 8px 10px;

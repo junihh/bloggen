@@ -276,7 +276,11 @@ main {
   margin-top: 10px;
 }
 .site-nav li {
-  display: table-cell;
+  display: inline-block;
+  margin-right: 2px !important;
+}
+.site-nav li:last-child {
+  margin-right: 0;
 }
 .site-nav [data-category] {
   padding: 8px 10px;
