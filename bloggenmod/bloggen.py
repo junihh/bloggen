@@ -17,7 +17,7 @@ sys.setdefaultencoding('utf8')
 
 templates_dir = '../templates'
 tpls = jinja2.Environment(
-    loader = jinja2.PackageLoader('modules', templates_dir)
+    loader = jinja2.PackageLoader('bloggenmod', templates_dir)
 )
 
 

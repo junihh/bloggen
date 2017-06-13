@@ -1,4 +1,4 @@
-from bloggen_modules.bloggen import Bloggen
+from bloggenmod.bloggen import Bloggen
 
 Bloggen().make(
     postdir = './posts', 
