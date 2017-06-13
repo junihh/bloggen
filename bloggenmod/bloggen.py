@@ -178,7 +178,7 @@ class Bloggen(object):
                 with open(htmlfile_path,'rt') as read_html:
                     html_content = []
                     for line in read_html:
-                        line = line.strip()
+                        # line = line.strip()
                         html_content.append(line)
                     html_content = '\n'.join(html_content)
 
@@ -190,8 +190,13 @@ class Bloggen(object):
                                 srcpath = node.get('src')
                                 node['src'] = self.filetoB64(srcpath)
 
-                        html_content = htmlBS.renderContents().split('\n')
-                        html_content = ''.join(html_content)
+                        # html_content = htmlBS.renderContents().split('\n')
+                        # html_content = ''.join(html_content)
+                        
+                        # html_content = htmlBS.renderContents()
+
+                        html_content = htmlBS.prettify()
+                        html_content = htmlBS.renderContents()
 
                 with open(htmlfile_path,'w') as write_html:
                     write_html.write(html_content)
