@@ -13,7 +13,7 @@ Just another python static site generator. ;-)
 
 First make some changes to the "make.py" file:
 
-    from modules.bloggen import Bloggen
+    from bloggenmod.bloggen import Bloggen
 
     Bloggen().make(
         postdir = './posts', 
