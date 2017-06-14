@@ -47,8 +47,8 @@ class Bloggen(object):
             settings['domain'] = 'coolsite.me'
         if 'site_title' not in settingsKeys:
             settings['site_title'] = 'My cool website'
-        if 'encodedResources' not in settingsKeys:
-            settings['encodedResources'] = True
+        if 'embeddedResources' not in settingsKeys:
+            settings['embeddedResources'] = True
         if 'onlyJSON' not in settingsKeys:
             settings['onlyJSON'] = False
         self.settings = settings
@@ -142,8 +142,8 @@ class Bloggen(object):
                 )
                 tpl = tpls.get_template('home.tpl').render(dat)
 
-                if settings['encodedResources']:
-                    tpl = self.encodedResources(tpl)
+                if settings['embeddedResources']:
+                    tpl = self.embeddedResources(tpl)
 
                 home.write(tpl)
 
@@ -160,36 +160,38 @@ class Bloggen(object):
                 )
                 tpl = tpls.get_template(row['template']).render(dat)
 
-                if settings['encodedResources']:
-                    tpl = self.encodedResources(tpl)
+                if settings['embeddedResources']:
+                    tpl = self.embeddedResources(tpl)
 
                 with open(os.path.join(outputdir,row['file']),'w') as page:
                     page.write(tpl)
 
 
-    def encodedResources(self,html):
-        settings = self.settings
+    def embeddedResources(self,html):
+        outputdir = self.settings['outputdir']
         htmlBS = '<pre>' + html.strip() + '</pre>'
         htmlret = None
 
         if html:
             htmlBS = BeautifulSoup(htmlBS,'html.parser')
 
-            for node in htmlBS.find_all(['img','link']):
+            for node in htmlBS.find_all(['img','link','script']):
                 if node.name == 'img':
-                    srcpath = node.get('src')
-                    node['src'] = self.filetoB64(srcpath)
+                    src = node.get('src')
+                    path = os.path.join(outputdir,src)
+                    
+                    if os.path.isfile(path):
+                        node['src'] = self.filetoB64(src)
 
                 if node.name == 'link':
                     if str(node.get('rel')[0]).lower().strip() == 'stylesheet':
                         href = node.get('href')
-                        path = os.path.join(settings['outputdir'],href)
+                        path = os.path.join(outputdir,href)
                         styles = None
-                        
+
                         if os.path.isfile(path):
                             with open(path,'rt') as f:
-                                styles = str(f.read()).strip().split('\n')
-                                styles = ' '.join(styles).replace('  ',' ')
+                                styles = '\n' + str(f.read())
 
                                 new_style = htmlBS.new_tag('style')
                                 new_style.append(styles)
@@ -197,6 +199,17 @@ class Bloggen(object):
 
                                 node.extract()
 
+                if node.name == 'script':
+                    src = node.get('src')
+                    if src:
+                        path = os.path.join(outputdir,src)
+
+                        if os.path.isfile(path):
+                            with open(path,'rt') as f:
+                                jscript = '\n' + str(f.read())
+                                node.append(jscript)
+                                
+                                del node.attrs['src']
 
             htmlret = htmlBS.renderContents()
             htmlret = htmlret[5:][:-6]
