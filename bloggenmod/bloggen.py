@@ -126,6 +126,7 @@ class Bloggen(object):
             datjson = json.dumps(datasite,indent=2)
             j.write(datjson)
 
+        # Make the website html
         if settings['onlyJSON'] != True:
             # Remove all *.html files inside the output directory
             for html in os.listdir(outputdir):
@@ -147,7 +148,7 @@ class Bloggen(object):
 
                 home.write(tpl)
 
-            # Output all post html's
+            # Output all post html
             for row in datasite['post']:
                 rowkeys = row.keys()
                 row['image'] = row['image'] if ('image' in rowkeys) else None
