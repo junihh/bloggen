@@ -23,7 +23,7 @@
                         <figure class="post-image">
                             <img src="{{ post.image }}" alt="{{ post.title }}" width="1280" height="650">
                         </figure>
-                        {%- endif %}
+                        {% endif %}
                         {{ post.content }}
                     </div>
                     {% if post.inshort -%}
