@@ -227,7 +227,7 @@ class Bloggen(object):
 
 
     def parseMD(self,mdstr=None):
-        html = None
+        html = mdstr
 
         if mdstr is not None:
             mdstr = mdstr.strip()
