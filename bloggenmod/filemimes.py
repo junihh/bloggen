@@ -22,6 +22,7 @@ filemimes = dict(
     ),
 
     image = (
+        'image/vnd.microsoft.icon',
         'image/x-icon',
         'image/png',
         'image/gif',

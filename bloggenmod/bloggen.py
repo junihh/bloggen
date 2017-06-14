@@ -150,39 +150,46 @@ class Bloggen(object):
 
     def embeddedResources(self,html=None):
         outputdir = self.settings['outputdir']
-        htmlBS = '<pre>' + html.strip() + '</pre>'
         htmlret = None
 
         if html is not None:
+            htmlBS = '<pre>' + html.strip() + '</pre>'
             htmlBS = BeautifulSoup(htmlBS,'html.parser')
 
             for node in htmlBS.find_all(['img','link','script']):
+                path = None
+
                 if node.name == 'img':
-                    src = node.get('src')
+                    src = node.get('src').strip()
                     path = os.path.join(outputdir,src)
 
                     if os.path.isfile(path):
                         node['src'] = self.filetoB64(src)
 
                 if node.name == 'link':
-                    if str(node.get('type')).lower().strip() == 'text/css':
-                        href = node.get('href')
-                        path = os.path.join(outputdir,href)
-                        styles = None
+                    href = node.get('href').strip()
+                    path = os.path.join(outputdir,href)
+                    rel = ','.join(node.get('rel')).lower()
 
+                    if 'stylesheet' in rel:
                         if os.path.isfile(path):
                             with open(path,'rt') as f:
                                 styles = '\n' + str(f.read())
+                                node.extract()
 
                                 new_style = htmlBS.new_tag('style')
                                 new_style.append(styles)
                                 htmlBS.head.append(new_style)
 
-                                node.extract()
+                    if 'icon' in rel:
+                        if os.path.isfile(path):
+                            node['href'] = self.filetoB64(href)
 
                 if node.name == 'script':
                     src = node.get('src')
+
                     if src:
+                        src = src.strip()
                         path = os.path.join(outputdir,src)
 
                         if os.path.isfile(path):
