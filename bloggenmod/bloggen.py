@@ -4,25 +4,12 @@ import os, sys, hashlib, json, base64, mimetypes
 from bs4 import BeautifulSoup
 import mistune
 import yaml
-import jinja2
+from jinja2 import Environment as tplenv, PackageLoader as tplpl
 from filemimes import filemimes
 
 
 # -------------------------------------
-# Setup
-# -------------------------------------
-
-reload(sys)  
-sys.setdefaultencoding('utf8')
-
-templates_dir = '../templates'
-tpls = jinja2.Environment(
-    loader = jinja2.PackageLoader('bloggenmod', templates_dir)
-)
-
-
-# -------------------------------------
-# Site maker
+# Bloggen class 
 # -------------------------------------
 
 class Bloggen(object):
@@ -78,10 +65,7 @@ class Bloggen(object):
                         config['date'] = config['date'].strftime('%Y-%m-%d')
                         config['content'] = content[1].strip()
 
-                        configKeys = config.keys()
-                        if 'excerpt' in configKeys:
-                            config['excerpt'] = config['excerpt'].replace('\n',' ')
-                        if 'category' in configKeys:
+                        if 'category' in config.keys():
                             categories.append(config['category'])
                         
                         sortdates.append(config['date'])
@@ -150,10 +134,6 @@ class Bloggen(object):
 
             # Output all post html
             for row in datasite['post']:
-                rowkeys = row.keys()
-                row['image'] = row['image'] if ('image' in rowkeys) else None
-                row['content'] = mistune.markdown(row['content']).strip() if ('content' in rowkeys) else None
-
                 dat = dict(
                     site_title = datasite['settings']['title'],
                     categories = datasite['categories'],
@@ -244,4 +224,31 @@ class Bloggen(object):
                 b64 = sourcepath
 
         return b64
+
+
+    def parseMD(self,mdstr=None):
+        html = None
+
+        if mdstr is not None:
+            mdstr = mdstr.strip()
+            html = mistune.markdown(mdstr)
+
+        return html
+
+
+# -------------------------------------
+# Setup
+# -------------------------------------
+
+reload(sys)  
+sys.setdefaultencoding('utf8')
+
+templates_dir = '../templates'
+tpls = tplenv(
+    loader = tplpl('bloggenmod',templates_dir)
+)
+tpls.filters = dict(
+    parsemd = Bloggen().parseMD
+)
+
 

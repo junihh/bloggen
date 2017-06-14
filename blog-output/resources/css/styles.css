@@ -441,6 +441,7 @@ main {
 .post-content blockquote {
   margin-bottom: 16px;
 }
+.post-content,
 .post-content p {
   line-height: 150%;
   color: #666;
