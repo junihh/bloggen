@@ -24,7 +24,9 @@
                             <img src="{{ post.image }}" alt="{{ post.title }}" width="1280" height="650">
                         </figure>
                         {%- endif %}
-                        {{ post.content }}
+                        {% if post.content -%}
+                        {{ post.content|parsemd }}
+                        {%- endif %}
                     </div>
                     {% if post.inshort -%}
                     <div class="post-info">

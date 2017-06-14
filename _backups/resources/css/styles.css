@@ -344,14 +344,18 @@ main {
   margin-top: 50px;
 }
 .home article {
-  overflow: hidden;
   position: relative;
   margin-bottom: 40px;
-  padding-top: 15px;
+  padding-top: 10px;
   border-top: solid 1px #ECF0F1;
 }
 .home article:last-child {
   margin-bottom: 0;
+}
+.home article::after {
+  content: '';
+  display: block;
+  clear: both;
 }
 .home .title {
   font-weight: 400;
@@ -418,7 +422,7 @@ main {
   margin-bottom: 25px;
 }
 .post-header h2 {
-  padding-bottom: 5px;
+  padding-bottom: 8px;
   border-bottom: solid 1px #ECF0F1;
   font-size: 1.6rem;
   line-height: 130%;
@@ -428,11 +432,17 @@ main {
 .post-header .meta {
   margin-top: 8px;
 }
-.post-content {
-  overflow: hidden;
+.post-content::after {
+  content: '';
+  display: block;
+  clear: both;
 }
-.post-content p {
+.post-content p,
+.post-content blockquote {
   margin-bottom: 16px;
+}
+.post-content,
+.post-content p {
   line-height: 150%;
   color: #666;
 }
@@ -457,7 +467,6 @@ main {
 }
 .post-content blockquote {
   position: relative;
-  margin-bottom: 15px;
   padding-top: 8px;
   padding-left: 55px;
   font-family: 'Vollkorn', serif;

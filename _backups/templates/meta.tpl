@@ -6,4 +6,6 @@
         <meta http-equiv="cache-control" content="max-age=15552000,public">
         <meta name="revisit-after" content="3 days">
 
-        <link href="resources/css/styles.css" rel="stylesheet" type="text/css" media="screen">
+        <link rel="icon" href="resources/img/favicon.ico" type="image/x-icon">
+        <link rel="shortcut icon" href="resources/img/favicon.ico" type="image/x-icon">
+        <link rel="stylesheet" href="resources/css/styles.css" type="text/css" media="screen">
