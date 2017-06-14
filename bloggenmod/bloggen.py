@@ -201,7 +201,7 @@ class Bloggen(object):
             genmeta = htmlBS.new_tag('meta')
             genmeta['name'] = 'generator'
             genmeta['content'] = 'bloggen'
-            htmlBS.head.meta.insert_after(genmeta)
+            htmlBS.head.append(genmeta)
 
             htmlret = str(htmlBS.renderContents())[5:][:-6]
 
