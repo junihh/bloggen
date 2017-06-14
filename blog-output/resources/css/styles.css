@@ -349,10 +349,6 @@ main {
   padding-top: 10px;
   border-top: solid 1px #ECF0F1;
 }
-.home article:first-child {
-  padding-top: 0;
-  border-top: 0;
-}
 .home article:last-child {
   margin-bottom: 0;
 }
