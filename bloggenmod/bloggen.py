@@ -211,8 +211,7 @@ class Bloggen(object):
                                 
                                 del node.attrs['src']
 
-            htmlret = htmlBS.renderContents()
-            htmlret = htmlret[5:][:-6]
+            htmlret = str(htmlBS.renderContents())[5:][:-6]
 
         return htmlret
 
