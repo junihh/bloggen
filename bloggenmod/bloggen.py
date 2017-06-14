@@ -168,16 +168,35 @@ class Bloggen(object):
 
 
     def encodedResources(self,html):
+        settings = self.settings
         htmlBS = '<pre>' + html.strip() + '</pre>'
         htmlret = None
 
         if html:
             htmlBS = BeautifulSoup(htmlBS,'html.parser')
 
-            for node in htmlBS.find_all('img'):
+            for node in htmlBS.find_all(['img','link']):
                 if node.name == 'img':
                     srcpath = node.get('src')
                     node['src'] = self.filetoB64(srcpath)
+
+                if node.name == 'link':
+                    if str(node.get('rel')[0]).lower().strip() == 'stylesheet':
+                        href = node.get('href')
+                        path = os.path.join(settings['outputdir'],href)
+                        styles = None
+                        
+                        if os.path.isfile(path):
+                            with open(path,'rt') as f:
+                                styles = str(f.read()).strip().split('\n')
+                                styles = ' '.join(styles).replace('  ',' ')
+
+                                new_style = htmlBS.new_tag('style')
+                                new_style.append(styles)
+                                htmlBS.head.append(new_style)
+
+                                node.extract()
+
 
             htmlret = htmlBS.renderContents()
             htmlret = htmlret[5:][:-6]
