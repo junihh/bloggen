@@ -179,12 +179,12 @@ class Bloggen(object):
                 if node.name == 'img':
                     src = node.get('src')
                     path = os.path.join(outputdir,src)
-                    
+
                     if os.path.isfile(path):
                         node['src'] = self.filetoB64(src)
 
                 if node.name == 'link':
-                    if str(node.get('rel')[0]).lower().strip() == 'stylesheet':
+                    if str(node.get('type')).lower().strip() == 'text/css':
                         href = node.get('href')
                         path = os.path.join(outputdir,href)
                         styles = None
