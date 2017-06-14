@@ -167,12 +167,12 @@ class Bloggen(object):
                     page.write(tpl)
 
 
-    def embeddedResources(self,html):
+    def embeddedResources(self,html=None):
         outputdir = self.settings['outputdir']
         htmlBS = '<pre>' + html.strip() + '</pre>'
         htmlret = None
 
-        if html:
+        if html is not None:
             htmlBS = BeautifulSoup(htmlBS,'html.parser')
 
             for node in htmlBS.find_all(['img','link','script']):
