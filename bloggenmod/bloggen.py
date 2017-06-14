@@ -4,7 +4,7 @@ import os, sys, hashlib, json, base64, mimetypes
 from bs4 import BeautifulSoup
 import mistune
 import yaml
-from jinja2 import Environment as tplenv, PackageLoader as tplpl
+import jinja2 as jinja
 from filemimes import filemimes
 
 
@@ -49,7 +49,6 @@ class Bloggen(object):
             
             if os.path.isfile(yml_path):
                 yml_nam, yml_ext = os.path.splitext(yml)
-                # yml_ext = yml_ext[1:]
                 
                 if yml_ext in ('.md','.markdown','.mdown','.mkdn','.mkd','.mdwn','.mdtxt','.mdtext','.text','.txt','.yml','.yaml','.yamel'):
                     html = yml_nam + '.html'
@@ -93,7 +92,7 @@ class Bloggen(object):
             self.makeSiteFiles()
             print 'BLOGGEN [OK]: Your website is ready.'
         else:
-            print 'BLOGGEN [WARNING]: None post available. Write some and save it into the "' + os.path.abspath(postdir) + '" directory.'
+            print 'BLOGGEN [WARNING]: None post available. Write some and save it into the "' + os.path.realpath(postdir) + '" directory.'
 
 
     def makeSiteFiles(self):
@@ -215,7 +214,7 @@ class Bloggen(object):
         b64 = None
 
         if sourcepath is not None:
-            sourcepath = os.path.abspath(os.path.join(outputdir,sourcepath))
+            sourcepath = os.path.realpath(os.path.join(outputdir,sourcepath))
 
             if os.path.isfile(sourcepath):
                 fmime = mimetypes.MimeTypes().guess_type(sourcepath)[0]
@@ -255,8 +254,8 @@ reload(sys)
 sys.setdefaultencoding('utf8')
 
 templates_dir = '../templates'
-tpls = tplenv(
-    loader = tplpl('bloggenmod',templates_dir)
+tpls = jinja.Environment(
+    loader = jinja.PackageLoader('bloggenmod',templates_dir)
 )
 tpls.filters = dict(
     parsemd = Bloggen().parseMD
