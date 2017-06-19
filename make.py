@@ -5,5 +5,5 @@ Bloggen().make(
     outputdir = './blog-output',
     domain = 'myanime.blog',
     site_title = 'My anime blog',
-    embeddedResources = False
+    # embeddedResources = False
 )
