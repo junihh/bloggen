@@ -288,7 +288,8 @@ tpls = jinja.Environment(
     loader = jinja.PackageLoader('bloggenmod',templates_dir)
 )
 tpls.filters = dict(
-    parsemd = Bloggen().parseMD
+    parsemd = Bloggen().parseMD,
+    slugify = Bloggen().slugify
 )
 
 
