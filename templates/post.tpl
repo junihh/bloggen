@@ -15,7 +15,9 @@
                         <h2>{{ post.title }}</h2>
                         <div class="meta">
                             <a href="index.html?category={{ post.category }}" data-category="{{ post.category }}" class="category">{{ post.category }}</a>
-                            <time>{{ post.date }}</time>
+                            <span><time datetime="{{ post.date }}">{{ post.date|humanizeddate }}</time></span>
+                            <span>|</span>
+                            <span rel="author">By {{ post.author }}</span>
                         </div>
                     </header>
                     <div class="post-content">

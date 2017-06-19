@@ -197,31 +197,26 @@ header, footer, nav, article, main {
 // ==========================
 
 .meta {
-    .category, time {
-        font-weight: 300;
-    }
+    font-size: 0.7rem;
+    font-weight: 300;
+    color: @colorGrayLight;
 
     .category {
         margin-right: 8px;
         padding: 2px 6px;
         background-color: @colorGrayLight;
         border-radius: 3px;
-        font-size: 0.7rem;
         color: #FFF;
-    }
-    
-    a {
         text-decoration: none;
-        
+
         &:active {
             background-color: @colorBlueDark;
             color: #FFF;
         }
     }
 
-    time {
-        font-size: 0.7rem;
-        color: @colorGrayLight;
+    span {
+        margin-right: 3px;
     }
 }
 
@@ -334,7 +329,7 @@ header, footer, nav, article, main {
     }
 
     .meta {
-        margin-top: 8px;
+        margin-top: 10px;
     }
 }
 .post-content {

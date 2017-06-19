@@ -7,7 +7,7 @@
     {
       "template": "post.tpl", 
       "category": "movie", 
-      "date": "2017-05-28", 
+      "date": "2017-05-28 00:00:00", 
       "title": "Koe no Katachi", 
       "author": "MyAnimeList", 
       "image": "resources/photos/koe-no-katachi.jpg", 
@@ -25,7 +25,7 @@
     {
       "template": "post.tpl", 
       "category": "anime", 
-      "date": "2017-05-02", 
+      "date": "2017-05-02 00:00:00", 
       "title": "Tokyo Magnitude 8.0", 
       "author": "MyAnimeList", 
       "image": "resources/photos/tokyo-magnitude-8.jpg", 
@@ -43,7 +43,7 @@
     {
       "template": "post.tpl", 
       "category": "anime", 
-      "date": "2017-02-16", 
+      "date": "2017-02-16 00:00:00", 
       "title": "Kure-nai", 
       "author": "MyAnimeList", 
       "image": "resources/photos/kure-nai.jpg", 
@@ -61,7 +61,7 @@
     {
       "template": "post.tpl", 
       "category": "movie", 
-      "date": "2016-03-18", 
+      "date": "2016-03-18 00:00:00", 
       "title": "Hoshi wo Ou Kodomo", 
       "author": "MyAnimeList", 
       "image": "resources/photos/hoshi-wo-ou-kodomo.jpg", 
@@ -79,7 +79,7 @@
     {
       "template": "post.tpl", 
       "category": "anime", 
-      "date": "2016-02-17", 
+      "date": "2016-02-17 00:00:00", 
       "title": "Red Garden", 
       "author": "MyAnimeList", 
       "image": "resources/photos/red-garden.jpg", 

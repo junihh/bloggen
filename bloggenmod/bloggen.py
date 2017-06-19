@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-import os, sys, hashlib, json, base64, mimetypes, re
+import os, sys, hashlib, json, base64, mimetypes, re, datetime, time
 from bs4 import BeautifulSoup
 import mistune
 import yaml
@@ -61,11 +61,19 @@ class Bloggen(object):
                         config['file'] = html
                         config['id'] = hashlib.sha1(html).hexdigest()
                         config['permalink'] = ''.join(['http://', settings['domain'], '/', html])
-                        config['date'] = config['date'].strftime('%Y-%m-%d')
                         config['content'] = content[1].strip()
 
-                        if 'category' in config.keys():
+                        configKeys = config.keys()
+
+                        if 'category' in configKeys:
                             categories.append(config['category'])
+
+                        if 'date' in configKeys:
+                            dte = config['date'].strftime('%Y-%m-%d').split('-')
+                            dte = datetime.datetime(int(dte[0]),int(dte[1]),int(dte[2]))
+                            config['date'] = str(dte)
+                        else:
+                            config['date'] = str(time.strftime('%Y-%m-%d %H:%M:%S'))
                         
                         sortdates.append(config['date'])
                         postymls.append(config)
@@ -90,7 +98,7 @@ class Bloggen(object):
             )
 
             self.makeSiteFiles()
-            print 'BLOGGEN [OK]: Your website is ready.'
+            print 'BLOGGEN [OK]: "' + settings['site_title'] + '" is ready.'
         else:
             print 'BLOGGEN [WARNING]: None post available. Write some and save it into the "' + os.path.realpath(postdir) + '" directory.'
 
@@ -276,6 +284,15 @@ class Bloggen(object):
         return s
 
 
+    def humanizedDate(self,date=None):
+        months = ['January','February','March','April','May','June','July','August','September','October','November','December']
+        if date is not None:
+            date = date.split(' ')[0].split('-')
+            month = months[int(date[1])-1]
+
+            return ''.join([month,' ',date[2],', ',date[0]])
+
+
 # -------------------------------------
 # Setup
 # -------------------------------------
@@ -289,7 +306,8 @@ tpls = jinja.Environment(
 )
 tpls.filters = dict(
     parsemd = Bloggen().parseMD,
-    slugify = Bloggen().slugify
+    slugify = Bloggen().slugify,
+    humanizeddate = Bloggen().humanizedDate
 )
 
 
