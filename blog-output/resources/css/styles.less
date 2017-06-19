@@ -40,7 +40,7 @@ html {
 
 a {
     &:extend(.transitions);
-    color: #000;
+    color: @colorBlueDark;
     text-decoration: underline;
 }
 a:hover { text-decoration: none; }
@@ -172,13 +172,22 @@ header, footer, nav, article, main {
 }
 
 .site-footer {
-    margin: 100px 0 @basicMargin;
+    margin: 100px 0 10px;
+    
+    p, a {
+        color: @colorGrayLight;
+    }
 
     p {
         padding-top: 5px;
         border-top: solid 1px @colorBlueLight;
         font-size: 0.7rem;
-        color: @colorGrayLight;
+    }
+
+    a {
+        &:active {
+            color: @colorBlueDark;
+        }
     }
 }
 

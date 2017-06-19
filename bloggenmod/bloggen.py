@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-import os, sys, hashlib, json, base64, mimetypes
+import os, sys, hashlib, json, base64, mimetypes, re
 from bs4 import BeautifulSoup
 import mistune
 import yaml
@@ -51,7 +51,7 @@ class Bloggen(object):
                 yml_nam, yml_ext = os.path.splitext(yml)
                 
                 if yml_ext in ('.md','.markdown','.mdown','.mkdn','.mkd','.mdwn','.mdtxt','.mdtext','.text','.txt','.yml','.yaml','.yamel'):
-                    html = yml_nam + '.html'
+                    html = self.slugify(yml_nam) + '.html'
 
                     with open(yml_path,'rt') as ymlfile:
                         yml_content = ymlfile.read()
@@ -59,7 +59,7 @@ class Bloggen(object):
                         config = yaml.load(content[0])
 
                         config['file'] = html
-                        config['id'] = hashlib.sha1(yml).hexdigest()
+                        config['id'] = hashlib.sha1(html).hexdigest()
                         config['permalink'] = ''.join(['http://', settings['domain'], '/', html])
                         config['date'] = config['date'].strftime('%Y-%m-%d')
                         config['content'] = content[1].strip()
@@ -246,7 +246,7 @@ class Bloggen(object):
         return html
 
 
-    def slugify(name=None):
+    def slugify(self,name=None):
         s = name
 
         if name is not None:

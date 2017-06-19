@@ -1,3 +1,3 @@
 <footer class="site-footer">
-                    <p>With &#9829; by bloggen team</p>
+                    <p>Proudly powered by <a href="https://github.com/junihh/bloggen" target="_blank">Bloggen</a></p>
                 </footer>
