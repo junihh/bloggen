@@ -3,11 +3,23 @@
 Just another python static site generator. ;-)
 
 ### Requirements:
+	
+[PyYAML](https://github.com/yaml/pyyaml)   
 
     $ pip install pyyaml   
+
+[Mistune](https://github.com/lepture/mistune)   
+
     $ pip install mistune   
+
+[Jinja2](https://github.com/pallets/jinja)   
+
     $ pip install jinja2   
+
+ [BeautifulSoup4](https://github.com/getanewsletter/BeautifulSoup4)   
+
     $ pip install beautifulsoup4   
+
 
 ## How to use:
 
