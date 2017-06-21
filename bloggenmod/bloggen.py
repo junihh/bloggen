@@ -128,6 +128,7 @@ class Bloggen(object):
             # Output index.html
             with open(os.path.join(outputdir,'index.html'),'w') as home:
                 dat = dict(
+                    site_domain = datasite['settings']['domain'],
                     site_title = datasite['settings']['title'],
                     categories = datasite['categories'],
                     rows = datasite['post']
@@ -142,6 +143,7 @@ class Bloggen(object):
             # Output all post html
             for row in datasite['post']:
                 dat = dict(
+                    site_domain = datasite['settings']['domain'],
                     site_title = datasite['settings']['title'],
                     categories = datasite['categories'],
                     post = row
@@ -244,12 +246,20 @@ class Bloggen(object):
         return b64
 
 
-    def parseMD(self,mdstr=None):
+    def parseMD(self,mdstr=None,domain=None):
         html = mdstr
 
-        if mdstr is not None:
+        if (mdstr is not None) and (domain is not None):
             mdstr = mdstr.strip()
             html = mistune.markdown(mdstr)
+            
+            htmlBS = BeautifulSoup(html,'html.parser')
+            for anchor in htmlBS.find_all('a'):
+                href = anchor['href']
+                if (('http://' in href) or ('https://' in href)) and (domain not in href):
+                    anchor['rel'] = 'nofollow'
+                    anchor['target'] = '_blank'
+            html = htmlBS.renderContents()
 
         return html
 
@@ -285,7 +295,7 @@ class Bloggen(object):
 
 
     def humanizedDate(self,date=None):
-        months = ['January','February','March','April','May','June','July','August','September','October','November','December']
+        months = ['Enero','Febrero','Marzo','Abril','Mayo','Junio','Julio','Agosto','Septiembre','Octubre','Noviembre','Diciembre']
         if date is not None:
             date = date.split(' ')[0].split('-')
             month = months[int(date[1])-1]
@@ -309,5 +319,6 @@ tpls.filters = dict(
     slugify = Bloggen().slugify,
     humanizeddate = Bloggen().humanizedDate
 )
+
 
 

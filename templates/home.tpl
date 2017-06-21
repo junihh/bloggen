@@ -23,7 +23,7 @@
                     <article data-filter="{{ row.category }}">
                         <h2 class="title"><a href="{{ row.file }}">{{ row.title }}</a></h2>
                         {% if row.excerpt -%}
-                        {{ row.excerpt|parsemd }}
+                        {{ row.excerpt|parsemd(site_domain) }}
                         {%- endif %}
                         <p class="read-more">
                             <a href="{{ row.file }}">Read more</a>

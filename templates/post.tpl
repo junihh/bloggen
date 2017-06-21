@@ -27,7 +27,7 @@
                         </figure>
                         {%- endif %}
                         {% if post.content -%}
-                        {{ post.content|parsemd }}
+                        {{ post.content|parsemd(site_domain) }}
                         {%- endif %}
                     </div>
                     {% if post.inshort -%}
