@@ -1,0 +1,10 @@
+{
+    "postdir": "./posts",
+    "outputdir": "./blog-public",
+    "domain": "myanime.blog",
+    "site_title": "My anime blog",
+    "site_author": "Junior Hernández",
+    "site_logo": "http://myanime.blog/resources/img/logo.jpg",
+    "embeddedResources": true,
+    "hasSSL": true
+}

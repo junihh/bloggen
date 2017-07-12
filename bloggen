@@ -1,11 +1,85 @@
-# -*- coding: utf-8 -*-
+#!/usr/bin/python
 
-import os, sys, hashlib, json, base64, mimetypes, re, datetime, time
+import os, sys, hashlib, json, base64, mimetypes, re, datetime, time, calendar, urllib, urllib2
 from bs4 import BeautifulSoup
 import mistune
 import yaml
 import jinja2 as jinja
-from filemimes import filemimes
+
+
+# -------------------------------------
+# Mime types 
+# -------------------------------------
+
+filemimes = dict(
+    text = (
+        'text/plain',
+        'text/css',
+        'text/html',
+        'application/javascript',
+        'application/x-javascript',
+        'application/ecmascript',
+        'text/javascript',
+        'text/ecmascript',
+        'text/rtf',
+        'application/rtf',
+        'application/x-rtf',
+        'text/richtext',
+        'application/xml',
+        'application/atom+xml',
+        'application/xhtml+xml',
+        'application/json',
+        'text/csv'
+    ),
+
+    image = (
+        'image/vnd.microsoft.icon',
+        'image/x-icon',
+        'image/png',
+        'image/gif',
+        'image/jpeg',
+        'image/bmp',
+        'image/x-windows-bmp',
+        'image/pict',
+        'windows/metafile',
+        'image/tiff',
+        'image/svg+xml'
+    ),
+
+    audio = (
+        'audio/aiff',
+        'audio/x-aiff',
+        'audio/basic',
+        'audio/x-au',
+        'audio/mpeg',
+        'audio/x-mpeg',
+        'audio/midi',
+        'audio/x-mid',
+        'audio/x-midi',
+        'audio/mod',
+        'audio/x-mod',
+        'audio/mpeg3',
+        'audio/x-mpeg-3',
+        'audio/wav',
+        'audio/x-wav',
+        'audio/ogg',
+        'audio/x-aac',
+        'audio/mp4a-latm'
+    ),
+
+    video = (
+        'video/x-ms-asf',
+        'video/msvideo',
+        'video/x-msvideo',
+        'video/x-dv',
+        'video/mpeg',
+        'video/mp4',
+        'video/quicktime',
+        'video/x-sgi-movie',
+        'video/ogg',
+        'video/webm'
+    )
+)
 
 
 # -------------------------------------
@@ -19,7 +93,7 @@ class Bloggen(object):
     def __init__(self):
         pass
 
-    def make(self,**settings):
+    def make(self,settings):
         postymls = []
         sortdates = []
         categories = []
@@ -38,11 +112,19 @@ class Bloggen(object):
             settings['embeddedResources'] = True
         if 'onlyJSON' not in settingsKeys:
             settings['onlyJSON'] = False
+        if 'hasSSL' not in settingsKeys:
+            settings['hasSSL'] = False
+        
+        settings['last_update'] = self.setTimestamp()
         self.settings = settings
         postdir = settings['postdir']
+        platform = sys.platform
 
-        if not os.path.exists(postdir):
-            os.makedirs(postdir)
+        postfullpath = os.path.abspath(postdir)
+        if not os.path.exists(postfullpath):
+            os.makedirs(postfullpath)
+
+        print 'BLOGGEN [WAIT]: Working hard making your pages.' 
 
         for yml in os.listdir(postdir):
             yml_path = os.path.join(postdir,yml)
@@ -52,6 +134,9 @@ class Bloggen(object):
                 
                 if yml_ext in ('.md','.markdown','.mdown','.mkdn','.mkd','.mdwn','.mdtxt','.mdtext','.text','.txt','.yml','.yaml','.yamel'):
                     html = self.slugify(yml_nam) + '.html'
+                    https = 'https' if settings['hasSSL'] else 'http'
+                    permalink = ''.join([https, '://', settings['domain'], '/', html])
+                    dateorder = ''
 
                     with open(yml_path,'rt') as ymlfile:
                         yml_content = ymlfile.read()
@@ -60,23 +145,40 @@ class Bloggen(object):
 
                         config['file'] = html
                         config['id'] = hashlib.sha1(html).hexdigest()
-                        config['permalink'] = ''.join(['http://', settings['domain'], '/', html])
+                        config['permalink'] = permalink
                         config['content'] = content[1].strip()
 
-                        configKeys = config.keys()
+                        published = os.path.getctime(yml_path)
+                        modified = os.path.getmtime(yml_path)
+                        if platform in ('linux','linux2'):
+                           modified = str(datetime.datetime.fromtimestamp(modified))[:-7]
+                           published = str(datetime.datetime.fromtimestamp(published))[:-7]
+                        elif platform == 'darwin':
+                           modified = str(datetime.datetime.fromtimestamp(modified))
+                           published = str(datetime.datetime.fromtimestamp(published))
 
+                        configKeys = config.keys()
                         if 'category' in configKeys:
                             categories.append(config['category'])
-
                         if 'date' in configKeys:
-                            dte = config['date'].strftime('%Y-%m-%d').split('-')
-                            dte = datetime.datetime(int(dte[0]),int(dte[1]),int(dte[2]))
-                            config['date'] = str(dte)
+                            dateorder = config['date']
+                            config['date'] = dict(
+                                published = self.setTimestamp(config['date']),
+                                modified = self.setTimestamp(modified),
+                                order = str(dateorder)
+                            )
                         else:
-                            config['date'] = str(time.strftime('%Y-%m-%d %H:%M:%S'))
-                        
-                        sortdates.append(config['date'])
+                            dateorder = time.strftime('%Y-%m-%d %H:%M:%S')
+                            config['date'] = dict(
+                                published = self.setTimestamp(published),
+                                modified = self.setTimestamp(modified),
+                                order = str(dateorder)
+                            )
+
+                        sortdates.append(config['date']['order'])
                         postymls.append(config)
+
+                        print u'[OK]  ' + config['title']
 
         if len(postymls):
             sortdates = sorted(sortdates,reverse=True)
@@ -85,7 +187,7 @@ class Bloggen(object):
             postymls_sorted = []
             for d in sortdates:
                 for r,row in enumerate(postymls):
-                    if row['date'] == d:
+                    if row['date']['order'] == d:
                         postymls_sorted.append(row)
 
             self.datasite = dict(
@@ -93,7 +195,11 @@ class Bloggen(object):
                 post = postymls_sorted,
                 settings = dict(
                     domain = settings['domain'],
-                    title = settings['site_title']
+                    title = settings['site_title'],
+                    author = settings['site_author'],
+                    logo = settings['site_logo'],
+                    last_update = settings['last_update'],
+                    https = 'https' if settings['hasSSL'] else 'http'
                 )
             )
 
@@ -119,18 +225,33 @@ class Bloggen(object):
 
         # Make the website html
         if settings['onlyJSON'] != True:
-            # Remove all *.html files inside the output directory
-            for html in os.listdir(outputdir):
-                html_path = os.path.join(outputdir,html)
-                if os.path.isfile(html_path) and html.endswith('.html'):
-                    os.remove(html_path)
+            
+            # Output sitemap.xml
+            with open(os.path.join(outputdir,'sitemap.xml'),'w') as sitemap:
+                dat = dict(
+                    changefreq = 'weekly',
+                    lastmod = str(datasite['settings']['last_update']).split(' ')[0],
+                    site_domain = datasite['settings']['domain'],
+                    site_author = datasite['settings']['author'],
+                    site_logo = datasite['settings']['logo'],
+                    https = datasite['settings']['https'],
+                    categories = datasite['categories'],
+                    rows = datasite['post']
+                )
+                tpl = tpls.get_template('sitemap.tpl').render(dat)
+
+                sitemap.write(tpl)
 
             # Output index.html
             with open(os.path.join(outputdir,'index.html'),'w') as home:
                 dat = dict(
                     site_domain = datasite['settings']['domain'],
                     site_title = datasite['settings']['title'],
+                    site_author = datasite['settings']['author'],
+                    site_logo = datasite['settings']['logo'],
+                    https = datasite['settings']['https'],
                     categories = datasite['categories'],
+                    keywords = ', '.join(datasite['categories']),
                     rows = datasite['post']
                 )
                 tpl = tpls.get_template('home.tpl').render(dat)
@@ -145,6 +266,9 @@ class Bloggen(object):
                 dat = dict(
                     site_domain = datasite['settings']['domain'],
                     site_title = datasite['settings']['title'],
+                    site_author = datasite['settings']['author'],
+                    site_logo = datasite['settings']['logo'],
+                    https = datasite['settings']['https'],
                     categories = datasite['categories'],
                     post = row
                 )
@@ -246,7 +370,32 @@ class Bloggen(object):
         return b64
 
 
-    def parseMD(self,mdstr=None,domain=None):
+    def setTimestamp(self,dte=None):
+        res = None
+
+        if dte:
+            dte = str(dte).split(' ')
+            dteLen = len(dte)
+            dteDate = dte[0].split('-')
+            
+            if dteLen == 1:
+                dte = datetime.datetime(int(dteDate[0]),int(dteDate[1]),int(dteDate[2]))
+                
+            if dteLen == 2:
+                dteTime = dte[1].split(':')
+                dte = datetime.datetime(int(dteDate[0]),int(dteDate[1]),int(dteDate[2]),int(dteTime[0]),int(dteTime[1]),int(dteTime[2]))
+                
+            res = str(dte).split(' ')
+            res = res[0] + 'T' + res[1] + '+00:00'
+            res = str(res)
+        else:
+            dte = time.strftime('%Y-%m-%dT%H:%M:%S+00:00')
+            res = str(dte)
+
+        return res
+
+
+    def parsemd(self,mdstr=None,domain=None):
         html = mdstr
 
         if (mdstr is not None) and (domain is not None):
@@ -262,6 +411,50 @@ class Bloggen(object):
             html = htmlBS.renderContents()
 
         return html
+
+
+    def escapeText(self,text=None):
+        s = text
+
+        if text is not None:
+            s = s.replace('á','a')
+            s = s.replace('Á','A')
+            s = s.replace('é','e')
+            s = s.replace('É','E')
+            s = s.replace('í','i')
+            s = s.replace('Í','I')
+            s = s.replace('ó','o')
+            s = s.replace('Ó','O')
+            s = s.replace('ú','u')
+            s = s.replace('Ú','U')
+            s = s.replace('ñ','n')
+            s = s.replace('Ñ','N')
+
+            s = s.replace('"','')
+            s = s.replace("'","")
+            s = s.replace('“','')
+            s = s.replace('”','')
+            s = s.replace('„','')
+            s = s.replace('‘','')
+            s = s.replace('’','')
+            s = s.replace('«','')
+            s = s.replace('»','')
+            s = s.replace('\\','')
+            s = s.replace('/','')
+            s = s.replace('{','')
+            s = s.replace('}','')
+            s = s.replace('(','')
+            s = s.replace(')','')
+            s = s.replace('<','')
+            s = s.replace('>','')
+            s = s.replace('#','')
+            s = s.replace(';','')
+            s = s.replace('@','')
+            s = s.replace(',','')
+            s = s.replace('\s',' ')
+            s = s.replace('\n',' ')
+
+        return s
 
 
     def slugify(self,name=None):
@@ -295,30 +488,38 @@ class Bloggen(object):
 
 
     def humanizedDate(self,date=None):
-        months = ['Enero','Febrero','Marzo','Abril','Mayo','Junio','Julio','Agosto','Septiembre','Octubre','Noviembre','Diciembre']
-        if date is not None:
-            date = date.split(' ')[0].split('-')
-            month = months[int(date[1])-1]
+        if date:
+            months = ['January','February','March','April','May','June','July','August','September','October','November','December']
 
-            return ''.join([month,' ',date[2],', ',date[0]])
+            dte = str(date).replace('T',' ').replace('+00:00','')
+            dte = dte.split(' ')[0].split('-')
+            month = months[int(dte[1])-1]
+            date = ''.join([month,' ',dte[2],', ',dte[0]])
+
+        return date
 
 
 # -------------------------------------
-# Setup
+# Setup & run
 # -------------------------------------
 
 reload(sys)  
 sys.setdefaultencoding('utf8')
 
-templates_dir = '../templates'
-tpls = jinja.Environment(
-    loader = jinja.PackageLoader('bloggenmod',templates_dir)
-)
-tpls.filters = dict(
-    parsemd = Bloggen().parseMD,
-    slugify = Bloggen().slugify,
-    humanizeddate = Bloggen().humanizedDate
-)
+if __name__ == '__main__':
+    with open('./config.json') as config_json:    
+        config_data = json.load(config_json)
 
+        tpls = jinja.Environment(
+            loader = jinja.FileSystemLoader(os.path.abspath('templates')),
+            autoescape = jinja.select_autoescape(['html','xml'])
+        )
+        tpls.filters = dict(
+            parsemd = Bloggen().parsemd,
+            slugify = Bloggen().slugify,
+            humanizeddate = Bloggen().humanizedDate,
+            escapetext = Bloggen().escapeText
+        )
 
+        Bloggen().make(config_data)
 
