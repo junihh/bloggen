@@ -400,7 +400,10 @@ class Bloggen(object):
 
         if (mdstr is not None) and (domain is not None):
             mdstr = mdstr.strip()
-            html = mistune.markdown(mdstr)
+
+            renderer = mistune.Renderer(escape = False, hard_wrap = True)
+            markdown = mistune.Markdown(renderer = renderer)
+            html = markdown(mdstr)
             
             htmlBS = BeautifulSoup(html,'html.parser')
             for anchor in htmlBS.find_all('a'):

@@ -16,7 +16,7 @@ Just another python static site generator. ;-)
 
     $ pip install jinja2   
 
- [BeautifulSoup4](https://github.com/getanewsletter/BeautifulSoup4)   
+[BeautifulSoup4](https://github.com/getanewsletter/BeautifulSoup4)   
 
     $ pip install beautifulsoup4   
 
